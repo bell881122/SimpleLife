@@ -21,6 +21,8 @@ const useStyles = makeStyles((theme) => ({
     },
     title: {
         display: 'none',
+        textDecoration: 'none',
+        color: theme.palette.background.paper,
         [theme.breakpoints.up('xs')]: {
             display: 'block',
         },
@@ -67,13 +69,13 @@ export default function MenuBar() {
             open={isMobileMenuOpen}
             onClose={handleMobileMenuClose}
         >
-            <MenuItem>
+            <MenuItem component={RouterLink} to="/">
                 <IconButton aria-label="Goods" color="inherit">
                     <CardGiftcardIcon />
                 </IconButton>
                 <p>Goods</p>
             </MenuItem>
-            <MenuItem>
+            <MenuItem component={RouterLink} to="/notification">
                 <IconButton aria-label="Notifications" color="inherit">
                     <Badge badgeContent={11} color="secondary">
                         <NotificationsIcon />
@@ -81,7 +83,7 @@ export default function MenuBar() {
                 </IconButton>
                 <p>Notifications</p>
             </MenuItem>
-            <MenuItem>
+            <MenuItem component={RouterLink} to="/user">
                 <IconButton aria-label="User" color="inherit">
                     <PersonIcon />
                 </IconButton>
@@ -94,10 +96,10 @@ export default function MenuBar() {
         <div className={classes.grow}>
             <AppBar position="static">
                 <Container maxWidth="md">
-                    <Toolbar px={0}  mx={0}>
-                        <Typography className={classes.title} variant="h6" noWrap>
+                    <Toolbar px={0} mx={0}>
+                        <Typography className={classes.title} variant="h6" noWrap component={RouterLink} to="/">
                             Simple Life
-                    </Typography>
+                        </Typography>
                         <div className={classes.grow} />
                         <div className={classes.sectionDesktop}>
                             <IconButton aria-label="Goods" color="inherit" component={RouterLink} to="/">
