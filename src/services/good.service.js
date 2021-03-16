@@ -1,4 +1,5 @@
 import BaseDataService from "services/_base.service";
+let collection = "/goods";
 
 class Good {
     constructor(id, dt) {
@@ -21,7 +22,7 @@ class Good {
 class GoodDataService {
 
     getAll(setState) {
-        BaseDataService.getAll("/goods").then(snapshot => {
+        BaseDataService.getAll(collection).then(snapshot => {
             this.setData(snapshot, setState)
         }).catch(error => {
             console.log("Error getting documents: ", error);

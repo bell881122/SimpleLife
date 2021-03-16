@@ -8,6 +8,8 @@ import Container from '@material-ui/core/Container';
 import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
 
+import { CurrentMemberContext } from "context/CurrentMemberContext.js";
+
 let imgUrl = "https://images.pexels.com/photos/1323550/pexels-photo-1323550.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
 
 const useStyles = makeStyles((theme) => ({
@@ -36,27 +38,31 @@ export default function User() {
             if (user) {
                 setUserPhoto(user.photoURL);
                 setDisplayName(user.displayName);
-            }else{
+            } else {
                 history.push("/")
             }
         });
-    }, []);
+    }, [history]);
+
+    const [currentMemberContext] = React.useContext(CurrentMemberContext);
 
     return (
         <>
-            <div className={classes.heroContent}>
-                <Container maxWidth="sm">
-                    <Box display="flex" justifyContent="center">
-                        <Avatar alt={displayName} src={userPhoto} className={classes.avatar} />
-                    </Box>
-                    <Typography component="h1" variant="h3" align="center" color="textPrimary" gutterBottom>
-                        笑笑Emi
+            {currentMemberContext &&
+                <div className={classes.heroContent}>
+                    <Container maxWidth="sm">
+                        <Box display="flex" justifyContent="center">
+                            <Avatar alt={displayName} src={userPhoto} className={classes.avatar} />
+                        </Box>
+                        <Typography component="h1" variant="h3" align="center" color="textPrimary" gutterBottom>
+                            {currentMemberContext.profile.name}
+                        </Typography>
+                        <Typography variant="h6" align="center" color="textSecondary" paragraph>
+                            每天一點點，邁向簡單幸福生活。
                     </Typography>
-                    <Typography variant="h6" align="center" color="textSecondary" paragraph>
-                        每天一點點，邁向簡單幸福生活。
-                    </Typography>
-                </Container>
-            </div>
+                    </Container>
+                </div>
+            }
         </>
     );
 }
