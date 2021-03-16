@@ -15,6 +15,8 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import PersonIcon from '@material-ui/icons/Person';
 import Container from '@material-ui/core/Container';
 
+const LoginState = React.lazy(() => import('components/Login/LoginState.component.jsx'));
+
 const useStyles = makeStyles((theme) => ({
     grow: {
         flexGrow: 1,
@@ -110,9 +112,7 @@ export default function MenuBar() {
                                     <NotificationsIcon className={classes.desktopIconSize} />
                                 </Badge>
                             </IconButton>
-                            <IconButton aria-label="User" color="inherit" component={RouterLink} to="/user">
-                                <PersonIcon className={classes.desktopIconSize} />
-                            </IconButton>
+                            <LoginState desktopIconSize={classes.desktopIconSize} />
                         </div>
                         <div className={classes.sectionMobile}>
                             <IconButton

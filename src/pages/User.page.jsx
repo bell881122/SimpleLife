@@ -1,4 +1,6 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
+import { firebase } from "js/firebase";
 
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -25,13 +27,27 @@ const useStyles = makeStyles((theme) => ({
 
 export default function User() {
     const classes = useStyles();
+    const [userPhoto, setUserPhoto] = React.useState("");
+    const [displayName, setDisplayName] = React.useState("");
+
+    const history = useHistory();
+    React.useEffect(() => {
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                setUserPhoto(user.photoURL);
+                setDisplayName(user.displayName);
+            }else{
+                history.push("/")
+            }
+        });
+    }, []);
 
     return (
         <>
             <div className={classes.heroContent}>
                 <Container maxWidth="sm">
                     <Box display="flex" justifyContent="center">
-                    <Avatar alt="User Photo" src="https://i.imgur.com/Wpsd0Nk.jpg" className={classes.avatar} />
+                        <Avatar alt={displayName} src={userPhoto} className={classes.avatar} />
                     </Box>
                     <Typography component="h1" variant="h3" align="center" color="textPrimary" gutterBottom>
                         笑笑Emi
