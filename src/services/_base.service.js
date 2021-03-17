@@ -11,6 +11,10 @@ class BaseDataService {
         return db.collection(collection).get();
     }
 
+    getById(collection, id) {
+        return db.collection(collection).doc(id).get();
+    }
+
     query(collection, key, operation, condition) {
         return db.collection(collection).where(key, operation, condition).get();
     }

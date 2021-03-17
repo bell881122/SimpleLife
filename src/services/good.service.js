@@ -14,7 +14,9 @@ class Good {
             transactionTypes: dt.transactionTypes,
             f2fLocation: dt.f2fLocation,
             published: dt.published,
-            instore: dt.instore !== undefined ? dt.instore : true
+            instore: dt.instore !== undefined ? dt.instore : true,
+            registerDate: dt.registerDate !== undefined ? dt.registerDate : Date.now(),
+            publishedDate: dt.publishedDate !== undefined ? dt.publishedDate : Date.now(),
         }
     }
 }
@@ -27,6 +29,17 @@ class GoodDataService {
         }).catch(error => {
             console.log("Error getting documents: ", error);
         });
+    }
+
+    getById(id, setState) {
+        BaseDataService.getById(collection,id).then(item => {
+                let id = item.id;
+                let dt = item.data();
+                let good = new Good(id, dt).data;
+                setState(good);
+            }).catch(error => {
+                console.log("Error getting documents: ", error);
+            });
     }
 
     setData(items, setState) {
