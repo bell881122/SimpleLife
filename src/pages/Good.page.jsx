@@ -10,6 +10,7 @@ import GoodDataService, { NewGood } from "services/good.service";
 const GoodDetail = React.lazy(() => import('components/Good/GoodDetail.component.jsx'));
 const GoodEdit = React.lazy(() => import('components/Good/GoodEdit.component.jsx'));
 const GoBackBotton = React.lazy(() => import('tools/GoBackBotton.tool.jsx'));
+const ModalBotton = React.lazy(() => import('tools/ModalBotton.tool.jsx'));
 
 export default function Good() {
     let { id } = useParams();
@@ -84,20 +85,24 @@ export default function Good() {
                                         variant="contained"
                                         color="primary"
                                         onClick={() => setIsEdit(true)}
-
                                     >編輯</Button>
-                                    <Button
+                                    <ModalBotton
                                         variant="contained"
                                         color="secondary"
                                         style={{ marginLeft: 5, marginRight: 10 }}
-                                        onClick={() => deleteGood()}
-                                    >刪除</Button>
+                                        buttonText="刪除"
+                                        modalTitle="刪除物品"
+                                        modalContent="確認要刪除物品嗎"
+                                        modalAction={() => deleteGood()}
+                                        primaryButtonType="danger"
+                                        actionText="刪除"
+                                    />
                                 </Box>
                             }
                             <GoodDetail good={good} />
                         </>
                         :
-                    <GoodEdit good={good} setGood={setGood} setIsEdit={setIsEdit} editType={editType} setEditType={setEditType} />
+                        <GoodEdit good={good} setGood={setGood} setIsEdit={setIsEdit} editType={editType} setEditType={setEditType} />
                     }
                 </Box>
             }
