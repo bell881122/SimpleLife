@@ -7,6 +7,7 @@ const Home = React.lazy(() => import('pages/Home.page.jsx'));
 const Notification = React.lazy(() => import('pages/Notification.page.jsx'));
 const User = React.lazy(() => import('pages/User.page.jsx'));
 const Good = React.lazy(() => import('pages/Good.page.jsx'));
+const Member = React.lazy(() => import('pages/Member.page.jsx'));
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route exact path="/user" component={User} />
             <Route exact path="/good/:id" component={Good} />
             <Route exact path="/good/add" component={Good} />
+            <Route exact path="/member/:id" component={Member} />
           </Layout>
         </Suspense>
       </Switch>

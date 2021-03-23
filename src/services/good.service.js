@@ -54,6 +54,14 @@ class GoodDataService {
         });
     }
 
+    query(key, operation, condition, setState) {
+        BaseDataService.query(collection, key, operation, condition).then(snapshot => {
+            this.setData(snapshot, setState)
+        }).catch(error => {
+            console.log("Error getting documents: ", error);
+        });
+    }
+
     setData(items, setState) {
         let goods = [];
         items.forEach((item) => {

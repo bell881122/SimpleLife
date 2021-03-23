@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link as RouterLink } from "react-router-dom";
 import moment from 'moment';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -6,6 +7,9 @@ import Box from '@material-ui/core/Box';
 import Chip from '@material-ui/core/Chip';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
+import Avatar from '@material-ui/core/Avatar';
+
+import MemberDataService from "services/member.service";
 
 const useStyles = makeStyles((theme) => ({
     mainPicture: good => ({
@@ -28,19 +32,29 @@ const useStyles = makeStyles((theme) => ({
     description: {
         fontSize: 18,
         fontWeight: 'bold'
+    },
+    whiteBackground: {
+        backgroundColor: theme.palette.background.paper,
     }
 }));
 
 export default function GoodDetail(props) {
     const { good } = props;
     const classes = useStyles(good);
+    const [goodMember, setGoodMember] = React.useState();
+
+    React.useEffect(() => {
+        if (good !== undefined && good.memberId !== undefined) {
+            MemberDataService.getById(good.memberId, null, setGoodMember);
+        }
+    }, [good]);
 
     return (
         <Box>
             {good &&
                 <>
-                    <Box mb={2} className={classes.mainPicture} />
-                    <Box mx={1} my={3}>
+                    <Box className={classes.mainPicture} />
+                    <Box mb={2} p={2} className={classes.whiteBackground}>
                         <Box mb={1} display="flex" justifyContent="space-between">
                             <Chip label={good.state} size="small" />
                             <Typography variant="body1" display="block" gutterBottom>
@@ -69,6 +83,25 @@ export default function GoodDetail(props) {
                             </Typography>
                         </Box>
                     </Box>
+
+                    {goodMember &&
+                        <Box display="flex" p={2} className={classes.whiteBackground}>
+                            <RouterLink
+                                basename="/member"
+                                to={`/member/${goodMember.uid}`}
+                            >
+                                <Avatar
+                                    src={goodMember.profile.photoURL}
+                                    alt={goodMember.profile.name}
+                                />
+                            </RouterLink>
+                            <Box p={1}>
+                                <Typography variant="body1" component="h2">
+                                    {goodMember.profile.name}
+                                </Typography>
+                            </Box>
+                        </Box>
+                    }
                 </>
             }
         </Box>
