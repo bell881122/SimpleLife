@@ -9,6 +9,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
 
 import { CurrentMemberContext } from "context/CurrentMemberContext.js";
+const AddGoodBotton = React.lazy(() => import('tools/AddGoodBotton.tool.jsx'));
 
 let imgUrl = "https://images.pexels.com/photos/1323550/pexels-photo-1323550.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
 
@@ -59,7 +60,8 @@ export default function User() {
                         </Typography>
                         <Typography variant="h6" align="center" color="textSecondary" paragraph>
                             每天一點點，邁向簡單幸福生活。
-                    </Typography>
+                        </Typography>
+                        <AddGoodBotton />
                     </Container>
                 </div>
             }

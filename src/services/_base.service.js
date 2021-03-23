@@ -7,6 +7,14 @@ class BaseDataService {
         return db.collection(collection).add(data);
     }
 
+    update(collection, id, data) {
+        return db.collection(collection).doc(id).update(data);
+    }
+
+    delete(collection, id) {
+        return db.collection(collection).doc(id).delete();
+    }
+
     getAll(collection) {
         return db.collection(collection).get();
     }

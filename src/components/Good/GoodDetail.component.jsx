@@ -7,8 +7,6 @@ import Chip from '@material-ui/core/Chip';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 
-import GoBackBotton from "tools/GoBackBotton.tool.jsx";
-
 const useStyles = makeStyles((theme) => ({
     mainPicture: good => ({
         width: '100% !important',
@@ -38,10 +36,7 @@ export default function GoodDetail(props) {
     const classes = useStyles(good);
 
     return (
-        <Box position="relative">
-            <Box position="absolute" style={{ top: 15 }}>
-                <GoBackBotton />
-            </Box>
+        <Box>
             {good &&
                 <>
                     <Box mb={2} className={classes.mainPicture} />
@@ -69,7 +64,7 @@ export default function GoodDetail(props) {
                                     物品描述：
                                 </Typography>
                             </Box>
-                            <Typography variant="body1" component="body2">
+                            <Typography variant="body1" component="p">
                                 {good.description}
                             </Typography>
                         </Box>

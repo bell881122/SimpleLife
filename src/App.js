@@ -18,6 +18,7 @@ function App() {
             <Route exact path="/notification" component={Notification} />
             <Route exact path="/user" component={User} />
             <Route exact path="/good/:id" component={Good} />
+            <Route exact path="/good/add" component={Good} />
           </Layout>
         </Suspense>
       </Switch>
