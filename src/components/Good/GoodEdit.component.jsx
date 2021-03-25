@@ -22,7 +22,6 @@ const states = [
     },
 ];
 
-
 export default function GoodEdit(props) {
     const history = useHistory();
     const { good, setGood, setIsEdit, editType, setEditType } = props;
@@ -31,10 +30,28 @@ export default function GoodEdit(props) {
     const [submitButtomDisabled, setSubmitButtomDisabled] = React.useState(false);
     const [previewImgUrl, setPreviewImgUrl] = React.useState(); //本地圖片預覽
 
+    const checkDisabled = React.useCallback(() => {
+        const doCheckDisabled = async () => {
+            if (editGood.title === "" ||
+                editGood.description === "" ||
+                editGood.state === "" ||
+                (previewImgUrl === undefined && good.imgURL === "") ||
+                editGood.price < 0 ||
+                editGood.price > 99999
+            ) {
+                setSubmitButtomDisabled(true);
+            } else {
+                setSubmitButtomDisabled(false);
+            }
+        };
+
+        doCheckDisabled();
+    }, [editGood, previewImgUrl, good]);
+
     React.useEffect(() => {
         if (editGood !== undefined)
             checkDisabled();
-    }, [editGood]);
+    }, [editGood, checkDisabled]);
 
     const update = (newGoodId) => {
         const goodId = newGoodId === undefined ? good.id : newGoodId;
@@ -107,20 +124,6 @@ export default function GoodEdit(props) {
             });
     }
 
-    const checkDisabled = () => {
-        if (editGood.title === "" ||
-            editGood.description === "" ||
-            editGood.state === "" ||
-            (previewImgUrl === undefined && good.imgURL === "") ||
-            editGood.price < 0 ||
-            editGood.price > 99999
-        ) {
-            setSubmitButtomDisabled(true);
-        } else {
-            setSubmitButtomDisabled(false);
-        }
-    }
-
     const onChange = (e, name) => {
         setEditGood(state => ({
             ...state,
@@ -141,7 +144,6 @@ export default function GoodEdit(props) {
                             {editType}物品
                         </Typography>
                     </Box>
-
                     <form noValidate autoComplete="off">
                         <UpdateImage previewImgUrl={previewImgUrl} setPreviewImgUrl={setPreviewImgUrl} good={editGood} setImgFileBlob={setImgFileBlob} checkDisabled={checkDisabled} />
                         <Box my={2}>
