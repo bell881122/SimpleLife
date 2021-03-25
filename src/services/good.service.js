@@ -55,7 +55,12 @@ class GoodDataService {
     }
 
     query(key, operation, condition, setState) {
-        BaseDataService.query(collection, key, operation, condition).then(snapshot => {
+        let queryCondition = {
+            key: key,
+            operation: operation,
+            condition: condition
+        }
+        BaseDataService.query(collection, queryCondition).then(snapshot => {
             this.setData(snapshot, setState)
         }).catch(error => {
             console.log("Error getting documents: ", error);

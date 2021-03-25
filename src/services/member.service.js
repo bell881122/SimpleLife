@@ -27,7 +27,12 @@ class MemberDataService {
     }
 
     getById(uid, user, setState) {
-        BaseDataService.query(collection, "uid", "==", uid).then(snapshot => {
+        let queryCondition = {
+            key: "uid",
+            operation: "==",
+            condition: uid
+        }
+        BaseDataService.query(collection, queryCondition).then(snapshot => {
             let member;
             if (snapshot.docs.length === 0) {
                 member = new Member(user).data;

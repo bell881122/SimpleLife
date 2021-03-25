@@ -23,8 +23,18 @@ class BaseDataService {
         return db.collection(collection).doc(id).get();
     }
 
-    query(collection, key, operation, condition) {
-        return db.collection(collection).where(key, operation, condition).get();
+    query(collection, queryCondition) {
+        let query = db.collection(collection);
+        query = query.where(queryCondition.key, queryCondition.operation, queryCondition.condition);
+
+        if (queryCondition.orderby !== undefined){
+            query = query.orderBy(queryCondition.orderby[0], queryCondition.orderby[1]);
+        }
+
+        if (queryCondition.limit !== undefined)
+            query = query.limit(queryCondition.limit);
+
+        return query.get();
     }
 }
 
