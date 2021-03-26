@@ -28,9 +28,11 @@ class MemberDataService {
 
     getById(uid, user, setState) {
         let queryCondition = {
-            key: "uid",
-            operation: "==",
-            condition: uid
+            where: [{
+                key: "uid",
+                operation: "==",
+                condition: uid
+            }]
         }
         BaseDataService.query(collection, queryCondition).then(snapshot => {
             let member;

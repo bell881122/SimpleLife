@@ -37,23 +37,62 @@ class MessageDataService {
     }
 
     queryMessages(authorId, receiverId, queryLimit, setState) {
-        let queryCondition = {
-            key: "authorId",
-            operation: "in",
-            condition: [authorId, receiverId],
-            orderby: ["timestamp", "desc"],
-            limit: queryLimit
+
+        let queryCondition1 = {
+            where: [
+                {
+                    key: "authorId",
+                    operation: "==",
+                    condition: authorId,
+                    orderby: ["timestamp", "desc"],
+                    limit: queryLimit
+                }, {
+                    key: "receiverId",
+                    operation: "==",
+                    condition: receiverId,
+                    orderby: ["timestamp", "desc"],
+                    limit: queryLimit
+                }
+            ]
         }
 
-        BaseDataService.query(collection, queryCondition)
-            .then(snapshot => {
-                this.setData(snapshot, setState)
-            }).catch(error => {
-                console.log("Error getting documents: ", error);
-            });
+        let queryCondition2 = {
+            where: [
+                {
+                    key: "authorId",
+                    operation: "==",
+                    condition: receiverId,
+                }, {
+                    key: "receiverId",
+                    operation: "==",
+                    condition: authorId,
+                }
+            ]
+        }
+
+        async function getMessages() {
+
+            const query1 = BaseDataService.query(collection, queryCondition1);
+            const query2 = BaseDataService.query(collection, queryCondition2);
+
+            const [query1Snapshot, query2Snapshot] = await Promise.all([
+                query1,
+                query2
+            ]);
+
+            const query1Array = query1Snapshot.docs;
+            const query2Array = query2Snapshot.docs;
+
+            const queryArray = query1Array.concat(query2Array);
+            return queryArray;
+        }
+
+        getMessages().then(result => {
+            this.setData(result, setState, queryLimit)
+        });
     }
 
-    setData(items, setState) {
+    setData(items, setState, queryLimit) {
         let messages = [];
         items.forEach((item) => {
             let id = item.id;
@@ -62,10 +101,13 @@ class MessageDataService {
             messages.push(message);
         });
 
-        //firebase用desc篩選出最新訊息，這樣要再asc回去
+        //firebase用desc篩選出最新訊息，因此要再asc回去
         messages = messages.sort(function (a, b) {
             return a.timestamp > b.timestamp ? 1 : -1;
         });
+
+        if (queryLimit)
+            messages = messages.slice(queryLimit > messages.length ? (messages.length * -1) : (queryLimit * -1));
 
         setState(messages);
     };

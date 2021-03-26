@@ -56,9 +56,11 @@ class GoodDataService {
 
     query(key, operation, condition, setState) {
         let queryCondition = {
-            key: key,
-            operation: operation,
-            condition: condition
+            where: [{
+                key: key,
+                operation: operation,
+                condition: condition
+            }]
         }
         BaseDataService.query(collection, queryCondition).then(snapshot => {
             this.setData(snapshot, setState)

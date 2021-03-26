@@ -25,9 +25,12 @@ class BaseDataService {
 
     query(collection, queryCondition) {
         let query = db.collection(collection);
-        query = query.where(queryCondition.key, queryCondition.operation, queryCondition.condition);
 
-        if (queryCondition.orderby !== undefined){
+        for (var i = 0; i < queryCondition.where.length;i++){
+            query = this.queryBase(query, queryCondition.where[i]);
+        }
+
+        if (queryCondition.orderby !== undefined) {
             query = query.orderBy(queryCondition.orderby[0], queryCondition.orderby[1]);
         }
 
@@ -35,6 +38,12 @@ class BaseDataService {
             query = query.limit(queryCondition.limit);
 
         return query.get();
+    }
+
+    queryBase(query, queryCondition) {
+        query = query.where(queryCondition.key, queryCondition.operation, queryCondition.condition);
+
+        return query;
     }
 }
 
