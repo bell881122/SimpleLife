@@ -148,6 +148,7 @@ export default function GoodEdit(props) {
                         <UpdateImage previewImgUrl={previewImgUrl} setPreviewImgUrl={setPreviewImgUrl} good={editGood} setImgFileBlob={setImgFileBlob} checkDisabled={checkDisabled} />
                         <Box my={2}>
                             <TextField
+                                style={{ width: '50%' }}
                                 id="standard-basic"
                                 label="物品名稱"
                                 InputLabelProps={{
@@ -198,15 +199,14 @@ export default function GoodEdit(props) {
                                 ))}
                             </TextField>
                         </Box>
-                        <Box my={2}>
+                        <Box my={2} >
                             <TextField
-                                id="description"
-                                name="description"
+                                style={{ width: '50%' }}
+                                id="standard-multiline-static"
                                 label="物品敘述"
-                                InputLabelProps={{
-                                    shrink: true,
-                                    'aria-label': 'description'
-                                }}
+                                name="description"
+                                multiline
+                                rows={4}
                                 value={editGood.description}
                                 onChange={e => onChange(e.target.value, e.target.name)}
                                 error={editGood.description === ""}
