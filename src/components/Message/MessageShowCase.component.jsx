@@ -76,7 +76,7 @@ export default function MessageShowCase(props) {
                             >
                                 <Box p={1}>
                                     <Typography
-                                        style={{ marginBottom: 0, wordWrap: 'break-word' }}
+                                        style={{ marginBottom: 0, wordWrap: 'break-word', whiteSpace: 'pre-line' }}
                                         variant="body1"
                                         display="block" gutterBottom
                                     >

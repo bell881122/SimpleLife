@@ -78,7 +78,7 @@ export default function GoodDetail(props) {
                                     物品描述：
                                 </Typography>
                             </Box>
-                            <Typography variant="body1" component="p">
+                            <Typography variant="body1" component="p" style={{ whiteSpace: 'pre-line' }}>
                                 {good.description}
                             </Typography>
                         </Box>
