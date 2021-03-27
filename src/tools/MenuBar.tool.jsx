@@ -6,12 +6,12 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import Badge from '@material-ui/core/Badge';
+// import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import CardGiftcardIcon from '@material-ui/icons/CardGiftcard';
-import NotificationsIcon from '@material-ui/icons/Notifications';
+// import NotificationsIcon from '@material-ui/icons/Notifications';
 import PersonIcon from '@material-ui/icons/Person';
 import Container from '@material-ui/core/Container';
 
@@ -77,14 +77,14 @@ export default function MenuBar() {
                 </IconButton>
                 <p>Goods</p>
             </MenuItem>
-            <MenuItem component={RouterLink} to="/notification">
+            {/* <MenuItem component={RouterLink} to="/notification">
                 <IconButton aria-label="Notifications" color="inherit">
                     <Badge badgeContent={11} color="secondary">
                         <NotificationsIcon />
                     </Badge>
                 </IconButton>
                 <p>Notifications</p>
-            </MenuItem>
+            </MenuItem> */}
             <MenuItem component={RouterLink} to="/user">
                 <IconButton aria-label="User" color="inherit">
                     <PersonIcon />
@@ -107,11 +107,11 @@ export default function MenuBar() {
                             <IconButton aria-label="Goods" color="inherit" component={RouterLink} to="/">
                                 <CardGiftcardIcon className={classes.desktopIconSize} />
                             </IconButton>
-                            <IconButton aria-label="Notifications" color="inherit" component={RouterLink} to="/notification">
+                            {/* <IconButton aria-label="Notifications" color="inherit" component={RouterLink} to="/notification">
                                 <Badge badgeContent={17} color="secondary">
                                     <NotificationsIcon className={classes.desktopIconSize} />
                                 </Badge>
-                            </IconButton>
+                            </IconButton> */}
                             <LoginState desktopIconSize={classes.desktopIconSize} />
                         </div>
                         <div className={classes.sectionMobile}>

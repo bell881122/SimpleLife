@@ -4,7 +4,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Loading from 'tools/Loading.tool.jsx';
 const Layout = React.lazy(() => import('pages/_Layout.page.jsx'));
 const Home = React.lazy(() => import('pages/Home.page.jsx'));
-const Notification = React.lazy(() => import('pages/Notification.page.jsx'));
+// const Notification = React.lazy(() => import('pages/Notification.page.jsx'));
 const User = React.lazy(() => import('pages/User.page.jsx'));
 const Good = React.lazy(() => import('pages/Good.page.jsx'));
 const Member = React.lazy(() => import('pages/Member.page.jsx'));
@@ -16,7 +16,7 @@ function App() {
         <Suspense fallback={<Loading />}>
           <Layout>
             <Route exact path="/" component={Home} />
-            <Route exact path="/notification" component={Notification} />
+            {/* <Route exact path="/notification" component={Notification} /> */}
             <Route exact path="/user" component={User} />
             <Route exact path="/good/:id" component={Good} />
             <Route exact path="/good/add" component={Good} />
