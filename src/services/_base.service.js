@@ -15,8 +15,14 @@ class BaseDataService {
         return db.collection(collection).doc(id).delete();
     }
 
-    getAll(collection) {
-        return db.collection(collection).get();
+    getAll(collection, queryCondition) {
+        let query = db.collection(collection);
+
+        if (queryCondition.orderby !== undefined) {
+            query = query.orderBy(queryCondition.orderby[0], queryCondition.orderby[1]);
+        }
+        
+        return query.get();
     }
 
     getById(collection, id) {

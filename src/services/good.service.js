@@ -36,7 +36,10 @@ class GoodDataService {
     }
 
     getAll(setState) {
-        BaseDataService.getAll(collection).then(snapshot => {
+        let queryCondition = {
+            orderby: ["registerDate", "desc"]
+        }
+        BaseDataService.getAll(collection, queryCondition).then(snapshot => {
             this.setData(snapshot, setState)
         }).catch(error => {
             console.log("Error getting documents: ", error);
