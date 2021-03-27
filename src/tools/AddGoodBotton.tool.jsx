@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
         opacity: 1,
     },
     btnStyle: {
-        color: '#ffffff',
+        color: '#000000',
     }
 }));
 

@@ -9,7 +9,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
 
 import { CurrentMemberContext } from "context/CurrentMemberContext.js";
-const AddGoodBotton = React.lazy(() => import('tools/AddGoodBotton.tool.jsx'));
+const UserTabs = React.lazy(() => import('components/User/UserTabs.component.jsx'));
 
 let imgUrl = "https://images.pexels.com/photos/1323550/pexels-photo-1323550.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
 
@@ -50,20 +50,22 @@ export default function User() {
     return (
         <>
             {currentMemberContext &&
-                <div className={classes.heroContent}>
-                    <Container maxWidth="sm">
-                        <Box display="flex" justifyContent="center">
-                            <Avatar alt={displayName} src={userPhoto} className={classes.avatar} />
-                        </Box>
-                        <Typography component="h1" variant="h3" align="center" color="textPrimary" gutterBottom>
-                            {currentMemberContext.profile.name}
-                        </Typography>
-                        <Typography variant="h6" align="center" color="textSecondary" paragraph>
-                            每天一點點，邁向簡單幸福生活。
-                        </Typography>
-                        <AddGoodBotton />
-                    </Container>
-                </div>
+                <>
+                    <div className={classes.heroContent}>
+                        <Container maxWidth="sm">
+                            <Box display="flex" justifyContent="center">
+                                <Avatar alt={displayName} src={userPhoto} className={classes.avatar} />
+                            </Box>
+                            <Typography component="h1" variant="h3" align="center" color="textPrimary" gutterBottom>
+                                {currentMemberContext.profile.name}
+                            </Typography>
+                            <Typography variant="h6" align="center" color="textSecondary" paragraph>
+                                每天一點點，邁向簡單幸福生活。
+                            </Typography>
+                        </Container>
+                    </div>
+                    <UserTabs />
+                </>
             }
         </>
     );
