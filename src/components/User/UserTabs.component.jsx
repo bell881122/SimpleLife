@@ -4,9 +4,10 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
+
+const UserGoods = React.lazy(() => import('components/User/UserGoods.component.jsx'));
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -21,7 +22,7 @@ function TabPanel(props) {
         >
             {value === index && (
                 <Box p={3}>
-                    <Typography>{children}</Typography>
+                    {children}
                 </Box>
             )}
         </div>
@@ -59,6 +60,12 @@ export default function UserTabs() {
         setValue(newValue);
     };
 
+    const componentLists = [
+        { title: "刊登", component: <UserGoods /> },
+        { title: "收藏", component: <p>收藏功能正在施工中，請再稍等唷</p> },
+        { title: "紀錄", component: <p>我的紀錄</p> },
+    ];
+
     return (
         <div className={classes.root}>
             <Paper className={classes.tabs}>
@@ -70,20 +77,16 @@ export default function UserTabs() {
                     onChange={handleChange}
                     aria-label="simple tabs example"
                 >
-                    <Tab label="刊登" {...a11yProps(0)} />
-                    <Tab label="收藏" {...a11yProps(1)} />
-                    <Tab label="紀錄" {...a11yProps(2)} />
+                    {componentLists.map((component, index) => (
+                        <Tab key={index} label={component.title} {...a11yProps(index)} />
+                    ))}
                 </Tabs>
             </Paper>
-            <TabPanel value={value} index={0}>
-                刊登
-            </TabPanel>
-            <TabPanel value={value} index={1}>
-                收藏
-            </TabPanel>
-            <TabPanel value={value} index={2}>
-                紀錄
-            </TabPanel>
+            {componentLists.map((component, index) => (
+                <TabPanel value={value} index={index} key={index}>
+                    {component.component}
+                </TabPanel>
+            ))}
         </div>
     );
 }
