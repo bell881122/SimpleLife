@@ -5,9 +5,11 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import Grid from '@material-ui/core/Grid';
 
 import MessageDataService, { NewMessage, getTimestamp } from "services/message.service";
 const MessageShowCase = React.lazy(() => import('components/Message/MessageShowCase.component.jsx'));
+const MessageList = React.lazy(() => import('components/Message/MessageList.component.jsx'));
 
 export default function Messager(props) {
     const { currentMemberId, chatMemberId, setShowMessageCase } = props;
@@ -62,8 +64,11 @@ export default function Messager(props) {
 
     return (
         <Box my={1}>
-            <Box>
-                <Box>
+            <Grid container spacing={0}>
+                <Grid item xs={12} sm={5}>
+                    <MessageList />
+                </Grid>
+                <Grid item xs={12} sm={7}>
                     <MessageShowCase
                         currentMemberId={currentMemberId}
                         chatMemberId={chatMemberId}
@@ -71,39 +76,39 @@ export default function Messager(props) {
                         toTop={toTop}
                         setToTop={setToTop}
                     />
-                </Box>
-                <Box component="div" my={1}>
-                    <form>
-                        <FormControl fullWidth>
-                            <Box display="flex">
-                                <Box mr={1} display="flex">
-                                    <Button style={{ border: 'solid 1px gray', color: 'gray', fontSize: 12 }} onClick={() => setShowMessageCase(false)}>回上頁</Button>
+                    <Box component="div" my={1}>
+                        <form>
+                            <FormControl fullWidth>
+                                <Box display="flex">
+                                    <Box mr={1} display="flex">
+                                        <Button style={{ border: 'solid 1px gray', color: 'gray', fontSize: 12 }} onClick={() => setShowMessageCase(false)}>回上頁</Button>
+                                    </Box>
+                                    {message &&
+                                        <TextField
+                                            fullWidth
+                                            multiline
+                                            rows={2}
+                                            id="standard-multiline-flexible"
+                                            name="message"
+                                            // label="新增訊息"
+                                            value={message.content}
+                                            placeholder="請輸入訊息"
+                                            onChange={e => onChange(e.target.value)}
+                                            onKeyPress={handleKeyPress}
+                                        />
+                                    }
+                                    <Button
+                                        size="small"
+                                        variant="contained"
+                                        color="primary"
+                                        onClick={() => sendMessage()}
+                                    ><PlayArrowIcon /></Button>
                                 </Box>
-                                {message &&
-                                    <TextField
-                                        fullWidth
-                                        multiline
-                                        rows={2}
-                                        id="standard-multiline-flexible"
-                                        name="message"
-                                        // label="新增訊息"
-                                        value={message.content}
-                                        placeholder="請輸入訊息"
-                                        onChange={e => onChange(e.target.value)}
-                                        onKeyPress={handleKeyPress}
-                                    />
-                                }
-                                <Button
-                                    size="small"
-                                    variant="contained"
-                                    color="primary"
-                                    onClick={() => sendMessage()}
-                                ><PlayArrowIcon /></Button>
-                            </Box>
-                        </FormControl>
-                    </form>
-                </Box>
-            </Box>
+                            </FormControl>
+                        </form>
+                    </Box>
+                </Grid>
+            </Grid>
         </Box>
     );
 }

@@ -23,8 +23,6 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('sm')]: {
             maxWidth: '65%'
         },
-        paddingLeft: 5,
-        paddingRight: 5,
     },
 }));
 
@@ -61,32 +59,40 @@ export default function MessageShowCase(props) {
             className={classes.messageCase}
         >
             <Box display="flex" justifyContent="center">
-                <Box pt={1}>
+                <Box pt={2} pb={1} style={{ width: '90%' }}>
+                    <Typography variant="caption" display="block" style={{ opacity: '0.4', textAlign: 'center', whiteSpace: 'pre-line' }} >
+                        {`請多加利用可靠的第三方物流平台，並留意保護個資。系統僅保存最新500則訊息，如有重要資料，請另行備份。`}
+                    </Typography>
+                </Box>
+            </Box>
+            <Box display="flex" justifyContent="center">
+                <Box pb={2}>
                     <Badge badgeContent={"more"} color="primary" style={{ opacity: '0.75' }} onClick={() => getMoreMessage()} />
                 </Box>
             </Box>
-            {messageLists &&
-                messageLists.map((value, index) => (
-                    <Box mt={1} key={index}>
-                        <Box display="flex">
+            <Box display="flex" flexDirection="column">
+                {messageLists &&
+                    messageLists.map((value, index) => (
+                        <Box mt={1} key={index} display="flex" flexDirection="column">
                             <Paper
                                 elevation={3}
                                 className={classes.messageWidth}
-                                style={{ backgroundColor: value.authorId === currentMemberId ? "" : "gray", }}
+                                style={{
+                                    backgroundColor: value.authorId === currentMemberId ? "" : "gray",
+                                    marginRight: value.authorId === currentMemberId ? "" : 'auto',
+                                    marginLeft: value.authorId !== currentMemberId ? "" : 'auto',
+                                    padding: 10,
+                                }}
                             >
-                                <Box p={1}>
-                                    <Typography
-                                        style={{ marginBottom: 0, wordWrap: 'break-word', whiteSpace: 'pre-line' }}
-                                        variant="body1"
-                                        display="block" gutterBottom
-                                    >
-                                        {value.content}
-                                    </Typography>
-                                </Box>
+                                <Typography
+                                    variant="body1"
+                                    display="block" gutterBottom
+                                    style={{ marginBottom: 0, wordWrap: 'break-word', whiteSpace: 'pre-line' }}
+                                >
+                                    {value.content}
+                                </Typography>
                             </Paper>
-                        </Box>
-                        <Box>
-                            <Typography variant="caption" display="block">
+                            <Typography variant="caption" display="block" style={{ textAlign: value.authorId !== currentMemberId ? "" : 'right' }}>
                                 {
                                     moment(Date.now()).format('YYYY-MM-DD') !== moment(value.createdTime).format('YYYY-MM-DD') ?
                                         moment(value.createdTime).format('YYYY-MM-DD HH:mm:ss') :
@@ -94,9 +100,9 @@ export default function MessageShowCase(props) {
                                 }
                             </Typography>
                         </Box>
-                    </Box>
-                ))
-            }
+                    ))
+                }
+            </Box>
         </Box >
     );
 }
