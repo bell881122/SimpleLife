@@ -9,6 +9,8 @@ import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
 import Box from '@material-ui/core/Box';
 
+import MessageItemDataService from "services/messageItem.service";
+
 const useStyles = makeStyles((theme) => ({
     massageList: {
         backgroundColor: theme.palette.background.paper,
@@ -24,31 +26,53 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function MessageList() {
+export default function MessageList(props) {
+    const { currentMemberId, chatMemberId, setCurrentChatMemberId } = props;
     const classes = useStyles();
-    const messageList = ["A", "B", "C"];
+    const [messageItems, setMessageItems] = React.useState();
+    const [doneCheckMessageItem, setDoneCheckMessageItem] = React.useState(false);
+
+    React.useEffect(() => {
+        if (currentMemberId) {
+            if (chatMemberId) {
+                MessageItemDataService.checkMessageItem(currentMemberId, chatMemberId, setDoneCheckMessageItem)
+            } else {
+                setDoneCheckMessageItem(true);
+            }
+
+            if (doneCheckMessageItem) {
+                MessageItemDataService.getMessageItems(currentMemberId, setMessageItems);
+            }
+        }
+    }, [currentMemberId, chatMemberId, doneCheckMessageItem]);
+
+    const getChatMemberId = (memberIds) => {
+        let userIndex = memberIds.indexOf(currentMemberId);
+        let chatMemberIndex = userIndex === 0 ? 1 : 0;
+        setCurrentChatMemberId(memberIds[chatMemberIndex]);
+    }
 
     return (
         <Box className={classes.massageList}>
             <List>
-                {messageList.map((value, index) =>
+                {messageItems && messageItems.map((value, index) =>
                     <div key={index}>
-                        <ListItem>
+                        <ListItem onClick={() => getChatMemberId(value.memberIds)}>
                             <ListItemAvatar>
                                 <Avatar alt="Remy Sharp" src="" />
                             </ListItemAvatar>
                             <ListItemText
-                                primary={`${value} 我是主標我是主標我是主標我是主標我是主標我是主標`}
-                                secondary={"我是副標"}
+                                primary={value.memberIds[0]}
+                                secondary={value.memberIds[1]}
                                 className={classes.ellipsis}
                             />
                         </ListItem>
-                        {messageList.length - 1 !== index &&
+                        {(messageItems.length - 1 !== index) &&
                             <Divider variant="middle" light />
                         }
                     </div>
                 )}
             </List>
-        </Box>
+        </Box >
     );
 }

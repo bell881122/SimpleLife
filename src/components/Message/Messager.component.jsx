@@ -25,6 +25,7 @@ export default function Messager(props) {
     const { currentMemberId, chatMemberId, setShowMessageCase } = props;
     const [reQueryMessage, setReQueryMessage] = React.useState(0);
     const [toTop, setToTop] = React.useState(false);
+    const [currentChatMemberId, setCurrentChatMemberId] = React.useState(chatMemberId);
 
     return (
         <Box my={1}>
@@ -33,30 +34,32 @@ export default function Messager(props) {
             </Box>
             <Grid container spacing={0}>
                 <Grid item xs={12} sm={5}>
-                    <MessageList />
+                    <MessageList
+                        currentMemberId={currentMemberId}
+                        chatMemberId={chatMemberId}
+                        setCurrentChatMemberId={setCurrentChatMemberId}
+                    />
                 </Grid>
                 <Grid item xs={12} sm={7} >
-                    {chatMemberId ?
+                    {currentChatMemberId ?
                         <>
                             <MessageShowCase
                                 currentMemberId={currentMemberId}
-                                chatMemberId={chatMemberId}
+                                chatMemberId={currentChatMemberId}
                                 reQueryMessage={reQueryMessage}
                                 toTop={toTop}
                                 setToTop={setToTop}
                             />
                             <MessageInputArea
                                 currentMemberId={currentMemberId}
-                                chatMemberId={chatMemberId}
+                                chatMemberId={currentChatMemberId}
                                 setReQueryMessage={setReQueryMessage}
                                 setToTop={setToTop}
                             />
                         </>
                         :
                         <Box p={2} display="flex" justifyContent="center" alignItems="center" className={classes.emptyMessageCase}>
-                            <Box>
-                                <p><SmsOutlinedIcon style={{ opacity: 0.2, fontSize: 150 }} /></p>
-                            </Box>
+                            <SmsOutlinedIcon style={{ opacity: 0.2, fontSize: 150 }} />
                         </Box>
                     }
                 </Grid>

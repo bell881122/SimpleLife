@@ -62,10 +62,14 @@ class MessageDataService {
                     key: "authorId",
                     operation: "==",
                     condition: receiverId,
+                    orderby: ["timestamp", "desc"],
+                    limit: queryLimit
                 }, {
                     key: "receiverId",
                     operation: "==",
                     condition: authorId,
+                    orderby: ["timestamp", "desc"],
+                    limit: queryLimit
                 }
             ]
         }
