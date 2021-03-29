@@ -65,11 +65,13 @@ export default function MessageShowCase(props) {
                     </Typography>
                 </Box>
             </Box>
-            <Box display="flex" justifyContent="center">
-                <Box pb={2}>
-                    <Badge badgeContent={"more"} color="primary" style={{ opacity: '0.75' }} onClick={() => getMoreMessage()} />
+            {messageLists && messageLists.length > 0 &&
+                <Box display="flex" justifyContent="center">
+                    <Box pb={2}>
+                        <Badge badgeContent={"more"} color="primary" style={{ opacity: '0.75' }} onClick={() => getMoreMessage()} />
+                    </Box>
                 </Box>
-            </Box>
+            }
             <Box display="flex" flexDirection="column">
                 {messageLists &&
                     messageLists.map((value, index) => (
