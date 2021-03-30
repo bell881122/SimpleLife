@@ -1,6 +1,8 @@
 import React from 'react';
 import { firebase } from "js/firebase";
 
+import { ThemeProvider } from '@material-ui/styles';
+import { theme } from "material-ui/custom.js";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
@@ -32,14 +34,16 @@ export default function Layout(props) {
     return (
         <>
             <CssBaseline />
-            <MenuBar />
-            <CurrentMemberContext.Provider value={[currentMemberContext, setCurrentMemberContext]}>
-                <Container maxWidth="md">
-                    <Box px={3}>
-                        {props.children}
-                    </Box>
-                </Container>
-            </CurrentMemberContext.Provider>
+            <ThemeProvider theme={theme}>
+                <MenuBar />
+                <CurrentMemberContext.Provider value={[currentMemberContext, setCurrentMemberContext]}>
+                    <Container maxWidth="md">
+                        <Box px={3}>
+                            {props.children}
+                        </Box>
+                    </Container>
+                </CurrentMemberContext.Provider>
+            </ThemeProvider>
         </>
     );
 }

@@ -5,17 +5,16 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { dangerColor } from "material-ui/custom.js";
 
 export default function ModalBotton(props) {
     const {
         variant,
-        color,
         style,
         buttonText,
         modalTitle,
         modalContent,
         modalAction,
-        primaryButtonType,
         actionText
     } = props;
     const [open, setOpen] = React.useState(false);
@@ -32,7 +31,6 @@ export default function ModalBotton(props) {
         <>
             <Button
                 variant={variant}
-                color={color}
                 style={style}
                 onClick={handleClickOpen}
             >{buttonText}</Button>
@@ -55,9 +53,12 @@ export default function ModalBotton(props) {
                 <DialogActions>
                     <Button
                         onClick={modalAction}
-                        color={primaryButtonType === "danger" ? "secondary" : "primary"}
+                        style={{
+                            color: 'white',
+                            backgroundColor: dangerColor
+                        }}
                     >{actionText}</Button>
-                    <Button onClick={handleClose} color="#000000" autoFocus>
+                    <Button onClick={handleClose} autoFocus>
                         取消
                     </Button>
                 </DialogActions>

@@ -4,6 +4,7 @@ import { storage } from "js/firebase";
 
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
+import { dangerColor } from "material-ui/custom.js";
 
 import { CurrentMemberContext } from "context/CurrentMemberContext.js";
 import GoodDataService, { NewGood } from "services/good.service";
@@ -76,11 +77,11 @@ export default function Good() {
                 <Box position="relative">
                     {!isEdit ?
                         <>
-                            <Box position="absolute" style={{ top: 15 }}>
+                            <Box position="absolute" style={{ top: 20 }}>
                                 <GoBackBotton />
                             </Box>
                             {isMyGood &&
-                                <Box position="absolute" style={{ top: 15, right: 0 }}>
+                                <Box position="absolute" style={{ top: 20, right: 0 }}>
                                     <Button
                                         variant="contained"
                                         color="primary"
@@ -88,13 +89,16 @@ export default function Good() {
                                     >編輯</Button>
                                     <ModalBotton
                                         variant="contained"
-                                        color="secondary"
-                                        style={{ marginLeft: 5, marginRight: 10 }}
+                                        style={{
+                                            marginLeft: 10,
+                                            marginRight: 15,
+                                            color: 'white',
+                                            backgroundColor: dangerColor
+                                        }}
                                         buttonText="刪除"
                                         modalTitle="刪除物品"
                                         modalContent="確認要刪除物品嗎"
                                         modalAction={() => deleteGood()}
-                                        primaryButtonType="danger"
                                         actionText="刪除"
                                     />
                                 </Box>
