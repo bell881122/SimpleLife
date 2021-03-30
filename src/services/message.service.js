@@ -44,16 +44,14 @@ class MessageDataService {
                     key: "authorId",
                     operation: "==",
                     condition: authorId,
-                    orderby: ["timestamp", "desc"],
-                    limit: queryLimit
                 }, {
                     key: "receiverId",
                     operation: "==",
                     condition: receiverId,
-                    orderby: ["timestamp", "desc"],
-                    limit: queryLimit
                 }
-            ]
+            ],
+            orderby: ["timestamp", "desc"],
+            limit: queryLimit
         }
 
         let queryCondition2 = {
@@ -62,16 +60,14 @@ class MessageDataService {
                     key: "authorId",
                     operation: "==",
                     condition: receiverId,
-                    orderby: ["timestamp", "desc"],
-                    limit: queryLimit
                 }, {
                     key: "receiverId",
                     operation: "==",
                     condition: authorId,
-                    orderby: ["timestamp", "desc"],
-                    limit: queryLimit
                 }
-            ]
+            ],
+            orderby: ["timestamp", "desc"],
+            limit: queryLimit
         }
 
         async function getMessages() {

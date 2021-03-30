@@ -65,8 +65,8 @@ class MessageItemDataService {
                 key: "memberIds",
                 operation: "array-contains",
                 condition: authorId,
-                orderby: ["lastModifiedTime", "desc"],
-            }]
+            }],
+            orderby: ["lastModifiedTime", "desc"],
         }
         BaseDataService.query(collection, queryCondition)
             .then(snapshot => {
