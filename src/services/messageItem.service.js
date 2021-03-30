@@ -1,4 +1,5 @@
 import BaseDataService from "services/_base.service";
+import MemberDataService from "services/member.service";
 let collection = "/messageItems";
 
 class MessageItem {
@@ -58,31 +59,58 @@ class MessageItemDataService {
             where: [{
                 key: "memberIds",
                 operation: "array-contains",
-                condition: authorId
+                condition: authorId,
+                orderby: ["lastModifiedTime", "desc"],
             }]
         }
         BaseDataService.query(collection, queryCondition)
-            .then(result => {
-                this.setData(result, setState)
+            .then(snapshot => {
+              
+                if (snapshot.docs.length ===0 ) {
+                    return;
+                }
+                else{
+                    let messageItems = [];
+                    snapshot.forEach((item) => {
+                        let id = item.id;
+                        let dt = item.data();
+                        let messageItem = new MessageItem(id, dt).data;
+                        messageItems.push(messageItem);
+                    });
+
+                    // chatMemberName 跟 chatMemberPhotoUrl 都可能隨時被修改，不會存進 messageItem
+                    // 因此在抓到 messageItems 的內容後，要另外塞入這些資料
+                    let chatMemberIds = [];
+                    messageItems.forEach(i => {
+                        i.memberIds.forEach(j => {
+                            if (j !== authorId) {
+                                chatMemberIds.push(j);
+                            }
+                        });
+                    });
+
+                    MemberDataService.getSimpleMemberData(chatMemberIds, messageItems, setState);
+                }
+                // this.setData(result, setState)
             });
     }
 
-    setData(items, setState) {
-        let messageItems = [];
-        items.forEach((item) => {
-            let id = item.id;
-            let dt = item.data();
-            let messageItem = new MessageItem(id, dt).data;
-            messageItems.push(messageItem);
-        });
+    // setData(items, setState) {
+    //     let messageItems = [];
+    //     items.forEach((item) => {
+    //         let id = item.id;
+    //         let dt = item.data();
+    //         let messageItem = new MessageItem(id, dt).data;
+    //         messageItems.push(messageItem);
+    //     });
 
-        //firebase用desc篩選出最新訊息，因此要再asc回去
-        messageItems = messageItems.sort(function (a, b) {
-            return a.lastModifiedTime < b.lastModifiedTime ? 1 : -1;
-        });
+    //     //firebase用desc篩選出最新訊息，因此要再asc回去
+    //     messageItems = messageItems.sort(function (a, b) {
+    //         return a.lastModifiedTime < b.lastModifiedTime ? 1 : -1;
+    //     });
 
-        setState(messageItems);
-    };
+    //     setState(messageItems);
+    // };
 }
 
 export default new MessageItemDataService();

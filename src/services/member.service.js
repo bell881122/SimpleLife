@@ -51,6 +51,35 @@ class MemberDataService {
             console.log("Error getting documents: ", error);
         });
     }
+
+    getSimpleMemberData(uids, messageItems, setMessageItems) {
+        let queryCondition = {
+            where: [{
+                key: "uid",
+                operation: "in",
+                condition: uids
+            }]
+        }
+
+        BaseDataService.query(collection, queryCondition).then(snapshot => {
+
+            // TODO:目前用迴圈塞資料，數量多時可能會有效能問題，要改寫法
+            let chatMessageItems = messageItems;
+            snapshot.forEach((item) => {
+                let dt = item.data();
+                let member = new Member(dt).data;
+                chatMessageItems.forEach(i => {
+                    if (i.memberIds.indexOf(dt.uid) > -1) {
+                        i.chatMemberName = member.profile.name;
+                        i.chatMemberPhotoUrl = member.profile.photoURL;
+                    }
+                })
+            })
+            setMessageItems(chatMessageItems);
+        }).catch(error => {
+            console.log("Error getting documents: ", error);
+        });
+    }
 }
 
 export default new MemberDataService();

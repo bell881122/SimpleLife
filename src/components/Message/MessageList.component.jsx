@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 export default function MessageList(props) {
     const { currentMemberId, chatMemberId, setCurrentChatMemberId } = props;
     const classes = useStyles();
-    const [messageItems, setMessageItems] = React.useState();
+    const [messageItems, setMessageItems] = React.useState([]);
     const [doneCheckMessageItem, setDoneCheckMessageItem] = React.useState(false);
 
     React.useEffect(() => {
@@ -59,10 +59,13 @@ export default function MessageList(props) {
                     <div key={index}>
                         <ListItem onClick={() => getChatMemberId(value.memberIds)}>
                             <ListItemAvatar>
-                                <Avatar alt="Remy Sharp" src="" />
+                                <Avatar
+                                    alt={value.chatMemberName ? value.chatMemberName : ""}
+                                    src={value.chatMemberPhotoUrl ? value.chatMemberPhotoUrl : ""}
+                                />
                             </ListItemAvatar>
                             <ListItemText
-                                primary={value.memberIds[0]}
+                                primary={value.chatMemberName ? value.chatMemberName : ""}
                                 secondary={value.memberIds[1]}
                                 className={classes.ellipsis}
                             />
