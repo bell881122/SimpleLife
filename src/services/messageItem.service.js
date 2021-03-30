@@ -21,6 +21,11 @@ class MessageItemDataService {
         return BaseDataService.create(collection, data);
     }
 
+    update(id, data) {
+        let messageItem = new MessageItem(id, data).data;
+        return BaseDataService.update(collection, id, messageItem);
+    }
+
     checkMessageItem(authorId, chatId, setDoneCheckMessageItem) {
         let queryCondition = {
             where: [{

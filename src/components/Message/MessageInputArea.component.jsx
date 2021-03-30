@@ -7,9 +7,10 @@ import FormControl from '@material-ui/core/FormControl';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 
 import MessageDataService, { NewMessage, getTimestamp } from "services/message.service";
+import MessageItemDataService from "services/messageItem.service";
 
 export default function MessageInputArea(props) {
-    const { currentMemberId, chatMemberId, setReQueryMessage, setToTop } = props;
+    const { currentMemberId, chatMemberId, setReQueryMessage, setToTop, currentChatItem } = props;
     const [message, setMessage] = React.useState();
 
     React.useEffect(() => {
@@ -22,6 +23,8 @@ export default function MessageInputArea(props) {
     }, [currentMemberId, chatMemberId]);
 
     const sendMessage = () => {
+        
+        // 上傳 message
         let data = message;
         if (!data.content.length) {
             return;
@@ -40,6 +43,13 @@ export default function MessageInputArea(props) {
                     console.log(e);
                 });
         }
+
+        // 更新 messageItem
+        let messageItem = currentChatItem;
+        messageItem.lastMessage = message.content;
+        messageItem.lastModifiedTime = Date.now();
+        messageItem.unreadMemberId = chatMemberId;
+        MessageItemDataService.update(messageItem.id, messageItem);
     }
 
     const onChange = (value) => {
@@ -62,7 +72,7 @@ export default function MessageInputArea(props) {
             <form>
                 <FormControl fullWidth>
                     <Box display="flex">
-                        {message && 
+                        {message &&
                             <TextField
                                 style={{ paddingLeft: 10 }}
                                 fullWidth

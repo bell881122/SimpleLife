@@ -26,6 +26,7 @@ export default function Messager(props) {
     const [reQueryMessage, setReQueryMessage] = React.useState(0);
     const [toTop, setToTop] = React.useState(false);
     const [currentChatMemberId, setCurrentChatMemberId] = React.useState(chatMemberId);
+    const [currentChatItem, setCurrentChatItem] = React.useState();
 
     return (
         <Box my={1}>
@@ -36,8 +37,9 @@ export default function Messager(props) {
                 <Grid item xs={12} sm={5}>
                     <MessageList
                         currentMemberId={currentMemberId}
-                        chatMemberId={chatMemberId}
+                        chatMemberId={currentChatMemberId}
                         setCurrentChatMemberId={setCurrentChatMemberId}
+                        setCurrentChatItem={setCurrentChatItem}
                     />
                 </Grid>
                 <Grid item xs={12} sm={7} >
@@ -55,6 +57,7 @@ export default function Messager(props) {
                                 chatMemberId={currentChatMemberId}
                                 setReQueryMessage={setReQueryMessage}
                                 setToTop={setToTop}
+                                currentChatItem={currentChatItem}
                             />
                         </>
                         :
