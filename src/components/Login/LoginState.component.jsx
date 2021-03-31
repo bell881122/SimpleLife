@@ -5,8 +5,10 @@ import { firebase } from "js/firebase";
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
+// import Typography from '@material-ui/core/Typography';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+
+const LoginTestButtom = React.lazy(() => import('components/Login/LoginTestButtom.component.jsx'));
 
 const useStyles = makeStyles((theme) => ({
     avatar: {
@@ -71,11 +73,14 @@ export default function LoginState(props) {
                         <ExitToAppIcon className={desktopIconSize} />
                     </IconButton>
                 </> :
-                <IconButton aria-label="Login" color="inherit" onClick={() => singUpPopupClick()}>
-                    <Typography variant="button" display="block" gutterBottom>
-                        登入/註冊
-                    </Typography>
-                </IconButton>
+                <>
+                    {/* <IconButton aria-label="Login" color="inherit" onClick={() => singUpPopupClick()}>
+                        <Typography variant="button" display="block" gutterBottom>
+                            登入/註冊
+                     </Typography>
+                    </IconButton> */}
+                    <LoginTestButtom singUpPopupClick={singUpPopupClick}/>
+                </>
             }
         </div>
     );

@@ -14,19 +14,23 @@ import { CurrentMemberContext } from "context/CurrentMemberContext.js";
 const UserTabs = React.lazy(() => import('components/User/UserTabs.component.jsx'));
 const Messager = React.lazy(() => import('components/Message/Messager.component.jsx'));
 
-let imgUrl = "https://images.pexels.com/photos/1323550/pexels-photo-1323550.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+let imgUrl = "https://images.pexels.com/photos/509922/pexels-photo-509922.jpeg?auto=compress&cs=tinysrgb&h=650&w=940";
 
 const useStyles = makeStyles((theme) => ({
     heroContent: {
-        // backgroundColor: theme.palette.background.paper,
+        padding: theme.spacing(5, 0, 5),
+    },
+    backGroundPic: {
         backgroundImage: `url(${imgUrl})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center 40%',
-        padding: theme.spacing(8, 0, 6),
+        top: 0,
+        opacity: 0.35,
+        zIndex: -1,
     },
     avatar: {
-        width: theme.spacing(30),
-        height: theme.spacing(30),
+        width: theme.spacing(17),
+        height: theme.spacing(17),
         marginBottom: theme.spacing(3)
     },
 }));
@@ -61,15 +65,15 @@ export default function User() {
                 <>
                     { currentMemberContext &&
                         <>
-                            <div className={classes.heroContent}>
+                            <Box className={classes.heroContent} position="relative">
+                                <Box position="absolute" width={1} height={1} className={classes.backGroundPic}></Box>
                                 <Container maxWidth="sm">
                                     <Box display="flex" justifyContent="center">
                                         <Avatar alt={displayName} src={userPhoto} className={classes.avatar} />
                                     </Box>
-                                    <Typography component="h1" variant="h3" align="center" color="textPrimary" gutterBottom>
+                                    <Typography component="h1" variant="h4" align="center" color="textPrimary" gutterBottom>
                                         {currentMemberContext.profile.name}
                                         <Box component="span" ml={1}>
-
                                             <IconButton
                                                 aria-label="Messager"
                                                 color="primary"
@@ -80,12 +84,11 @@ export default function User() {
                                             </IconButton>
                                         </Box>
                                     </Typography>
-
                                     <Typography variant="h6" align="center" color="textSecondary" paragraph>
                                         每天一點點，邁向簡單幸福生活。
-                            </Typography>
+                                    </Typography>
                                 </Container>
-                            </div>
+                            </Box>
                             <UserTabs />
                         </>
                     }
