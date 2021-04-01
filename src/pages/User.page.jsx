@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link as RouterLink } from 'react-router-dom';
 import { firebase } from "js/firebase";
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -9,6 +9,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import SmsIcon from '@material-ui/icons/Sms';
+import SettingsIcon from '@material-ui/icons/Settings';
 
 import { CurrentMemberContext } from "context/CurrentMemberContext.js";
 const UserTabs = React.lazy(() => import('components/User/UserTabs.component.jsx'));
@@ -81,6 +82,18 @@ export default function User() {
                                             >
                                                 <SmsIcon />
                                             </IconButton>
+                                            <RouterLink
+                                                basename="/feedback"
+                                                to="/feedback"
+                                            >
+                                                <IconButton
+                                                    aria-label="feedback"
+                                                    color="primary"
+                                                    style={{ backgroundColor: '#ffffff', marginLeft: 8 }}
+                                                >
+                                                    <SettingsIcon />
+                                                </IconButton>
+                                            </RouterLink>
                                         </Box>
                                     </Typography>
                                     <Typography variant="h6" align="center" color="textSecondary" paragraph>
