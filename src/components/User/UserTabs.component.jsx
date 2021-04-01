@@ -8,6 +8,7 @@ import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
 
 const UserGoods = React.lazy(() => import('components/User/UserGoods.component.jsx'));
+const UserInfo = React.lazy(() => import('components/User/UserInfo.component.jsx'));
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -63,7 +64,7 @@ export default function UserTabs() {
     const componentLists = [
         { title: "刊登", component: <UserGoods /> },
         { title: "收藏", component: <p>收藏功能正在施工中，請再稍等唷</p> },
-        { title: "紀錄", component: <p>我的紀錄</p> },
+        { title: "個人", component: <UserInfo /> },
     ];
 
     return (

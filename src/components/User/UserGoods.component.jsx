@@ -21,7 +21,6 @@ export default function UserGoods() {
 
     return (
         <>
-            { goods ?
                 <Grid container spacing={2}>
                     <Grid item xs={6} sm={4} md={3}>
                         <Box height={1} display="flex" justifyContent="center" alignItems="center">
@@ -40,9 +39,6 @@ export default function UserGoods() {
                         </Grid>
                     ))}
                 </Grid>
-                :
-                <h3> 趕快來刊登物品吧！</h3>
-            }
         </>
     );
 }
