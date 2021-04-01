@@ -45,8 +45,8 @@ function a11yProps(index) {
 
 const useStyles = makeStyles((theme) => ({
     root: {
+        borderRadius: '4px 4px 0px 0px / 4px 4px',
         flexGrow: 1,
-        backgroundColor: theme.palette.background.paper,
     },
     tabs: {
         flexGrow: 1,
@@ -68,7 +68,7 @@ export default function UserTabs() {
     ];
 
     return (
-        <div className={classes.root}>
+        <Box bgcolor="background.paper" className={classes.root}>
             <Paper className={classes.tabs}>
                 <Tabs
                     indicatorColor="primary"
@@ -88,6 +88,6 @@ export default function UserTabs() {
                     {component.component}
                 </TabPanel>
             ))}
-        </div>
+        </Box>
     );
 }

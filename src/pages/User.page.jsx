@@ -26,7 +26,6 @@ const useStyles = makeStyles((theme) => ({
         backgroundPosition: 'center 40%',
         top: 0,
         opacity: 0.35,
-        zIndex: -1,
     },
     avatar: {
         width: theme.spacing(17),
@@ -64,7 +63,7 @@ export default function User() {
                 /> :
                 <>
                     { currentMemberContext &&
-                        <>
+                        <Box display="flex" flexDirection="column" height="100%">
                             <Box className={classes.heroContent} position="relative">
                                 <Box position="absolute" width={1} height={1} className={classes.backGroundPic}></Box>
                                 <Container maxWidth="sm">
@@ -90,7 +89,7 @@ export default function User() {
                                 </Container>
                             </Box>
                             <UserTabs />
-                        </>
+                        </Box>
                     }
                 </>
             }

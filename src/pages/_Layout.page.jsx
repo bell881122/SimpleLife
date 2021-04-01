@@ -18,7 +18,7 @@ export default function Layout(props) {
     React.useEffect(() => {
         firebase.auth().onAuthStateChanged((user) => {
             if (user && user.uid) {
-                let currentMember ={
+                let currentMember = {
                     uid: user.uid,
                     profile: {
                         name: user.displayName,
@@ -26,22 +26,26 @@ export default function Layout(props) {
                         photoURL: user.photoURL,
                     },
                 }
-                MemberDataService.getById(user.uid,currentMember, setCurrentMemberContext);
-                }
-            });
+                MemberDataService.getById(user.uid, currentMember, setCurrentMemberContext);
+            }
+        });
     }, []);
 
     return (
         <>
             <CssBaseline />
             <ThemeProvider theme={theme}>
-                <MenuBar />
                 <CurrentMemberContext.Provider value={[currentMemberContext, setCurrentMemberContext]}>
-                    <Container maxWidth="md">
-                        <Box px={3}>
-                            {props.children}
+                    <Box display="flex" height="100vh" flexDirection="column" bgcolor="background.paper">
+                        <Box flexShrink={1} >
+                            <MenuBar />
                         </Box>
-                    </Container>
+                        <Box height="100%" bgcolor="grey.100">
+                            <Container maxWidth="md" style={{ height: '100%' }}>
+                                {props.children}
+                            </Container>
+                        </Box>
+                    </Box>
                 </CurrentMemberContext.Provider>
             </ThemeProvider>
         </>
