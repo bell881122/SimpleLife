@@ -15,7 +15,7 @@ export default function UserGoods() {
 
     React.useEffect(() => {
         if (currentMemberContext) {
-            GoodDataService.query("memberId", "==", currentMemberContext.uid, setGoods);
+            GoodDataService.query("memberId", "==", currentMemberContext.uid, ["registerTimestamp", "desc"], setGoods);
         }
     }, [currentMemberContext]);
 

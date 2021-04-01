@@ -24,13 +24,15 @@ export default function Good() {
     const [editType, setEditType] = React.useState("編輯");
 
     React.useEffect(() => {
-        if (id !== "") {
-            if (id === "add" && currentMemberContext !== undefined) {
-                setIsEdit(true);
-                let newGood = NewGood.data;
-                newGood.memberId = currentMemberContext.uid;
-                setGood(newGood);
-                setEditType("新增")
+        if (id && id !== "") {
+            if (id === "add") {
+                if (currentMemberContext) {
+                    setIsEdit(true);
+                    let newGood = NewGood.data;
+                    newGood.memberId = currentMemberContext.uid;
+                    setGood(newGood);
+                    setEditType("新增")
+                }
             } else {
                 GoodDataService.getById(id, setGood);
             }

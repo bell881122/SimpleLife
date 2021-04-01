@@ -1,4 +1,5 @@
 import BaseDataService from "services/_base.service";
+import getTimestamp from "js/getTimestamp.js";
 let collection = "/goods";
 
 class Good {
@@ -11,12 +12,13 @@ class Good {
             imgURL: dt.imgURL !== undefined ? dt.imgURL : "",
             price: dt.price !== undefined ? dt.price : 0,
             state: dt.state !== undefined ? dt.state : "二手",
-            // transactionTypes: dt.transactionTypes !== undefined ? dt.transactionTypes : [],
-            // f2fLocation: dt.memberId !== undefined ? dt.memberId : true,
             published: dt.published !== undefined ? dt.published : true,
-            instore: dt.instore !== undefined ? dt.instore : true,
             registerDate: dt.registerDate !== undefined ? dt.registerDate : Date.now(),
+            registerTimestamp: dt.registerTimestamp !== undefined ? dt.registerTimestamp : getTimestamp(),
+            lastModifiedDate: dt.lastModifiedDate !== undefined ? dt.lastModifiedDate : Date.now(),
+            lastModifiedTimestamp: dt.lastModifiedTimestamp !== undefined ? dt.lastModifiedTimestamp : getTimestamp(),
             publishedDate: dt.publishedDate !== undefined ? dt.publishedDate : Date.now(),
+            publishedTimestamp: dt.publishedTimestamp !== undefined ? dt.publishedTimestamp : getTimestamp(),
         }
     }
 }
@@ -37,7 +39,7 @@ class GoodDataService {
 
     getAll(setState) {
         let queryCondition = {
-            orderby: ["registerDate", "desc"]
+            orderby: ["registerTimestamp", "desc"]
         }
         BaseDataService.getAll(collection, queryCondition).then(snapshot => {
             this.setData(snapshot, setState)
@@ -57,13 +59,14 @@ class GoodDataService {
         });
     }
 
-    query(key, operation, condition, setState) {
+    query(key, operation, condition, orderby, setState) {
         let queryCondition = {
             where: [{
                 key: key,
                 operation: operation,
                 condition: condition
-            }]
+            }],
+            orderby: orderby
         }
         BaseDataService.query(collection, queryCondition).then(snapshot => {
             this.setData(snapshot, setState)

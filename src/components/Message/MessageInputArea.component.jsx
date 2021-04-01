@@ -6,7 +6,8 @@ import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 
-import MessageDataService, { NewMessage, getTimestamp } from "services/message.service";
+import MessageDataService, { NewMessage } from "services/message.service";
+import getTimestamp from "js/getTimestamp.js";
 import MessageItemDataService from "services/messageItem.service";
 
 export default function MessageInputArea(props) {
@@ -29,7 +30,7 @@ export default function MessageInputArea(props) {
         if (!data.content.length) {
             return;
         } else {
-            data.timestamp = getTimestamp();
+            data.createdTimestamp = getTimestamp();
             MessageDataService.create(data)
                 .then(function (docRef) {
                     setMessage(state => ({
@@ -47,7 +48,7 @@ export default function MessageInputArea(props) {
         // 更新 messageItem
         let messageItem = currentChatItem;
         messageItem.lastMessage = message.content;
-        messageItem.lastModifiedTime = Date.now();
+        messageItem.lastModifiedTime = getTimestamp();
         messageItem.unreadMemberId = chatMemberId;
         MessageItemDataService.update(messageItem.id, messageItem);
     }

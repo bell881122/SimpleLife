@@ -1,20 +1,6 @@
 import BaseDataService from "services/_base.service";
 let collection = "/messages";
 
-export const getTimestamp = () => {
-    const date = new Date();
-    const components = [
-        date.getFullYear(),
-        (date.getMonth() + 1).toString().padStart(2, "0"),
-        date.getDate().toString().padStart(2, "0"),
-        date.getHours().toString().padStart(2, "0"),
-        date.getMinutes().toString().padStart(2, "0"),
-        date.getSeconds().toString().padStart(2, "0"),
-        date.getMilliseconds().toString().padStart(3, "0")
-    ];
-    const timestamp = parseInt(components.join(""));
-    return timestamp;
-}
 
 class Message {
     constructor(id, dt) {
@@ -23,7 +9,7 @@ class Message {
             authorId: dt.authorId !== undefined ? dt.authorId : "",
             receiverId: dt.receiverId !== undefined ? dt.receiverId : "",
             createdTime: dt.createdTime !== undefined ? dt.createdTime : Date.now(),
-            timestamp: dt.timestamp !== undefined ? dt.timestamp : "",
+            createdTimestamp: dt.createdTimestamp !== undefined ? dt.createdTimestamp : "",
             type: dt.type !== undefined ? dt.type : "text",
             content: dt.content !== undefined ? dt.content : "",
         }
@@ -50,7 +36,7 @@ class MessageDataService {
                     condition: receiverId,
                 }
             ],
-            orderby: ["timestamp", "desc"],
+            orderby: ["createdTimestamp", "desc"],
             limit: queryLimit
         }
 
@@ -66,7 +52,7 @@ class MessageDataService {
                     condition: authorId,
                 }
             ],
-            orderby: ["timestamp", "desc"],
+            orderby: ["createdTimestamp", "desc"],
             limit: queryLimit
         }
 
@@ -103,7 +89,7 @@ class MessageDataService {
 
         //firebase用desc篩選出最新訊息，因此要再asc回去
         messages = messages.sort(function (a, b) {
-            return a.timestamp > b.timestamp ? 1 : -1;
+            return a.createdTimestamp > b.createdTimestamp ? 1 : -1;
         });
 
         if (queryLimit)

@@ -1,5 +1,6 @@
 import BaseDataService from "services/_base.service";
 import MemberDataService from "services/member.service";
+import getTimestamp from "js/getTimestamp.js";
 let collection = "/messageItems";
 
 class MessageItem {
@@ -8,9 +9,11 @@ class MessageItem {
             id: id,
             memberIds: dt.memberIds !== undefined ? dt.memberIds : [],
             lastMessage: dt.lastMessage !== undefined ? dt.lastMessage : "",
-            lastModifiedTime: dt.lastModifiedTime !== undefined ? dt.lastModifiedTime : Date.now(),
             unreadMemberId: dt.unreadMemberId !== undefined ? dt.unreadMemberId : "",
-            registerTime: dt.registerTime !== undefined ? dt.registerTime : Date.now(),
+            lastModifiedTime: dt.lastModifiedTime !== undefined ? dt.lastModifiedTime : Date.now(),
+            lastModifiedTimestamp: dt.lastModifiedTimestamp !== undefined ? dt.lastModifiedTimestamp : getTimestamp(),
+            createdTime: dt.createdTime !== undefined ? dt.createdTime : Date.now(),
+            createdTimestamp: dt.createdTimestamp !== undefined ? dt.createdTimestamp : getTimestamp(),
         }
     }
 }
@@ -70,11 +73,11 @@ class MessageItemDataService {
         }
         BaseDataService.query(collection, queryCondition)
             .then(snapshot => {
-              
-                if (snapshot.docs.length ===0 ) {
+
+                if (snapshot.docs.length === 0) {
                     return;
                 }
-                else{
+                else {
                     let messageItems = [];
                     snapshot.forEach((item) => {
                         let id = item.id;
@@ -96,26 +99,8 @@ class MessageItemDataService {
 
                     MemberDataService.getSimpleMemberData(chatMemberIds, messageItems, setState);
                 }
-                // this.setData(result, setState)
             });
     }
-
-    // setData(items, setState) {
-    //     let messageItems = [];
-    //     items.forEach((item) => {
-    //         let id = item.id;
-    //         let dt = item.data();
-    //         let messageItem = new MessageItem(id, dt).data;
-    //         messageItems.push(messageItem);
-    //     });
-
-    //     //firebase用desc篩選出最新訊息，因此要再asc回去
-    //     messageItems = messageItems.sort(function (a, b) {
-    //         return a.lastModifiedTime < b.lastModifiedTime ? 1 : -1;
-    //     });
-
-    //     setState(messageItems);
-    // };
 }
 
 export default new MessageItemDataService();

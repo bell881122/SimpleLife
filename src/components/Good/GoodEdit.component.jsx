@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
 import { storage } from "js/firebase";
+import getTimestamp from "js/getTimestamp.js";
 
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
@@ -55,8 +56,9 @@ export default function GoodEdit(props) {
 
     const update = (newGoodId) => {
         const goodId = newGoodId === undefined ? good.id : newGoodId;
-        console.log(editGood);
-
+        const data = editGood;
+        data.lastModifiedTime = getTimestamp();
+        
         if (imgFileBlob !== undefined) {
             let imagePathAndName = `good/${goodId}-main.jpg`;
             let storageRef = storage.ref().child(imagePathAndName);
@@ -82,7 +84,6 @@ export default function GoodEdit(props) {
                 let metadata = { contentType: 'image/jpeg' };
                 storageRef.put(imgFileBlob, metadata).then(() => {
                     storageRef.getDownloadURL().then(function (url) {
-                        const data = editGood;
                         data.id = goodId;
                         data.imgURL = url;
                         updateGood(goodId, data);
@@ -92,7 +93,6 @@ export default function GoodEdit(props) {
                 });
             }
         } else {
-            const data = editGood;
             updateGood(goodId, data);
         }
     }

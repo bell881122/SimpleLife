@@ -10,10 +10,7 @@ class Member {
                 email: dt !== undefined ? dt.profile.email : "",
                 photoURL: dt !== undefined ? dt.profile.photoURL : "",
             },
-            favorites: dt.favorites !== undefined ? dt.favorites : [],
             registerDate: dt.registerDate !== undefined ? dt.registerDate : Date.now(),
-            changeTimes: dt.changeTimes !== undefined ? dt.changeTimes : 0,
-            goodCount: dt.goodCount !== undefined ? dt.goodCount : 0,
             publishedCount: dt.publishedCount !== undefined ? dt.publishedCount : 0,
             messageBoard: dt.messageBoard !== undefined ? dt.messageBoard : "每天一點點，邁向簡單幸福生活。"
         }
