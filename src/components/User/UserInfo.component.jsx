@@ -17,7 +17,8 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function UserInfo() {
+export default function UserInfo(props) {
+    const { goodsCount } = props;
     const classes = useStyles();
     const [currentMemberContext] = React.useContext(CurrentMemberContext);
 
@@ -62,6 +63,17 @@ export default function UserInfo() {
                         >
                             {moment(currentMemberContext.registerDate).format('YYYY-MM-DD HH:mm:ss')}
                         </Typography>
+                    </Box>
+                    <Box display="flex" my={2}>
+                        <Typography
+                            variant="body1"
+                            component="h3"
+                            className={classes.title}
+                        >物品數：</Typography>
+                        <Typography
+                            variant="body1"
+                            component="p"
+                        >{goodsCount} / 50</Typography>
                     </Box>
                 </>
             }

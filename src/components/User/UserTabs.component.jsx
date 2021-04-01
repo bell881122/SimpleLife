@@ -54,6 +54,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function UserTabs() {
+    const [goodsCount, setGoodsCount] = React.useState(0);
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
 
@@ -62,9 +63,9 @@ export default function UserTabs() {
     };
 
     const componentLists = [
-        { title: "刊登", component: <UserGoods /> },
+        { title: "刊登", component: <UserGoods goodsCount={goodsCount} setGoodsCount={setGoodsCount} /> },
         { title: "收藏", component: <p>收藏功能正在施工中，請再稍等唷</p> },
-        { title: "個人", component: <UserInfo /> },
+        { title: "個人", component: <UserInfo goodsCount={goodsCount} /> },
     ];
 
     return (
