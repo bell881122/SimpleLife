@@ -12,8 +12,12 @@ const LoginTestButtom = React.lazy(() => import('components/Login/LoginTestButto
 
 const useStyles = makeStyles((theme) => ({
     avatar: {
-        width: theme.spacing(4),
-        height: theme.spacing(4),
+        width: 28,
+        height: 28,
+        [theme.breakpoints.up('sm')]: {
+            width: theme.spacing(4),
+            height: theme.spacing(4),
+        },
     }
 }));
 
@@ -63,7 +67,7 @@ export default function LoginState(props) {
     }
 
     return (
-        <div>
+        <>
             {isLogged && currentUser ?
                 <>
                     <IconButton aria-label="User" color="inherit" component={RouterLink} to="/user">
@@ -82,6 +86,6 @@ export default function LoginState(props) {
                     <LoginTestButtom singUpPopupClick={singUpPopupClick}/>
                 </>
             }
-        </div>
+        </>
     );
 }
