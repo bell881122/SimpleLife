@@ -70,8 +70,8 @@ export default function User() {
                                     <Box display="flex" justifyContent="center">
                                         <Avatar alt={displayName} src={userPhoto} className={classes.avatar} />
                                     </Box>
-                                    <Typography variant="body" align="center">
-                                        <Box component="p" mb={0} mt={3} >
+                                    <Box component="div" mb={0} mt={3} >
+                                        <Typography variant="body1" align="center">
                                             <IconButton
                                                 aria-label="Messager"
                                                 color="primary"
@@ -92,13 +92,13 @@ export default function User() {
                                                     <SettingsIcon />
                                                 </IconButton>
                                             </RouterLink>
-                                        </Box>
-                                    </Typography>
+                                        </Typography>
+                                    </Box>
                                     <Box mt={2}>
                                         <Typography component="h1" variant="h4" align="center" color="textPrimary" gutterBottom>
                                             {currentMemberContext.profile.name}
                                         </Typography>
-                                        <Typography variant="body" align="center" color="textSecondary" paragraph>
+                                        <Typography variant="body1" align="center" color="textSecondary" paragraph>
                                             {currentMemberContext.messageBoard}
                                         </Typography>
                                     </Box>
