@@ -59,7 +59,7 @@ export default function GoodEdit(props) {
         const data = editGood;
         data.lastModifiedDate = Date.now();
         data.lastModifiedTimestamp = getTimestamp();
-        
+
         if (imgFileBlob !== undefined) {
             let imagePathAndName = `good/${goodId}-main.jpg`;
             let storageRef = storage.ref().child(imagePathAndName);
@@ -133,6 +133,7 @@ export default function GoodEdit(props) {
             imgURL: name === "imgURL" ? e : editGood.imgURL,
             price: name === "price" ? parseInt(e) : parseInt(editGood.price),
             state: name === "state" ? e : editGood.state,
+            location: name === "location" ? e : editGood.location,
         }))
     }
 
@@ -147,7 +148,7 @@ export default function GoodEdit(props) {
                     </Box>
                     <form noValidate autoComplete="off">
                         <UpdateImage previewImgUrl={previewImgUrl} setPreviewImgUrl={setPreviewImgUrl} good={editGood} setImgFileBlob={setImgFileBlob} checkDisabled={checkDisabled} />
-                        <Box my={2}>
+                        <Box my={3}>
                             <TextField
                                 style={{ width: '50%' }}
                                 id="standard-basic"
@@ -164,43 +165,59 @@ export default function GoodEdit(props) {
                                 onBlur={() => checkDisabled()}
                             />
                         </Box>
-                        <Box my={2}>
+                        <Box my={3}>
+                            <Box component="span" mr={3}>
+                                <TextField
+                                    id="standard-select-currency"
+                                    select
+                                    label="狀態"
+                                    name="state"
+                                    value={editGood.state}
+                                    onChange={e => onChange(e.target.value, e.target.name)}
+                                >
+                                    {states.map((option) => (
+                                        <MenuItem key={option.value} value={option.value} style={{ width: '100%' }}>
+                                            {option.label}
+                                        </MenuItem>
+                                    ))}
+                                </TextField>
+                            </Box>
+                            <Box component="span">
+                                <TextField
+                                    id="standard-number"
+                                    label="標價"
+                                    type="number"
+                                    InputLabelProps={{
+                                        shrink: true,
+                                        'aria-label': 'price'
+                                    }}
+                                    InputProps={{ inputProps: { min: 0 } }}
+                                    name="price"
+                                    value={editGood.price}
+                                    onChange={e => onChange(e.target.value, e.target.name)}
+                                    min={0}
+                                    max={99999}
+                                    error={editGood.price < 0 || editGood.price > 99999}
+                                    helperText={editGood.price < 0 || editGood.price > 99999 ? "請填寫位於0~99999之間的數字" : ""}
+                                    onBlur={() => checkDisabled()}
+                                />
+                            </Box>
+                        </Box>
+                        <Box my={3}>
                             <TextField
-                                id="standard-number"
-                                label="標價"
-                                type="number"
+                                style={{ width: '50%' }}
+                                id="standard-basic"
+                                label="所在地（非必填）"
                                 InputLabelProps={{
                                     shrink: true,
-                                    'aria-label': 'price'
+                                    'aria-label': 'location'
                                 }}
-                                InputProps={{ inputProps: { min: 0 } }}
-                                name="price"
-                                value={editGood.price}
+                                name="location"
+                                value={editGood.location}
                                 onChange={e => onChange(e.target.value, e.target.name)}
-                                min={0}
-                                max={99999}
-                                error={editGood.price < 0 || editGood.price > 99999}
-                                helperText={editGood.price < 0 || editGood.price > 99999 ? "請填寫位於0~99999之間的數字" : ""}
-                                onBlur={() => checkDisabled()}
                             />
                         </Box>
-                        <Box my={2}>
-                            <TextField
-                                id="standard-select-currency"
-                                select
-                                label="狀態"
-                                name="state"
-                                value={editGood.state}
-                                onChange={e => onChange(e.target.value, e.target.name)}
-                            >
-                                {states.map((option) => (
-                                    <MenuItem key={option.value} value={option.value} style={{ width: '100%' }}>
-                                        {option.label}
-                                    </MenuItem>
-                                ))}
-                            </TextField>
-                        </Box>
-                        <Box my={2} >
+                        <Box my={3} >
                             <TextField
                                 style={{ width: '50%' }}
                                 id="standard-multiline-static"

@@ -25,7 +25,7 @@ export default function UpdateImage(props) {
             {(previewImgUrl || good.imgURL) &&
                 <Box>
                     <img
-                        style={{ maxWidth: '200px', maxHeight: '200px' }}
+                        style={{ width: '100%', maxWidth: '300px', maxHeight: '300px' }}
                         src={previewImgUrl ? previewImgUrl : good.imgURL}
                         title={good.title || "預覽圖片"}
                         alt="預覽圖片"

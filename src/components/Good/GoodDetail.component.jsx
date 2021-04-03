@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'justify',
         textJustify: 'inter-ideograph'
     },
-    description: {
+    textWeight: {
         fontSize: 18,
         fontWeight: 'bold'
     },
@@ -72,9 +72,21 @@ export default function GoodDetail(props) {
                             </Typography>
                         </Box>
                         <Divider light={true} />
+                        {good.location !== "" &&
+                            <Box my={2}>
+                                <Box my={1}>
+                                    <Typography variant="body1" component="h3" className={classes.textWeight}>
+                                        物品所在地：
+                                    </Typography>
+                                </Box>
+                                <Typography variant="body1" component="p" style={{ whiteSpace: 'pre-line' }}>
+                                    {good.location}
+                                </Typography>
+                            </Box>
+                        }
                         <Box my={2}>
                             <Box my={1}>
-                                <Typography variant="body1" component="h3" className={classes.description}>
+                                <Typography variant="body1" component="h3" className={classes.textWeight}>
                                     物品描述：
                                 </Typography>
                             </Box>
