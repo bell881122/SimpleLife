@@ -18,7 +18,7 @@ export default function Member() {
     const [member, setMember] = React.useState();
     const [goods, setGoods] = React.useState();
     const [showMessageCase, setShowMessageCase] = React.useState(false);
-    const [currentMemberContext] = React.useContext(CurrentMemberContext);
+    const { currentMemberContext } = React.useContext(CurrentMemberContext);
 
     React.useEffect(() => {
         if (id !== undefined) {

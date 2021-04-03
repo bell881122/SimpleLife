@@ -35,7 +35,7 @@ export default function Layout(props) {
         <>
             <CssBaseline />
             <ThemeProvider theme={theme}>
-                <CurrentMemberContext.Provider value={[currentMemberContext, setCurrentMemberContext]}>
+                <CurrentMemberContext.Provider value={{ currentMemberContext, setCurrentMemberContext }}>
                     <Box display="flex" height="100vh" flexDirection="column" bgcolor="background.paper">
                         <Box flexShrink={1} >
                             <MenuBar />

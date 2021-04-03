@@ -26,7 +26,7 @@ export default function FeedbackForm() {
     const history = useHistory();
     const [feedback, setFeedback] = React.useState(new NewFeedback("", "").data);
     const [submitButtomDisabled, setSubmitButtomDisabled] = React.useState(false);
-    const [currentMemberContext] = React.useContext(CurrentMemberContext);
+    const { currentMemberContext } = React.useContext(CurrentMemberContext);
 
     const checkDisabled = React.useCallback(() => {
         const doCheckDisabled = async () => {

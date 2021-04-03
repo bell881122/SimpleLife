@@ -40,6 +40,7 @@ export default function User() {
     const [userPhoto, setUserPhoto] = React.useState("");
     const [displayName, setDisplayName] = React.useState("");
     const [showMessageCase, setShowMessageCase] = React.useState(false);
+    const { currentMemberContext } = React.useContext(CurrentMemberContext);
 
     const history = useHistory();
     React.useEffect(() => {
@@ -52,8 +53,6 @@ export default function User() {
             }
         });
     }, [history]);
-
-    const [currentMemberContext] = React.useContext(CurrentMemberContext);
 
     return (
         <>

@@ -16,8 +16,7 @@ const ModalBotton = React.lazy(() => import('tools/ModalBotton.tool.jsx'));
 export default function Good() {
     let { id } = useParams();
     const history = useHistory();
-
-    const [currentMemberContext] = React.useContext(CurrentMemberContext);
+    const { currentMemberContext } = React.useContext(CurrentMemberContext);
     const [good, setGood] = React.useState();
     const [isMyGood, setIsMyGood] = React.useState(false);
     const [isEdit, setIsEdit] = React.useState(false);

@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 export default function UserInfo(props) {
     const { goodsCount } = props;
     const classes = useStyles();
-    const [currentMemberContext] = React.useContext(CurrentMemberContext);
+    const { currentMemberContext } = React.useContext(CurrentMemberContext);
 
     return (
         <>

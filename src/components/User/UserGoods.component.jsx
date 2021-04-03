@@ -12,7 +12,7 @@ const Card = React.lazy(() => import('components/Card/Card.component.jsx'));
 export default function UserGoods(props) {
     const { goodsCount, setGoodsCount } = props;
     const [goods, setGoods] = React.useState();
-    const [currentMemberContext] = React.useContext(CurrentMemberContext);
+    const { currentMemberContext } = React.useContext(CurrentMemberContext);
 
     React.useEffect(() => {
         if (currentMemberContext) {
