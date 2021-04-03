@@ -48,7 +48,8 @@ export default function MessageInputArea(props) {
         // 更新 messageItem
         let messageItem = currentChatItem;
         messageItem.lastMessage = message.content;
-        messageItem.lastModifiedTime = getTimestamp();
+        messageItem.lastModifiedDate = Date.now();
+        messageItem.lastModifiedTimestamp = getTimestamp();
         messageItem.unreadMemberId = chatMemberId;
         MessageItemDataService.update(messageItem.id, messageItem);
     }

@@ -10,7 +10,7 @@ class MessageItem {
             memberIds: dt.memberIds !== undefined ? dt.memberIds : [],
             lastMessage: dt.lastMessage !== undefined ? dt.lastMessage : "",
             unreadMemberId: dt.unreadMemberId !== undefined ? dt.unreadMemberId : "",
-            lastModifiedTime: dt.lastModifiedTime !== undefined ? dt.lastModifiedTime : Date.now(),
+            lastModifiedDate: dt.lastModifiedDate !== undefined ? dt.lastModifiedDate : Date.now(),
             lastModifiedTimestamp: dt.lastModifiedTimestamp !== undefined ? dt.lastModifiedTimestamp : getTimestamp(),
             createdTime: dt.createdTime !== undefined ? dt.createdTime : Date.now(),
             createdTimestamp: dt.createdTimestamp !== undefined ? dt.createdTimestamp : getTimestamp(),

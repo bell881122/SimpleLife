@@ -57,7 +57,8 @@ export default function GoodEdit(props) {
     const update = (newGoodId) => {
         const goodId = newGoodId === undefined ? good.id : newGoodId;
         const data = editGood;
-        data.lastModifiedTime = getTimestamp();
+        data.lastModifiedDate = Date.now();
+        data.lastModifiedTimestamp = getTimestamp();
         
         if (imgFileBlob !== undefined) {
             let imagePathAndName = `good/${goodId}-main.jpg`;
