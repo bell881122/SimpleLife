@@ -19,14 +19,14 @@ let imgUrl = "https://images.pexels.com/photos/509922/pexels-photo-509922.jpeg?a
 
 const useStyles = makeStyles((theme) => ({
     heroContent: {
-        padding: theme.spacing(5, 0, 5),
+        padding: theme.spacing(6, 0, 2),
     },
     backGroundPic: {
         backgroundImage: `url(${imgUrl})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center 40%',
         top: 0,
-        opacity: 0.35,
+        opacity: 0.3,
     },
     avatar: {
         width: theme.spacing(17),
@@ -70,9 +70,8 @@ export default function User() {
                                     <Box display="flex" justifyContent="center">
                                         <Avatar alt={displayName} src={userPhoto} className={classes.avatar} />
                                     </Box>
-                                    <Typography component="h1" variant="h4" align="center" color="textPrimary" gutterBottom>
-                                        {currentMemberContext.profile.name}
-                                        <Box component="span" ml={1}>
+                                    <Typography variant="body" align="center">
+                                        <Box component="p" mb={0} mt={3} >
                                             <IconButton
                                                 aria-label="Messager"
                                                 color="primary"
@@ -95,9 +94,14 @@ export default function User() {
                                             </RouterLink>
                                         </Box>
                                     </Typography>
-                                    <Typography variant="h6" align="center" color="textSecondary" paragraph>
-                                        每天一點點，邁向簡單幸福生活。
-                                    </Typography>
+                                    <Box mt={2}>
+                                        <Typography component="h1" variant="h4" align="center" color="textPrimary" gutterBottom>
+                                            {currentMemberContext.profile.name}
+                                        </Typography>
+                                        <Typography variant="body" align="center" color="textSecondary" paragraph>
+                                            {currentMemberContext.messageBoard}
+                                        </Typography>
+                                    </Box>
                                 </Container>
                             </Box>
                             <UserTabs />
