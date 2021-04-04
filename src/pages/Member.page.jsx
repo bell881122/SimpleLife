@@ -28,7 +28,7 @@ export default function Member() {
 
     React.useEffect(() => {
         if (member !== undefined) {
-            GoodDataService.query("memberId", "==", id, ["registerTimestamp", "desc"], setGoods);
+            GoodDataService.getMemberGoods( id, setGoods);
         }
     }, [member, id]);
 

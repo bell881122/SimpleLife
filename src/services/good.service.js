@@ -39,6 +39,7 @@ class GoodDataService {
         return BaseDataService.delete(collection, id);
     }
 
+    //TODO:暫時用不到，保留給後台使用
     getAll(setState) {
         let queryCondition = {
             orderby: ["registerTimestamp", "desc"]
@@ -56,6 +57,30 @@ class GoodDataService {
             let dt = item.data();
             let good = new Good(id, dt).data;
             setState(good);
+        }).catch(error => {
+            console.log("Error getting documents: ", error);
+        });
+    }
+
+    getMemberGoods(memberId, setState) {
+        let queryCondition = {
+            where: [
+                {
+                    key: "memberId",
+                    operation: "==",
+                    condition: memberId
+                },
+                {
+                    key: "published",
+                    operation: "==",
+                    condition: true
+                }
+            ],
+            orderby: ["registerTimestamp", "desc"]
+        }
+
+        BaseDataService.query(collection, queryCondition).then(snapshot => {
+            this.setData(snapshot, setState);
         }).catch(error => {
             console.log("Error getting documents: ", error);
         });

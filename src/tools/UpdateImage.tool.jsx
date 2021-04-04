@@ -25,7 +25,12 @@ export default function UpdateImage(props) {
             {(previewImgUrl || good.imgURL) &&
                 <Box>
                     <img
-                        style={{ width: '100%', maxWidth: '300px', maxHeight: '300px' }}
+                        style={{
+                            width: 'auto',
+                            height: 'auto',
+                            maxWidth: '300px',
+                            maxHeight: '300px'
+                        }}
                         src={previewImgUrl ? previewImgUrl : good.imgURL}
                         title={good.title || "預覽圖片"}
                         alt="預覽圖片"
@@ -34,6 +39,7 @@ export default function UpdateImage(props) {
             }
             <Box>
                 <TextField
+                    style={{ width: '50%', minWidth: '300px' }}
                     type="file"
                     label="圖片預覽"
                     InputLabelProps={{

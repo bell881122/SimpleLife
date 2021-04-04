@@ -8,6 +8,8 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 
 import GoodDataService from "services/good.service";
 const UpdateImage = React.lazy(() => import('tools/UpdateImage.tool.jsx'));
@@ -134,6 +136,7 @@ export default function GoodEdit(props) {
             price: name === "price" ? parseInt(e) : parseInt(editGood.price),
             state: name === "state" ? e : editGood.state,
             location: name === "location" ? e : editGood.location,
+            published: name === "published" ? e : editGood.published,
         }))
     }
 
@@ -141,16 +144,31 @@ export default function GoodEdit(props) {
         <>
             {editGood &&
                 <Box my={3}>
-                    <Box mb={1}>
-                        <Typography variant="h5" component="h2">
-                            {editType}物品
-                        </Typography>
-                    </Box>
                     <form noValidate autoComplete="off">
+                        <Box mb={1} mr={0} display="flex" style={{ width: '57%', minWidth: '300px' }}                  >
+                            <Box>
+                                <Typography variant="h5" component="h2">
+                                    {editType}物品
+                                </Typography>
+                            </Box>
+                            <Box ml="auto" >
+                                <FormControlLabel
+                                    control={
+                                        <Switch
+                                            checked={editGood.published}
+                                            onChange={e => onChange(e.target.checked, e.target.name)}
+                                            name="published"
+                                            color="primary"
+                                        />
+                                    }
+                                    label="刊登"
+                                />
+                            </Box>
+                        </Box>
                         <UpdateImage previewImgUrl={previewImgUrl} setPreviewImgUrl={setPreviewImgUrl} good={editGood} setImgFileBlob={setImgFileBlob} checkDisabled={checkDisabled} />
                         <Box my={3}>
                             <TextField
-                                style={{ width: '50%' }}
+                                style={{ width: '50%', minWidth: '300px' }}
                                 id="standard-basic"
                                 label="物品名稱"
                                 InputLabelProps={{
@@ -205,7 +223,7 @@ export default function GoodEdit(props) {
                         </Box>
                         <Box my={3}>
                             <TextField
-                                style={{ width: '50%' }}
+                                style={{ width: '50%', minWidth: '300px' }}
                                 id="standard-basic"
                                 label="所在地（非必填）"
                                 InputLabelProps={{
@@ -219,7 +237,7 @@ export default function GoodEdit(props) {
                         </Box>
                         <Box my={3} >
                             <TextField
-                                style={{ width: '50%' }}
+                                style={{ width: '50%', minWidth: '300px' }}
                                 id="standard-multiline-static"
                                 label="物品敘述"
                                 name="description"

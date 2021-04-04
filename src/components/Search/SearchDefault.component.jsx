@@ -7,7 +7,7 @@ export default function SearchDefault() {
     const [goods, setGoods] = React.useState();
 
     React.useEffect(() => {
-        GoodDataService.getAll(setGoods);
+        GoodDataService.query("published", "==", true, ["registerTimestamp", "desc"], setGoods);
     }, []);
 
     return (
