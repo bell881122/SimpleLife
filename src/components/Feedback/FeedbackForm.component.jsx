@@ -7,6 +7,8 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 import { CurrentMemberContext } from "context/CurrentMemberContext.js";
 import FeedbackDataService, { Feedback as NewFeedback } from "services/feedback.service";
@@ -74,14 +76,16 @@ export default function FeedbackForm() {
         <>
             {feedback && currentMemberContext &&
                 <Box mx={2} mt={3} mb={6}>
-                    <Box mb={2}>
-                        <Typography variant="h5" component="h2">
-                            系統錯誤回報／建議
-                        </Typography>
-                    </Box>
                     <form noValidate autoComplete="off">
+                        <Box mb={2}>
+                            <Typography variant="h5" component="h2">
+                                系統回報錯誤／建議
+                            </Typography>
+                            <FormControl error>
+                                <FormHelperText id="component-error-text">回報系統預設為匿名，不會顯示任何個人資料</FormHelperText>
+                            </FormControl>
+                        </Box>
                         <Box display="flex">
-
                             <Box mr={3} style={{ width: '100%' }}>
                                 <TextField
                                     style={{ width: '100%' }}
@@ -114,15 +118,19 @@ export default function FeedbackForm() {
                                 </TextField>
                             </Box>
                         </Box>
-                        <Box display="flex">
+                        <Box display="flex" mt={2}>
                             <Box style={{ width: '100%' }}>
                                 <TextField
                                     style={{ width: '100%' }}
                                     id="standard-multiline-static"
                                     label="回報內容"
+                                    InputLabelProps={{
+                                        shrink: true,
+                                        'aria-label': 'content'
+                                    }}
                                     name="content"
                                     multiline
-                                    rows={3}
+                                    rows={2}
                                     value={feedback.content}
                                     onChange={e => onChange(e.target.value, e.target.name)}
                                     onBlur={() => checkDisabled()}
