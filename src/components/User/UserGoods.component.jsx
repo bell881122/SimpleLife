@@ -24,7 +24,7 @@ export default function UserGoods(props) {
         if (goods && goods.length > 0) {
             setGoodsCount(goods.length);
         }
-    }, [goods]);
+    }, [goods, setGoodsCount]);
 
     return (
         <>

@@ -66,7 +66,7 @@ export default function MessageList(props) {
                 setCurrentChatItem(currentMessageItem);
             }
         }
-    }, [currentMemberId, chatMemberId, doneCheckMessageItem, messageItems]);
+    }, [currentMemberId, chatMemberId, doneCheckMessageItem, messageItems, setCurrentChatItem]);
 
     const getCurrentChat = (memberIds, value) => {
 
