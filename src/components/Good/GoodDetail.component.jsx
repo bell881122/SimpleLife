@@ -84,6 +84,7 @@ export default function GoodDetail(props) {
                                 </Typography>
                             </Box>
                         }
+                        <Divider light={true} />
                         <Box my={2}>
                             <Box my={1}>
                                 <Typography variant="body1" component="h3" className={classes.textWeight}>
@@ -93,6 +94,21 @@ export default function GoodDetail(props) {
                             <Typography variant="body1" component="p" style={{ whiteSpace: 'pre-line' }}>
                                 {good.description}
                             </Typography>
+                        </Box>
+                        <Divider light={true} />
+                        <Box my={2}>
+                            <Box my={1}>
+                                <Typography variant="body1" component="h3" className={classes.textWeight}>
+                                    物品標籤：
+                                </Typography>
+                            </Box>
+                            <Box display="flex" flexWrap="wrap" w={1}>
+                                {good.tags && good.tags.map((tag, index) => (
+                                    <Box key={index} mr={1} mb={1}>
+                                        <Chip size="small" label={tag} color="primary" />
+                                    </Box>
+                                ))}
+                            </Box>
                         </Box>
                     </Box>
 

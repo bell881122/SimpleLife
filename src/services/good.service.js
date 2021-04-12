@@ -14,6 +14,7 @@ class Good {
             state: dt.state !== undefined ? dt.state : "二手",
             published: dt.published !== undefined ? dt.published : true,
             location: dt.location !== undefined ? dt.location : "",
+            tags: dt.tags !== undefined ? dt.tags : [],
             //時間紀錄
             registerDate: dt.registerDate !== undefined ? dt.registerDate : Date.now(),
             registerTimestamp: dt.registerTimestamp !== undefined ? dt.registerTimestamp : getTimestamp(),

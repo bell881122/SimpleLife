@@ -32,15 +32,19 @@ export default function GoodEdit(props) {
     const [imgFileBlob, setImgFileBlob] = React.useState(); //圖片暫存 blob
     const [submitButtomDisabled, setSubmitButtomDisabled] = React.useState(false);
     const [previewImgUrl, setPreviewImgUrl] = React.useState(); //本地圖片預覽
+    const [tagsString, setTagsString] = React.useState(editGood.tags.toString());
 
     const checkDisabled = React.useCallback(() => {
+        let tags = tagsString.split(",");
+
         const doCheckDisabled = async () => {
             if (editGood.title === "" ||
                 editGood.description === "" ||
                 editGood.state === "" ||
                 (previewImgUrl === undefined && good.imgURL === "") ||
                 editGood.price < 0 ||
-                editGood.price > 99999
+                editGood.price > 99999 ||
+                (tags.length > 1 && tags.some(x => x === "" || x === " "))
             ) {
                 setSubmitButtomDisabled(true);
             } else {
@@ -101,12 +105,19 @@ export default function GoodEdit(props) {
     }
 
     const updateGood = (goodId, data) => {
+        let good = data;
+        good.tags = tagsString.split(",")
+            .map(x => x.trim())
+            .filter(function (element, index, arr) {
+                return arr.indexOf(element) === index;
+            });;
+
         GoodDataService.update(goodId, data)
             .then(() => {
                 //重整網頁
                 setIsEdit(false);
                 setEditType("編輯");
-                setGood(data);
+                setGood(good);
                 // history.go(0);
                 history.push(`/good/${goodId}`);
             })
@@ -138,6 +149,10 @@ export default function GoodEdit(props) {
             location: name === "location" ? e : editGood.location,
             published: name === "published" ? e : editGood.published,
         }))
+
+        if (name === "tag") {
+            setTagsString(e);
+        }
     }
 
     return (
@@ -248,6 +263,22 @@ export default function GoodEdit(props) {
                                 error={editGood.description === ""}
                                 helperText={editGood.description === "" ? "物品敘述不可為空" : ""}
                                 onBlur={() => checkDisabled()}
+                            />
+                        </Box>
+                        <Box my={3}>
+                            <TextField
+                                style={{ width: '50%', minWidth: '300px' }}
+                                id="standard-basic"
+                                label="標籤(請用半形逗號「,」分開)"
+                                InputLabelProps={{
+                                    shrink: true,
+                                    'aria-label': 'tag'
+                                }}
+                                name="tag"
+                                value={tagsString}
+                                onChange={e => onChange(e.target.value, e.target.name)}
+                                error={tagsString.split(",").length > 1 && tagsString.split(",").some(x => x === "" || x === " ")}
+                                helperText={tagsString.split(",").length > 1 && tagsString.split(",").some(x => x === "" || x === " ") && "請勿填寫空白標籤"}
                             />
                         </Box>
                         <Box my={4}>
