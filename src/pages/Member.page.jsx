@@ -12,6 +12,7 @@ import MemberDataService from "services/member.service";
 import GoodDataService from "services/good.service";
 const CardList = React.lazy(() => import('components/Card/CardList.component.jsx'));
 const Messager = React.lazy(() => import('components/Message/Messager.component.jsx'));
+const MemberScorePoint = React.lazy(() => import('components/Member/MemberScorePoint.component.jsx'));
 
 export default function Member() {
     let { id } = useParams();
@@ -54,6 +55,11 @@ export default function Member() {
                                             {member.profile.name}
                                         </Typography>
                                     </Box>
+                                    <MemberScorePoint
+                                        member={member}
+                                        setMember={setMember}
+                                        currentMemberId={currentMemberContext ? currentMemberContext.id : undefined}
+                                    />
                                     {(
                                         currentMemberContext &&
                                         currentMemberContext.uid !== id

@@ -5,16 +5,19 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { dangerColor } from "material-ui/custom.js";
 
 export default function ModalBotton(props) {
     const {
         variant,
         style,
+        size,
+        disabled,
         buttonText,
         modalTitle,
+        modalContentType,
         modalContent,
         modalAction,
+        modalActionButtonColor,
         actionText
     } = props;
     const [open, setOpen] = React.useState(false);
@@ -32,6 +35,8 @@ export default function ModalBotton(props) {
             <Button
                 variant={variant}
                 style={style}
+                size={size}
+                disabled={disabled}
                 onClick={handleClickOpen}
             >{buttonText}</Button>
             <Dialog
@@ -46,16 +51,20 @@ export default function ModalBotton(props) {
                     {modalTitle}
                 </DialogTitle>
                 <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                        {modalContent}
-                    </DialogContentText>
+                    {modalContentType === "text" ?
+                        <DialogContentText id="alert-dialog-description">
+                            {modalContent}
+                        </DialogContentText>
+                        :
+                        <> {modalContent}</>
+                    }
                 </DialogContent>
                 <DialogActions>
                     <Button
-                        onClick={modalAction}
+                        onClick={() => { modalAction(); handleClose(); }}
                         style={{
                             color: 'white',
-                            backgroundColor: dangerColor
+                            backgroundColor: modalActionButtonColor
                         }}
                     >{actionText}</Button>
                     <Button onClick={handleClose} autoFocus>

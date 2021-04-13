@@ -97,9 +97,12 @@ export default function Good() {
                                             backgroundColor: dangerColor
                                         }}
                                         buttonText="刪除"
+                                        disabled={false}
                                         modalTitle="刪除物品"
+                                        modalContentType="text"
                                         modalContent="確認要刪除物品嗎"
                                         modalAction={() => deleteGood()}
+                                        modalActionButtonColor={dangerColor}
                                         actionText="刪除"
                                     />
                                 </Box>
