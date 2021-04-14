@@ -100,13 +100,9 @@ class GoodDataService {
         });
     }
 
-    query(key, operation, condition, orderby, setState) {
+    query(where, orderby, setState) {
         let queryCondition = {
-            where: [{
-                key: key,
-                operation: operation,
-                condition: condition
-            }],
+            where: where,
             orderby: orderby
         }
         BaseDataService.query(collection, queryCondition).then(snapshot => {

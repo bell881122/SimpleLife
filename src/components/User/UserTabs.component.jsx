@@ -67,7 +67,7 @@ export default function UserTabs() {
 
     React.useEffect(() => {
         if (currentMemberContext) {
-            GoodDataService.query("memberId", "==", currentMemberContext.uid, ["registerTimestamp", "desc"], setUserGoods);
+            GoodDataService.query([{ key: "memberId", operation: "==", condition: currentMemberContext.uid }], ["registerTimestamp", "desc"], setUserGoods);
             GoodDataService.getByIds(currentMemberContext.favorites, setUserFavoriteGoods);
         }
     }, [currentMemberContext]);

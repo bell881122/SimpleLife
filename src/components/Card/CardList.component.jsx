@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
 
 const CardDetail = React.lazy(() => import('components/Card/CardDetail.component.jsx'));
 const Card = React.lazy(() => import('components/Card/Card.component.jsx'));
@@ -17,11 +18,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function CardList(props) {
-    const classes = useStyles();
-
-    const { goods } = props;
-
+    const { goods, title } = props;
     const [showDetail, setShowDetail] = React.useState(false);
+    const classes = useStyles();
 
     const handleChange = () => {
         setShowDetail(!showDetail);
@@ -29,7 +28,12 @@ export default function CardList(props) {
 
     return (
         <>
-            <Box display="flex">
+            <Box display="flex" mb={1}>
+                {title &&
+                    <Typography variant="h5" component="h2" mb={5}>
+                        {title}
+                    </Typography>
+                }
                 <FormControlLabel
                     display="block" style={{ marginLeft: "auto" }}
                     control={
