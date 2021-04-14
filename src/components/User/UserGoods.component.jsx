@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 
 import { CurrentMemberContext } from "context/CurrentMemberContext.js";
 import GoodDataService from "services/good.service";
-const AddGoodBotton = React.lazy(() => import('tools/AddGoodBotton.tool.jsx'));
+const AddGoodButton = React.lazy(() => import('tools/AddGoodButton.tool.jsx'));
 const Card = React.lazy(() => import('components/Card/Card.component.jsx'));
 
 export default function UserGoods(props) {
@@ -32,7 +32,7 @@ export default function UserGoods(props) {
                 {goodsCount <= 50 &&
                     <Grid item xs={6} sm={4} md={3}>
                         <Box height={1} display="flex" justifyContent="center" alignItems="center">
-                            <AddGoodBotton />
+                            <AddGoodButton />
                         </Box>
                     </Grid>
                 }
