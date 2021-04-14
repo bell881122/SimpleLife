@@ -13,7 +13,8 @@ class Member {
             },
             registerDate: dt.registerDate !== undefined ? dt.registerDate : Date.now(),
             messageBoard: dt.messageBoard !== undefined ? dt.messageBoard : "每天一點點，邁向簡單幸福生活。",
-            scores: dt.scores !== undefined ? dt.scores : []
+            scores: dt.scores !== undefined ? dt.scores : [],
+            favorites: dt.favorites !== undefined ? dt.favorites : [],
         }
     }
 }

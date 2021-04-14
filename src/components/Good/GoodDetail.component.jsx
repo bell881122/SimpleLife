@@ -10,6 +10,7 @@ import Divider from '@material-ui/core/Divider';
 import Avatar from '@material-ui/core/Avatar';
 
 import MemberDataService from "services/member.service";
+const FavoriteBotton = React.lazy(() => import('tools/FavoriteBotton.tool.jsx'));
 
 const useStyles = makeStyles((theme) => ({
     mainPicture: good => ({
@@ -56,10 +57,19 @@ export default function GoodDetail(props) {
                     <Box className={classes.mainPicture} />
                     <Box mb={2} p={2} className={classes.whiteBackground}>
                         <Box mb={1} display="flex" justifyContent="space-between">
-                            <Chip label={good.state} size="small" />
-                            <Typography variant="body1" display="block" gutterBottom>
-                                刊登日：{moment(good.publishedDate).format('YYYY-MM-DD')}
-                            </Typography>
+                            <Box display="flex">
+                                <Box >
+                                    <Chip label={good.state} size="small" />
+                                </Box>
+                                <Box ml={1} >
+                                    <FavoriteBotton goodId={good.id} />
+                                </Box>
+                            </Box>
+                            <Box style={{ marginTop: 3 }} >
+                                <Typography variant="body2" display="block" gutterBottom>
+                                    刊登日：{moment(good.publishedDate).format('YYYY-MM-DD')}
+                                </Typography>
+                            </Box>
                         </Box>
                         <Box mb={2}>
                             <Typography variant="h5" component="h2" mb={5} className={classes.title}>
