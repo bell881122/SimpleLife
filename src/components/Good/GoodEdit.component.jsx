@@ -53,7 +53,7 @@ export default function GoodEdit(props) {
         };
 
         doCheckDisabled();
-    }, [editGood, previewImgUrl, good]);
+    }, [tagsString, editGood, previewImgUrl, good]);
 
     React.useEffect(() => {
         if (editGood !== undefined)
