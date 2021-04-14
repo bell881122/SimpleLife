@@ -21,7 +21,7 @@ class BaseDataService {
         if (queryCondition.orderby !== undefined) {
             query = query.orderBy(queryCondition.orderby[0], queryCondition.orderby[1]);
         }
-        
+
         return query.get();
     }
 
@@ -29,10 +29,21 @@ class BaseDataService {
         return db.collection(collection).doc(id).get();
     }
 
+    getByIds(collection, ids) {
+        let queryCondition = {
+            where: [{
+                key: "id",
+                operation: "in",
+                condition: ids
+            }]
+        }
+        return this.query(collection, queryCondition);
+    }
+
     query(collection, queryCondition) {
         let query = db.collection(collection);
 
-        for (var i = 0; i < queryCondition.where.length;i++){
+        for (var i = 0; i < queryCondition.where.length; i++) {
             query = this.queryBase(query, queryCondition.where[i]);
         }
 

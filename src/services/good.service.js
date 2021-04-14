@@ -63,6 +63,19 @@ class GoodDataService {
         });
     }
 
+    getByIds(ids, setState) {
+        if (ids.length === 0) {
+            setState([]);
+        } else {
+            BaseDataService.getByIds(collection, ids)
+                .then(snapshot => {
+                    this.setData(snapshot, setState)
+                }).catch(error => {
+                    console.log("Error getting documents: ", error);
+                });
+        }
+    }
+
     getMemberGoods(memberId, setState) {
         let queryCondition = {
             where: [
