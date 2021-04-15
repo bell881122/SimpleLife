@@ -4,6 +4,7 @@ import Box from '@material-ui/core/Box';
 
 import GoodDataService from "services/good.service";
 const CardList = React.lazy(() => import('components/Card/CardList.component.jsx'));
+const SearchInput = React.lazy(() => import('components/Search/SearchInput.component.jsx'));
 
 export default function SearchDefault() {
     const [allPublishedGoods, setAllPublishedGoods] = React.useState();
@@ -15,9 +16,10 @@ export default function SearchDefault() {
     }, []);
 
     return (
-        <Box py={5}>
+        <Box pt={3} pb={8}>
+            <SearchInput />
             {allFreeGoods &&
-                <Box>
+                <Box mt={5}>
                     <CardList
                         title="免費結緣"
                         goods={allFreeGoods}
@@ -25,7 +27,7 @@ export default function SearchDefault() {
                 </Box>
             }
             {allPublishedGoods &&
-                <Box mt={10}>
+                <Box mt={8}>
                     <CardList
                         title="最新物品"
                         goods={allPublishedGoods}
