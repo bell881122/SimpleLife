@@ -10,6 +10,8 @@ import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
+import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 import GoodDataService from "services/good.service";
 const UpdateImage = React.lazy(() => import('tools/UpdateImage.tool.jsx'));
@@ -158,7 +160,7 @@ export default function GoodEdit(props) {
     return (
         <>
             {editGood &&
-                <Box my={3}>
+                <Box py={3}>
                     <form noValidate autoComplete="off">
                         <Box mb={1} mr={0} display="flex" style={{ width: '57%', minWidth: '300px' }}                  >
                             <Box>
@@ -281,7 +283,7 @@ export default function GoodEdit(props) {
                                 helperText={tagsString.split(",").length > 1 && tagsString.split(",").some(x => x === "" || x === " ") && "請勿填寫空白標籤"}
                             />
                         </Box>
-                        <Box my={4}>
+                        <Box mt={4} mb={2}>
                             {editType === "編輯" ?
                                 <>
                                     <Button
@@ -307,6 +309,9 @@ export default function GoodEdit(props) {
                                 >新增物品</Button>
                             }
                         </Box>
+                        <FormControl style={{ width: '50%', minWidth: '300px' }}>
+                            <FormHelperText id="component-error-text">網頁需要一段時間處理資料，更新後幾分鐘內無法搜尋到新增資料為正常現象喔</FormHelperText>
+                        </FormControl>
                     </form>
                 </Box>
             }
