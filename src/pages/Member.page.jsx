@@ -23,13 +23,13 @@ export default function Member() {
 
     React.useEffect(() => {
         if (id !== undefined) {
-            MemberDataService.getById(id, null, setMember);
+            MemberDataService.getById(id, setMember);
         }
     }, [id]);
 
     React.useEffect(() => {
         if (member !== undefined) {
-            GoodDataService.getMemberGoods( id, setGoods);
+            GoodDataService.getMemberGoods(id, setGoods);
         }
     }, [member, id]);
 
@@ -38,9 +38,9 @@ export default function Member() {
             {(
                 showMessageCase &&
                 currentMemberContext &&
-                currentMemberContext.uid !== id
+                currentMemberContext.id !== id
             ) ? <Messager
-                currentMemberId={currentMemberContext.uid}
+                currentMemberId={currentMemberContext.id}
                 chatMemberId={id}
                 setShowMessageCase={setShowMessageCase}
             /> : <>
@@ -62,7 +62,7 @@ export default function Member() {
                                     />
                                     {(
                                         currentMemberContext &&
-                                        currentMemberContext.uid !== id
+                                        currentMemberContext.id !== id
                                     ) &&
                                         <IconButton aria-label="Messager" color="primary" onClick={() => setShowMessageCase(true)}>
                                             <SmsOutlinedIcon />

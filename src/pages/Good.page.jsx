@@ -28,7 +28,7 @@ export default function Good() {
                 if (currentMemberContext) {
                     setIsEdit(true);
                     let newGood = NewGood.data;
-                    newGood.memberId = currentMemberContext.uid;
+                    newGood.memberId = currentMemberContext.id;
                     setGood(newGood);
                     setEditType("新增")
                 }
@@ -43,7 +43,7 @@ export default function Good() {
         if (good !== undefined &&
             good.memberId !== undefined &&
             currentMemberContext !== undefined &&
-            currentMemberContext.uid === good.memberId) {
+            currentMemberContext.id === good.memberId) {
             setIsMyGood(true);
         }
     }, [good, currentMemberContext]);

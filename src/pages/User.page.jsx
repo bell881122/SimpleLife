@@ -58,7 +58,7 @@ export default function User() {
         <>
             {(showMessageCase && currentMemberContext) ?
                 <Messager
-                    currentMemberId={currentMemberContext.uid}
+                    currentMemberId={currentMemberContext.id}
                     setShowMessageCase={setShowMessageCase}
                 /> :
                 <>

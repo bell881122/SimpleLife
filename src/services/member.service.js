@@ -29,7 +29,7 @@ class MemberDataService {
         return BaseDataService.update(collection, id, data);
     }
 
-    getById(uid, user, setState, testRegisteredValid) {
+    getByUid(uid, user, setState, testRegisteredValid) {
         let queryCondition = {
             where: [{
                 key: "uid",
@@ -68,12 +68,31 @@ class MemberDataService {
         });
     }
 
-    getSimpleMemberData(uids, messageItems, setMessageItems) {
+    getById(id, setState) {
         let queryCondition = {
             where: [{
-                key: "uid",
+                key: "id",
+                operation: "==",
+                condition: id
+            }]
+        }
+        BaseDataService.query(collection, queryCondition).then(snapshot => {
+            snapshot.forEach((item) => {
+                let dt = item.data();
+                let member = new Member(dt.id, dt).data;
+                setState(member);
+            });
+        }).catch(error => {
+            console.log("Error getting documents: ", error);
+        });
+    }
+
+    getSimpleMemberData(ids, messageItems, setMessageItems) {
+        let queryCondition = {
+            where: [{
+                key: "id",
                 operation: "in",
-                condition: uids
+                condition: ids
             }]
         }
 
@@ -86,7 +105,7 @@ class MemberDataService {
                 let dt = item.data();
                 let member = new Member(id, dt).data;
                 chatMessageItems.forEach(i => {
-                    if (i.memberIds.indexOf(dt.uid) > -1) {
+                    if (i.memberIds.indexOf(dt.id) > -1) {
                         i.chatMemberName = member.profile.name;
                         i.chatMemberPhotoUrl = member.profile.photoURL;
                     }

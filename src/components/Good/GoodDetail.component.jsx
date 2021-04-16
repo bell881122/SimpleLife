@@ -46,7 +46,7 @@ export default function GoodDetail(props) {
 
     React.useEffect(() => {
         if (good !== undefined && good.memberId !== undefined) {
-            MemberDataService.getById(good.memberId, null, setGoodMember);
+            MemberDataService.getById(good.memberId, setGoodMember);
         }
     }, [good]);
 
@@ -132,7 +132,7 @@ export default function GoodDetail(props) {
                         <Box display="flex" p={2} className={classes.whiteBackground}>
                             <RouterLink
                                 basename="/member"
-                                to={`/member/${goodMember.uid}`}
+                                to={`/member/${goodMember.id}`}
                             >
                                 <Avatar
                                     src={goodMember.profile.photoURL}

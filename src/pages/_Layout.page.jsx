@@ -30,7 +30,7 @@ export default function Layout(props) {
                         photoURL: user.photoURL,
                     },
                 }
-                MemberDataService.getById(user.uid, currentMember, setCurrentMemberContext, testRegisteredValid);
+                MemberDataService.getByUid(user.uid, currentMember, setCurrentMemberContext, testRegisteredValid);
             }
         });
     }, [location.pathname]);

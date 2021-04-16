@@ -62,7 +62,7 @@ export default function FeedbackForm() {
         let data = feedback;
         data.registerTime = Date.now();
         data.registerTimestamp = getTimestamp();
-        data.memberId = currentMemberContext.uid;
+        data.memberId = currentMemberContext.id;
         FeedbackDataService.create(data)
             .then(function (docRef) {
                 history.go(0);
