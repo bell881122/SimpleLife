@@ -24,10 +24,7 @@ export default function Search() {
             let now = moment(Date.now()).toDate();
             let compare = moment(now, 'h:mma').isBefore(expireTime, 'h:mma');
             if (compare) {
-                let cacheData = JSON.parse(data)['allGoods'];
-                let searchKwArr = searchString.split(" ");
-                let goodIds = Object.keys(cacheData).filter(key => searchKwArr.every(skr => cacheData[key].some(kw => kw.indexOf(skr) > -1)));
-                GoodDataService.getByIds(goodIds, setSearchGoods);
+                getData();
             } else {
                 setData();
             }
@@ -46,15 +43,23 @@ export default function Search() {
                 });
 
                 let expireTime = moment(Date.now()).add(5, 'm').toDate();
-                console.log("expireTime", expireTime);
                 localStorage.setItem('SimpleLifeGoods', JSON.stringify({
                     'expireTime': expireTime,
                     'allGoods': allGoods
                 }));
+
+                getData();
             }
         }
 
-    }, [searchString, allPublishedGoods]);
+        function getData() {
+            let cacheData = JSON.parse(localStorage.getItem('SimpleLifeGoods'))['allGoods'];
+            let searchKwArr = searchString.split(" ");
+            let goodIds = Object.keys(cacheData).filter(key => searchKwArr.every(skr => cacheData[key].some(kw => kw.indexOf(skr) > -1)));
+            GoodDataService.getByIds(goodIds, setSearchGoods);
+        }
+
+    }, [allPublishedGoods, searchString]);
 
     return (
         <Box pt={3} pb={8}>
