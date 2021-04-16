@@ -34,6 +34,9 @@ const useStyles = makeStyles((theme) => ({
         fontSize: 18,
         fontWeight: 'bold'
     },
+    textDecorationNone: {
+        textDecoration: 'none',
+    },
     whiteBackground: {
         backgroundColor: theme.palette.background.paper,
     }
@@ -119,7 +122,13 @@ export default function GoodDetail(props) {
                                     <Box display="flex" flexWrap="wrap" w={1}>
                                         {good.tags && good.tags.map((tag, index) => (
                                             <Box key={index} mr={1} mb={1}>
-                                                <Chip size="small" label={tag} color="primary" />
+                                                <RouterLink
+                                                    basename="/search"
+                                                    to={`/search/${tag}`}
+                                                    className={classes.textDecorationNone}
+                                                >
+                                                    <Chip size="small" label={tag} color="primary" onClick={() => { return }} />
+                                                </RouterLink>
                                             </Box>
                                         ))}
                                     </Box>
