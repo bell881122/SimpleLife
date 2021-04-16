@@ -18,6 +18,7 @@ function App() {
         <Suspense fallback={<Loading />}>
           <Layout>
             <Route exact path="/" component={Home} />
+            <Route exact path="/SimpleLifeTest" component={Home} />
             {/* <Route exact path="/notification" component={Notification} /> */}
             <Route exact path="/user" component={User} />
             <Route exact path="/search/:kw" component={Search} />

@@ -43,7 +43,12 @@ export default function LoginTestButtom(props) {
                         </Typography>
                         <Typography variant="body1" component="p">
                             {`帳號：simplelifetest1
-                            密碼：SimpleLife_1111`}
+                            密碼：SimpleLife_1111
+                            
+                            `}
+                        </Typography>
+                        <Typography variant="body2" color="error" component="p">
+                            {`※如果無法切換帳號，可使用無痕視窗`}
                         </Typography>
                         {/* <Typography variant="h5" component="p" style={{ paddingTop: 20 }}>
                             【測試帳號2】

@@ -49,8 +49,8 @@ export default function LoginState(props) {
         firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
             .then(() => {
                 firebase.auth().signInWithPopup(provider).then(function (result) {
-                    var user = result.user;
-                    console.log("Google 登入成功！", user)
+                    // var user = result.user;
+                    console.log("Google 登入成功")
                 });
             })
             .catch((error) => {
@@ -61,7 +61,7 @@ export default function LoginState(props) {
     const history = useHistory();
     const signOutClick = () => {
         firebase.auth().signOut().then(function () {
-            console.log("已成功登出！")
+            console.log("已成功登出")
             history.go(0);
         })
     }

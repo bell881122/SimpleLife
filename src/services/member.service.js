@@ -29,7 +29,7 @@ class MemberDataService {
         return BaseDataService.update(collection, id, data);
     }
 
-    getById(uid, user, setState) {
+    getById(uid, user, setState, testRegisteredValid) {
         let queryCondition = {
             where: [{
                 key: "uid",
@@ -39,7 +39,7 @@ class MemberDataService {
         }
         BaseDataService.query(collection, queryCondition).then(snapshot => {
             let member;
-            if (snapshot.docs.length === 0) {
+            if (snapshot.docs.length === 0 && testRegisteredValid) {
                 member = new Member("", user).data;
 
                 this.create(member)
