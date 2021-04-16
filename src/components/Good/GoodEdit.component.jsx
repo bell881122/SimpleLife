@@ -108,11 +108,13 @@ export default function GoodEdit(props) {
 
     const updateGood = (goodId, data) => {
         let good = data;
-        good.tags = tagsString.split(",")
-            .map(x => x.trim())
-            .filter(function (element, index, arr) {
-                return arr.indexOf(element) === index;
-            });;
+        if (tagsString !== "" && tagsString !== " ") {
+            good.tags = tagsString.split(",")
+                .map(x => x.trim())
+                .filter(function (element, index, arr) {
+                    return arr.indexOf(element) === index;
+                });;
+        }
 
         GoodDataService.update(goodId, data)
             .then(() => {
@@ -162,7 +164,7 @@ export default function GoodEdit(props) {
             {editGood &&
                 <Box py={3}>
                     <form noValidate autoComplete="off">
-                        <Box mb={1} mr={0} display="flex" style={{ width: '57%', minWidth: '300px' }}                  >
+                        <Box mb={1} mr={0} display="flex" style={{ width: '52%', minWidth: '310px' }}                  >
                             <Box>
                                 <Typography variant="h5" component="h2">
                                     {editType}物品
@@ -238,20 +240,6 @@ export default function GoodEdit(props) {
                                 />
                             </Box>
                         </Box>
-                        <Box my={3}>
-                            <TextField
-                                style={{ width: '50%', minWidth: '300px' }}
-                                id="standard-basic"
-                                label="所在地（非必填）"
-                                InputLabelProps={{
-                                    shrink: true,
-                                    'aria-label': 'location'
-                                }}
-                                name="location"
-                                value={editGood.location}
-                                onChange={e => onChange(e.target.value, e.target.name)}
-                            />
-                        </Box>
                         <Box my={3} >
                             <TextField
                                 style={{ width: '50%', minWidth: '300px' }}
@@ -265,6 +253,20 @@ export default function GoodEdit(props) {
                                 error={editGood.description === ""}
                                 helperText={editGood.description === "" ? "物品敘述不可為空" : ""}
                                 onBlur={() => checkDisabled()}
+                            />
+                        </Box>
+                        <Box my={3}>
+                            <TextField
+                                style={{ width: '50%', minWidth: '300px' }}
+                                id="standard-basic"
+                                label="所在地"
+                                InputLabelProps={{
+                                    shrink: true,
+                                    'aria-label': 'location'
+                                }}
+                                name="location"
+                                value={editGood.location}
+                                onChange={e => onChange(e.target.value, e.target.name)}
                             />
                         </Box>
                         <Box my={3}>
