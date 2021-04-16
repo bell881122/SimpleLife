@@ -9,6 +9,7 @@ export class Feedback {
             type: dt.type !== undefined ? dt.type : "建議",
             title: dt.title !== undefined ? dt.title : "",
             content: dt.content !== undefined ? dt.content : "",
+            state: dt.state !== undefined ? dt.state : "受理中",
             registerTime: dt.registerTime !== undefined ? dt.registerTime : "",
             registerTimestamp: dt.registerTimestamp !== undefined ? dt.registerTimestamp : "",
         }

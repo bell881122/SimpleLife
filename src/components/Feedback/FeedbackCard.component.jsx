@@ -38,12 +38,15 @@ export default function FeedbackCard(props) {
                     <Box display="flex">
                         <Box>
                             <Typography className={classes.pos} color="textSecondary">
-                                {feedback.type}
+                                {feedback.type}-
+                                <Typography component="span" color="primary">
+                                    {feedback.state}
+                                </Typography>
                             </Typography>
                         </Box>
                         <Box style={{ marginLeft: "auto" }}>
                             <Typography className={classes.title} color="textSecondary" gutterBottom>
-                            {moment(feedback.registerTime).format('YYYY-MM-DD HH:mm:ss')}
+                                {moment(feedback.registerTime).format('YYYY-MM-DD HH:mm:ss')}
                             </Typography>
                         </Box>
                     </Box>
