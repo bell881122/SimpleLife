@@ -72,9 +72,8 @@ export default function MemberScorePoint(props) {
             }
         }
         if (member.scores && member.scores.length > 0) {
-            let totalScore = member.scores.reduce(function (previousValue, currentValue) {
-                return previousValue.point + currentValue.point
-            });
+            let totalScore=0;
+            member.scores.forEach(x => totalScore+=x.point);
             setAveragePoint((totalScore / member.scores.length).toFixed(1));
         }
     }, [member, currentMemberId, setPoint]);
@@ -122,7 +121,7 @@ export default function MemberScorePoint(props) {
                 modalAction={() => scoreMember()}
                 modalActionButtonColor={primaryColor}
                 actionText="確認"
-                disabled={currentMemberId === undefined}
+                disabled={currentMemberId === undefined || currentMemberId === member.id}
             />
         </>
     );
