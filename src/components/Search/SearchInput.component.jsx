@@ -32,7 +32,7 @@ export default function SearchInput(props) {
 
     const goSearch = () => {
         const searchPath = `/search/${searchContent}`;
-        if (location.pathname === searchPath) {
+        if (searchContent.trim() ==='' || location.pathname === searchPath) {
             return;
         }
         history.push(searchPath);
