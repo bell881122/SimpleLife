@@ -36,6 +36,11 @@ export default function GoodEdit(props) {
     const [previewImgUrl, setPreviewImgUrl] = React.useState(); //本地圖片預覽
     const [tagsString, setTagsString] = React.useState(editGood.tags.toString());
 
+    const checkTags = (tags) => {
+        let exStr = ["!", "@", "#", "$", "%", "^", "&", "(", ")", "_", "-", "+", "=", ".", ":", ";", "<", ">", "?", "/", "\\", "|", "[", "]", "{", "}", "'", '"']
+        return (tags.length > 1 && tags.some(x => x.trim() === "")) || tags.some(x => x.split("").some(y => exStr.indexOf(y) > -1));
+    }
+
     const checkDisabled = React.useCallback(() => {
         let tags = tagsString.split(",");
 
@@ -46,7 +51,7 @@ export default function GoodEdit(props) {
                 (previewImgUrl === undefined && good.imgURL === "") ||
                 editGood.price < 0 ||
                 editGood.price > 99999 ||
-                (tags.length > 1 && tags.some(x => x === "" || x === " "))
+                checkTags(tags)
             ) {
                 setSubmitButtomDisabled(true);
             } else {
@@ -108,7 +113,10 @@ export default function GoodEdit(props) {
 
     const updateGood = (goodId, data) => {
         let good = data;
-        if (tagsString !== "" && tagsString !== " ") {
+
+        if (tagsString.length === 0) {
+            good.tags = [];
+        } else if (tagsString.trim() !== "") {
             good.tags = tagsString.split(",")
                 .map(x => x.trim())
                 .filter(function (element, index, arr) {
@@ -281,8 +289,9 @@ export default function GoodEdit(props) {
                                 name="tag"
                                 value={tagsString}
                                 onChange={e => onChange(e.target.value, e.target.name)}
-                                error={tagsString.split(",").length > 1 && tagsString.split(",").some(x => x === "" || x === " ")}
-                                helperText={tagsString.split(",").length > 1 && tagsString.split(",").some(x => x === "" || x === " ") && "請勿填寫空白標籤"}
+                                onBlur={() => checkDisabled()}
+                                error={checkTags(tagsString.split(","))}
+                                helperText={checkTags(tagsString.split(",")) && "請勿填寫空白標籤或使用特殊符號"}
                             />
                         </Box>
                         <Box mt={4} mb={2}>
