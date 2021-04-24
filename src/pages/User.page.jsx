@@ -56,7 +56,7 @@ export default function User() {
 
     return (
         <>
-            { currentMemberContext ?
+            { currentMemberContext &&
                 <>
                     <Messager
                         currentMemberId={currentMemberContext.id}
@@ -108,20 +108,6 @@ export default function User() {
                         <UserTabs />
                     </Box>
                 </>
-                :
-                <Box py={3}>
-                    <Typography variant="body1" component="p" style={{ whiteSpace: 'pre-line' }}>
-                        {`網站封閉測試中，
-                                暫不開放註冊，
-                                可登出後使用測試帳號登入，
-                                體驗各項功能。`}
-                    </Typography>
-                    <Typography variant="h5" component="p" style={{ whiteSpace: 'pre-line' }}>
-                        {`
-                                測試帳號：simplelifetest1
-                                密碼：SimpleLife_1111`}
-                    </Typography>
-                </Box>
             }
         </>
     );
