@@ -24,7 +24,7 @@ export default function MessageInputArea(props) {
     }, [currentMemberId, chatMemberId]);
 
     const sendMessage = () => {
-        
+
         // 上傳 message
         let data = message;
         if (!data.content.length) {
@@ -71,33 +71,33 @@ export default function MessageInputArea(props) {
 
     return (
         <Box component="div" my={1}>
-            <form>
-                <FormControl fullWidth>
-                    <Box display="flex">
-                        {message &&
-                            <TextField
-                                style={{ paddingLeft: 10 }}
-                                fullWidth
-                                multiline
-                                rows={2}
-                                id="standard-multiline-flexible"
-                                name="message"
-                                // label="新增訊息"
-                                value={message.content}
-                                placeholder="請輸入訊息"
-                                onChange={e => onChange(e.target.value)}
-                                onKeyPress={handleKeyPress}
-                            />
-                        }
-                        <Button
-                            size="small"
-                            variant="contained"
-                            color="primary"
-                            onClick={() => sendMessage()}
-                        ><PlayArrowIcon /></Button>
-                    </Box>
-                </FormControl>
-            </form>
+            {/* <form> */}
+            <FormControl fullWidth>
+                <Box display="flex">
+                    {message &&
+                        <TextField
+                            style={{ paddingLeft: 15 }}
+                            fullWidth
+                            // multiline
+                            // rows={2}
+                            id="standard-multiline-flexible"
+                            name="message"
+                            // label="新增訊息"
+                            value={message.content}
+                            placeholder="請輸入訊息"
+                            onChange={e => onChange(e.target.value)}
+                            onKeyPress={handleKeyPress}
+                        />
+                    }
+                    <Button
+                        size="small"
+                        variant="contained"
+                        color="primary"
+                        onClick={() => sendMessage()}
+                    ><PlayArrowIcon /></Button>
+                </Box>
+            </FormControl>
+            {/* </form> */}
         </Box>
     );
 }

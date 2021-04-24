@@ -7,16 +7,11 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
-import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 
 import MessageItemDataService from "services/messageItem.service";
 
 const useStyles = makeStyles((theme) => ({
-    massageList: {
-        backgroundColor: theme.palette.background.paper,
-        height: '100%'
-    },
     title: {
         margin: theme.spacing(4, 0, 2),
     },
@@ -28,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function MessageList(props) {
-    const { currentMemberId, chatMemberId, setCurrentChatMemberId, setCurrentChatItem } = props;
+    const { currentMemberId, chatMemberId, setCurrentChatMemberId, setCurrentChatItem, setShowMessageList } = props;
     const classes = useStyles();
     const [messageItems, setMessageItems] = React.useState([]);
     const [doneCheckMessageItem, setDoneCheckMessageItem] = React.useState(false);
@@ -80,10 +75,12 @@ export default function MessageList(props) {
         messageItem.unreadMemberId = "";
         setCurrentChatItem(messageItem);
         MessageItemDataService.update(messageItem.id, messageItem);
+        setTimeout(function () {
+            setShowMessageList(false);
+        }, 300);
     }
 
     return (
-        <Box className={classes.massageList}>
             <List>
                 {messageItems && messageItems.map((value, index) =>
                     <div key={index}>
@@ -112,6 +109,5 @@ export default function MessageList(props) {
                     </div>
                 )}
             </List>
-        </Box >
     );
 }

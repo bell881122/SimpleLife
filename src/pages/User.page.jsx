@@ -56,72 +56,72 @@ export default function User() {
 
     return (
         <>
-            {(showMessageCase && currentMemberContext) ?
-                <Messager
-                    currentMemberId={currentMemberContext.id}
-                    setShowMessageCase={setShowMessageCase}
-                /> :
+            { currentMemberContext ?
                 <>
-                    { currentMemberContext ?
-                        <Box display="flex" flexDirection="column" height="100%">
-                            <Box className={classes.heroContent} position="relative">
-                                <Box position="absolute" width={1} height={1} className={classes.backGroundPic}></Box>
-                                <Container maxWidth="sm">
-                                    <Box display="flex" justifyContent="center">
-                                        <Avatar alt={displayName} src={userPhoto} className={classes.avatar} />
-                                    </Box>
-                                    <Box component="div" mb={0} mt={3} >
-                                        <Typography variant="body1" align="center">
+                    <Messager
+                        currentMemberId={currentMemberContext.id}
+                        showMessageCase={showMessageCase}
+                        setShowMessageCase={setShowMessageCase}
+                        showMessage={true} />
+                    <Box display="flex" flexDirection="column" height="100%">
+                        <Box className={classes.heroContent} position="relative">
+                            <Box position="absolute" width={1} height={1} className={classes.backGroundPic}></Box>
+                            <Container maxWidth="sm">
+                                <Box display="flex" justifyContent="center">
+                                    <Avatar alt={displayName} src={userPhoto} className={classes.avatar} />
+                                </Box>
+                                <Box component="div" mb={0} mt={3} >
+                                    <Typography variant="body1" align="center">
+                                        <IconButton
+                                            aria-label="Messager"
+                                            color="primary"
+                                            style={{ backgroundColor: '#ffffff' }}
+                                            // onClick={() => setShowMessageCase(true)}
+                                            onClick={() => setShowMessageCase(state => !state)}
+                                        >
+                                            <SmsIcon />
+                                        </IconButton>
+                                        <RouterLink
+                                            basename="/feedback"
+                                            to="/feedback"
+                                        >
                                             <IconButton
-                                                aria-label="Messager"
+                                                aria-label="feedback"
                                                 color="primary"
-                                                style={{ backgroundColor: '#ffffff' }}
-                                                onClick={() => setShowMessageCase(true)}
+                                                style={{ backgroundColor: '#ffffff', marginLeft: 8 }}
                                             >
-                                                <SmsIcon />
+                                                <SettingsIcon />
                                             </IconButton>
-                                            <RouterLink
-                                                basename="/feedback"
-                                                to="/feedback"
-                                            >
-                                                <IconButton
-                                                    aria-label="feedback"
-                                                    color="primary"
-                                                    style={{ backgroundColor: '#ffffff', marginLeft: 8 }}
-                                                >
-                                                    <SettingsIcon />
-                                                </IconButton>
-                                            </RouterLink>
-                                        </Typography>
-                                    </Box>
-                                    <Box mt={2}>
-                                        <Typography component="h1" variant="h4" align="center" color="textPrimary" gutterBottom>
-                                            {currentMemberContext.profile.name}
-                                        </Typography>
-                                        <Typography variant="body1" align="center" color="textSecondary" paragraph>
-                                            {currentMemberContext.messageBoard}
-                                        </Typography>
-                                    </Box>
-                                </Container>
-                            </Box>
-                            <UserTabs />
+                                        </RouterLink>
+                                    </Typography>
+                                </Box>
+                                <Box mt={2}>
+                                    <Typography component="h1" variant="h4" align="center" color="textPrimary" gutterBottom>
+                                        {currentMemberContext.profile.name}
+                                    </Typography>
+                                    <Typography variant="body1" align="center" color="textSecondary" paragraph>
+                                        {currentMemberContext.messageBoard}
+                                    </Typography>
+                                </Box>
+                            </Container>
                         </Box>
-                        :
-                        <Box py={3}>
-                            <Typography variant="body1" component="p" style={{ whiteSpace: 'pre-line' }}>
-                                {`網站封閉測試中，
+                        <UserTabs />
+                    </Box>
+                </>
+                :
+                <Box py={3}>
+                    <Typography variant="body1" component="p" style={{ whiteSpace: 'pre-line' }}>
+                        {`網站封閉測試中，
                                 暫不開放註冊，
                                 可登出後使用測試帳號登入，
                                 體驗各項功能。`}
-                            </Typography>
-                            <Typography variant="h5" component="p" style={{ whiteSpace: 'pre-line' }}>
-                                {`
+                    </Typography>
+                    <Typography variant="h5" component="p" style={{ whiteSpace: 'pre-line' }}>
+                        {`
                                 測試帳號：simplelifetest1
                                 密碼：SimpleLife_1111`}
-                            </Typography>
-                        </Box>
-                    }
-                </>
+                    </Typography>
+                </Box>
             }
         </>
     );

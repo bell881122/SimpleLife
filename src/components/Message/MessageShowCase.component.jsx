@@ -11,12 +11,8 @@ import MessageDataService from "services/message.service";
 
 const useStyles = makeStyles((theme) => ({
     messageCase: {
-        height: '70vh',
-        [theme.breakpoints.up('xs')]: {
-            height: '80vh',
-        },
+        height: '100%',
         overflowY: "scroll",
-        backgroundColor: 'rgba(230,230,230,1)'
     },
     messageWidth: {
         maxWidth: '80%',

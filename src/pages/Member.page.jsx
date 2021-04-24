@@ -35,51 +35,49 @@ export default function Member() {
 
     return (
         <>
-            {(
-                showMessageCase &&
-                currentMemberContext &&
-                currentMemberContext.id !== id
-            ) ? <Messager
-                currentMemberId={currentMemberContext.id}
-                chatMemberId={id}
-                setShowMessageCase={setShowMessageCase}
-            /> : <>
-                { member &&
-                    <Box my={3}>
-                        <Box display="flex" justifyContent="center">
-                            <Box>
-                                <Box display="flex" alignItems="center" justifyContent="center" pr={2}>
-                                    <Avatar alt={member.profile.name} src={member.profile.photoURL} size="small" />
-                                    <Box ml={1}>
-                                        <Typography variant="body1" component="h2">
-                                            {member.profile.name}
-                                        </Typography>
-                                    </Box>
-                                    <MemberScorePoint
-                                        member={member}
-                                        setMember={setMember}
-                                        currentMemberId={currentMemberContext ? currentMemberContext.id : undefined}
-                                    />
-                                    {(
-                                        currentMemberContext &&
-                                        currentMemberContext.id !== id
-                                    ) &&
-                                        <IconButton aria-label="Messager" color="primary" onClick={() => setShowMessageCase(true)}>
-                                            <SmsOutlinedIcon />
-                                        </IconButton>
-                                    }
-                                </Box>
-                                <Box mt={1}>
-                                    <Typography variant="h6" component="p">
-                                        {member.messageBoard}
+            {(currentMemberContext && currentMemberContext.id !== id) &&
+                <Messager
+                    currentMemberId={currentMemberContext.id}
+                    chatMemberId={id}
+                    showMessageCase={showMessageCase}
+                    setShowMessageCase={setShowMessageCase}
+                    showMessage={false}
+                />
+            }
+            { member &&
+                <Box my={3}>
+                    <Box display="flex" justifyContent="center">
+                        <Box>
+                            <Box display="flex" alignItems="center" justifyContent="center" pr={2}>
+                                <Avatar alt={member.profile.name} src={member.profile.photoURL} size="small" />
+                                <Box ml={1}>
+                                    <Typography variant="body1" component="h2">
+                                        {member.profile.name}
                                     </Typography>
                                 </Box>
+                                <MemberScorePoint
+                                    member={member}
+                                    setMember={setMember}
+                                    currentMemberId={currentMemberContext ? currentMemberContext.id : undefined}
+                                />
+                                {(
+                                    currentMemberContext &&
+                                    currentMemberContext.id !== id
+                                ) &&
+                                    <IconButton aria-label="Messager" color="primary" onClick={() => setShowMessageCase(true)}>
+                                        <SmsOutlinedIcon />
+                                    </IconButton>
+                                }
+                            </Box>
+                            <Box mt={1}>
+                                <Typography variant="h6" component="p">
+                                    {member.messageBoard}
+                                </Typography>
                             </Box>
                         </Box>
-                        <CardList goods={goods} />
                     </Box>
-                }
-            </>
+                    <CardList goods={goods} />
+                </Box>
             }
         </>
     );
