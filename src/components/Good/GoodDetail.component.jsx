@@ -15,7 +15,8 @@ const FavoriteBotton = React.lazy(() => import('tools/FavoriteBotton.tool.jsx'))
 const useStyles = makeStyles((theme) => ({
     mainPicture: good => ({
         width: '100% !important',
-        height: 300,
+        // height: 300,
+        paddingBottom: '100%',
         backgroundImage: good.imgURL !== undefined ? `url(${good.imgURL})` : "",
         backgroundSize: 'cover',
         backgroundPosition: 'center 40%',
