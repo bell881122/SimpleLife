@@ -32,7 +32,10 @@ export default function Search() {
 
         function setData() {
             if (!allPublishedGoods) {
-                GoodDataService.query([{ key: "published", operation: "==", condition: true }], ["registerTimestamp", "desc"], setAllPublishedGoods);
+                GoodDataService.query({
+                    where: [{ key: "published", operation: "==", condition: true }],
+                    orderby: ["registerTimestamp", "desc"]
+                }, setAllPublishedGoods);
             } else {
                 let allGoods = {};
                 allPublishedGoods.forEach(good => {

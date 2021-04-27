@@ -11,8 +11,16 @@ export default function SearchDefault() {
     const [allFreeGoods, setAllFreeGoods] = React.useState();
 
     React.useEffect(() => {
-        GoodDataService.query([{ key: "published", operation: "==", condition: true }], ["registerTimestamp", "desc"], setAllPublishedGoods);
-        GoodDataService.query([{ key: "published", operation: "==", condition: true }, { key: "price", operation: "==", condition: 0 }], ["registerTimestamp", "desc"], setAllFreeGoods);
+        GoodDataService.query({
+            where: [{ key: "published", operation: "==", condition: true }],
+            orderby: ["registerTimestamp", "desc"],
+            limit: 48
+        }, setAllPublishedGoods);
+        GoodDataService.query({
+            where: [{ key: "published", operation: "==", condition: true }, { key: "price", operation: "==", condition: 0 }],
+            orderby: ["registerTimestamp", "desc"],
+            limit: 12
+        }, setAllFreeGoods);
     }, []);
 
     return (
