@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
 import { CurrentMemberContext } from "context/CurrentMemberContext.js";
+import { SettingsContext } from "context/SettingsContext.js";
 const UserInfoEdit = React.lazy(() => import('components/User/UserInfoEdit.component.jsx'));
 
 const useStyles = makeStyles((theme) => ({
@@ -23,6 +24,7 @@ export default function UserInfo(props) {
     const { goodsCount } = props;
     const classes = useStyles();
     const { currentMemberContext, setCurrentMemberContext } = React.useContext(CurrentMemberContext);
+    const { settingsContext } = React.useContext(SettingsContext);
     const [isEdit, setIsEdit] = React.useState(false);
 
     return (
@@ -84,7 +86,7 @@ export default function UserInfo(props) {
                                 <Typography
                                     variant="body1"
                                     component="p"
-                                >{goodsCount} / 50</Typography>
+                                >{goodsCount} / {settingsContext.limitGoods}</Typography>
                             </Box>
                             <Button
                                 variant="contained"
@@ -92,7 +94,6 @@ export default function UserInfo(props) {
                                 onClick={() => setIsEdit(true)}
                             >修改個人資訊</Button>
                         </>
-
                     }
                 </>
             }

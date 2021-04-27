@@ -8,11 +8,13 @@ import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 
 import { CurrentMemberContext } from "context/CurrentMemberContext.js";
+import { SettingsContext, Settings } from "context/SettingsContext.js";
 import MemberDataService from "services/member.service";
 const MenuBar = React.lazy(() => import('tools/MenuBar.tool.jsx'));
 
 export default function Layout(props) {
     const [currentMemberContext, setCurrentMemberContext] = React.useState();
+    const [settingsContext, setSettingsContext] = React.useState(Settings);
 
     React.useEffect(() => {
         firebase.auth().onAuthStateChanged((user) => {
@@ -35,6 +37,7 @@ export default function Layout(props) {
             <CssBaseline />
             <ThemeProvider theme={theme}>
                 <CurrentMemberContext.Provider value={{ currentMemberContext, setCurrentMemberContext }}>
+                <SettingsContext.Provider value={{ settingsContext, setSettingsContext }}>
                     <Box display="flex" height="100vh" flexDirection="column" bgcolor="background.paper">
                         <Box flexShrink={1} >
                             <MenuBar />
@@ -45,6 +48,7 @@ export default function Layout(props) {
                             </Container>
                         </Box>
                     </Box>
+                </SettingsContext.Provider>
                 </CurrentMemberContext.Provider>
             </ThemeProvider>
         </>
