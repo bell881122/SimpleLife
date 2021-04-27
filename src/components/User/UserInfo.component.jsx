@@ -5,6 +5,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import Tooltip from '@material-ui/core/Tooltip';
+import InfoIcon from '@material-ui/icons/Info';
 
 import { CurrentMemberContext } from "context/CurrentMemberContext.js";
 import { SettingsContext } from "context/SettingsContext.js";
@@ -26,6 +28,7 @@ export default function UserInfo(props) {
     const { currentMemberContext, setCurrentMemberContext } = React.useContext(CurrentMemberContext);
     const { settingsContext } = React.useContext(SettingsContext);
     const [isEdit, setIsEdit] = React.useState(false);
+    const [limitGoodsTooltipOpen, setLimitGoodsTooltipOpen] = React.useState(false);
 
     return (
         <>
@@ -87,6 +90,14 @@ export default function UserInfo(props) {
                                     variant="body1"
                                     component="p"
                                 >{goodsCount} / {settingsContext.limitGoods}</Typography>
+                                <Tooltip
+                                    title="VIP資格可提高物品上限"
+                                    style={{ margin: '1px 0 0 4px' }}
+                                    open={limitGoodsTooltipOpen ? limitGoodsTooltipOpen : false}
+                                    onClick={() => setLimitGoodsTooltipOpen(state => !state)}
+                                    arrow={true}
+                                ><InfoIcon fontSize="small" color="secondary" />
+                                </Tooltip>
                             </Box>
                             <Button
                                 variant="contained"
