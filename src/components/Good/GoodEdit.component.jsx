@@ -14,6 +14,7 @@ import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 
 import GoodDataService from "services/good.service";
+import Loading from 'tools/Loading.tool.jsx';
 const UpdateImage = React.lazy(() => import('tools/UpdateImage.tool.jsx'));
 
 const states = [
@@ -35,6 +36,7 @@ export default function GoodEdit(props) {
     const [submitButtomDisabled, setSubmitButtomDisabled] = React.useState(false);
     const [previewImgUrl, setPreviewImgUrl] = React.useState(); //本地圖片預覽
     const [tagsString, setTagsString] = React.useState(editGood.tags.toString());
+    const [isLoading, setIsLoading] = React.useState(false);
 
     const checkTags = (tags) => {
         let exStr = ["!", "@", "#", "$", "%", "^", "&", "(", ")", "_", "-", "+", "=", ".", ":", ";", "<", ">", "?", "/", "\\", "|", "[", "]", "{", "}", "'", '"']
@@ -68,6 +70,7 @@ export default function GoodEdit(props) {
     }, [editGood, checkDisabled]);
 
     const update = (newGoodId) => {
+        setIsLoading(true);
         const goodId = newGoodId === undefined ? good.id : newGoodId;
         const data = editGood;
         data.lastModifiedDate = Date.now();
@@ -138,7 +141,9 @@ export default function GoodEdit(props) {
             });
     }
 
+    //新增物品
     const saveGood = () => {
+        setIsLoading(true);
         let data = editGood;
         GoodDataService.create(data)
             .then(function (docRef) {
@@ -169,6 +174,7 @@ export default function GoodEdit(props) {
 
     return (
         <>
+            <Loading isLoading={isLoading} />
             {editGood &&
                 <Box py={3}>
                     <form noValidate autoComplete="off">
