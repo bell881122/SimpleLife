@@ -16,7 +16,7 @@ export default function Loading(props) {
     const classes = useStyles();
 
     return (
-        <Backdrop className={classes.backdrop} open={isLoading}>
+        <Backdrop className={classes.backdrop} open={isLoading ? isLoading : false}>
             <CircularProgress color="inherit" />
         </Backdrop>
     );
