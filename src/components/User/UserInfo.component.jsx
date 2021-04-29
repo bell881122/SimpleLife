@@ -47,7 +47,7 @@ export default function UserInfo(props) {
                                     variant="body1"
                                     component="h3"
                                     className={classes.title}
-                                >姓名：</Typography>
+                                >暱稱：</Typography>
                                 <Typography
                                     variant="body1"
                                     component="p"

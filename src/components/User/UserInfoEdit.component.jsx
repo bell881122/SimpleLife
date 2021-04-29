@@ -17,6 +17,7 @@ export default function UserInfoEdit(props) {
     const checkDisabled = React.useCallback(() => {
         const doCheckDisabled = async () => {
             if (editMember.profile.name === "" ||
+                editMember.profile.name.length > 30 ||
                 editMember.messageBoard === ""
             ) {
                 setSubmitButtomDisabled(true);
@@ -68,7 +69,7 @@ export default function UserInfoEdit(props) {
                             <TextField
                                 style={{ width: '100%' }}
                                 id="standard-basic"
-                                label="姓名"
+                                label="暱稱"
                                 InputLabelProps={{
                                     shrink: true,
                                     'aria-label': 'name'
@@ -77,6 +78,8 @@ export default function UserInfoEdit(props) {
                                 value={editMember.profile.name}
                                 onChange={e => onChange(e.target.value, e.target.name)}
                                 onBlur={() => checkDisabled()}
+                                error={editMember.profile.name.length > 30}
+                                helperText={editMember.profile.name.length > 30 ? "暱稱設定不可超過30字" : ""}
                             />
                         </Box>
                         <Box mb={2} style={{ width: '100%' }}>
