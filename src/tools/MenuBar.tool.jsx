@@ -10,7 +10,7 @@ import Badge from '@material-ui/core/Badge';
 // import MenuItem from '@material-ui/core/MenuItem';
 // import Menu from '@material-ui/core/Menu';
 // import MoreIcon from '@material-ui/icons/MoreVert';
-import CardGiftcardIcon from '@material-ui/icons/CardGiftcard';
+// import CardGiftcardIcon from '@material-ui/icons/CardGiftcard';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 // import PersonIcon from '@material-ui/icons/Person';
 import Container from '@material-ui/core/Container';
@@ -24,11 +24,11 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
     },
     title: {
-        display: 'none',
         textDecoration: 'none',
+        fontSize: '1.25rem',
         color: theme.palette.background.paper,
-        [theme.breakpoints.up('xs')]: {
-            display: 'block',
+        [theme.breakpoints.up('sm')]: {
+            fontSize: '1.5rem',
         },
     },
     sectionDesktop: {
@@ -50,9 +50,11 @@ const useStyles = makeStyles((theme) => ({
     //     },
     // },
     desktopIconSize: {
-        fontSize: '28px',
+        fontSize: '27px',
+        margin: '0 -4px',
         [theme.breakpoints.up('sm')]: {
             fontSize: '34px',
+            margin: '0px',
         },
     },
 }));
@@ -62,6 +64,7 @@ export default function MenuBar() {
     const { currentMemberContext } = React.useContext(CurrentMemberContext);
     const [notification, setNotification] = React.useState();
     const [hasUnread, setHasUnread] = React.useState(false);
+    const [isLogged, setIsLogged] = React.useState(false);
 
     React.useEffect(() => {
         if (currentMemberContext) {
@@ -123,26 +126,32 @@ export default function MenuBar() {
         <div className={classes.grow}>
             <AppBar position="static">
                 <Container maxWidth="md">
-                    <Toolbar px={0} mx={0}>
+                    <Toolbar style={{ padding: '0 4px 0 10px', margin: '0' }}>
                         <Typography className={classes.title} variant="h6" noWrap component={RouterLink} to="/">
                             Simple Life
                         </Typography>
                         <div className={classes.grow} />
                         <div className={classes.sectionDesktop}>
-                            <IconButton aria-label="Goods" color="inherit" component={RouterLink} to="/">
+                            {/* <IconButton aria-label="Goods" color="inherit" component={RouterLink} to="/">
                                 <CardGiftcardIcon className={classes.desktopIconSize} />
-                            </IconButton>
-                            <IconButton aria-label="Notifications" color="inherit" component={RouterLink} to="/notification">
-                                <Badge
-                                    invisible={!hasUnread}
-                                    color="error"
-                                    overlap="circle"
-                                    badgeContent=" "
-                                    variant="dot">
-                                    <NotificationsIcon className={classes.desktopIconSize} />
-                                </Badge>
-                            </IconButton>
-                            <LoginState desktopIconSize={classes.desktopIconSize} />
+                            </IconButton> */}
+                            {isLogged &&
+                                <IconButton aria-label="Notifications" color="inherit" component={RouterLink} to="/notification" >
+                                    <Badge
+                                        invisible={!hasUnread}
+                                        color="error"
+                                        overlap="circle"
+                                        badgeContent=" "
+                                        variant="dot">
+                                        <NotificationsIcon className={classes.desktopIconSize} />
+                                    </Badge>
+                                </IconButton>
+                            }
+                            <LoginState
+                                desktopIconSize={classes.desktopIconSize}
+                                isLogged={isLogged}
+                                setIsLogged={setIsLogged}
+                            />
                         </div>
                         {/* <div className={classes.sectionMobile}>
                             <IconButton

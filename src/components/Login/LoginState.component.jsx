@@ -12,8 +12,8 @@ const LoginTestButtom = React.lazy(() => import('components/Login/LoginTestButto
 
 const useStyles = makeStyles((theme) => ({
     avatar: {
-        width: 28,
-        height: 28,
+        width: theme.spacing(3),
+        height: theme.spacing(3),
         [theme.breakpoints.up('sm')]: {
             width: theme.spacing(4),
             height: theme.spacing(4),
@@ -23,16 +23,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function LoginState(props) {
     const classes = useStyles();
-    const { desktopIconSize } = props
-
-    const [isLogged, setIsLogged] = React.useState(false);
+    const { desktopIconSize, isLogged, setIsLogged } = props
     const [currentUser, setCurrentUser] = React.useState();
 
     React.useEffect(() => {
-        checkLogin();
-    }, []);
-
-    const checkLogin = () => {
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
                 setIsLogged(true);
@@ -42,7 +36,7 @@ export default function LoginState(props) {
                 setCurrentUser(null);
             }
         });
-    }
+    }, [setIsLogged, setCurrentUser]);
 
     const singUpPopupClick = () => {
         var provider = new firebase.auth.GoogleAuthProvider();
@@ -76,14 +70,13 @@ export default function LoginState(props) {
                     <IconButton aria-label="Logout" color="inherit" onClick={() => signOutClick()}>
                         <ExitToAppIcon className={desktopIconSize} />
                     </IconButton>
-                </> :
-                <>
+                </> : <>
                     {/* <IconButton aria-label="Login" color="inherit" onClick={() => singUpPopupClick()}>
                         <Typography variant="button" display="block" gutterBottom>
                             登入/註冊
                      </Typography>
                     </IconButton> */}
-                    <LoginTestButtom singUpPopupClick={singUpPopupClick}/>
+                    <LoginTestButtom singUpPopupClick={singUpPopupClick} />
                 </>
             }
         </>

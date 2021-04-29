@@ -38,8 +38,8 @@ export default function LoginTestButtom(props) {
                 <DialogTitle id="max-width-dialog-title">登入帳號</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description" style={{ textAlign: "center", whiteSpace: 'pre-line' }}>
-                        <Typography variant="h5" component="p">
-                            【測試帳號】
+                        <Typography variant="h6" component="p">
+                            【登入試用帳號】
                         </Typography>
                         <Typography variant="body1" component="p">
                             {`帳號：simplelifetest1
@@ -48,7 +48,7 @@ export default function LoginTestButtom(props) {
                             `}
                         </Typography>
                         <Typography variant="body2" color="error" component="p">
-                            {`※如果無法切換帳號，可使用無痕視窗`}
+                            {`※如無法登入，請嘗試改用瀏覽器或無痕視窗開啟網頁。`}
                         </Typography>
                         {/* <Typography variant="h5" component="p" style={{ paddingTop: 20 }}>
                             【測試帳號2】
@@ -61,7 +61,7 @@ export default function LoginTestButtom(props) {
                 </DialogContent>
                 <DialogActions>
                     <Button variant="outlined" color="primary" onClick={() => singUpPopupClick()}>
-                       Google 登入/註冊
+                        Google 登入/註冊
                     </Button>
                     <Button variant="outlined" onClick={handleClose} color="secondary">
                         取消
