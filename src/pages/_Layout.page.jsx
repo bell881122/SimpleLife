@@ -38,11 +38,11 @@ export default function Layout(props) {
             <ThemeProvider theme={theme}>
                 <CurrentMemberContext.Provider value={{ currentMemberContext, setCurrentMemberContext }}>
                 <SettingsContext.Provider value={{ settingsContext, setSettingsContext }}>
-                    <Box display="flex" height="100vh" flexDirection="column" bgcolor="background.paper">
+                        <Box display="flex" minHeight="100vh" flexDirection="column" bgcolor="grey.200">
                         <Box flexShrink={1} >
                             <MenuBar />
                         </Box>
-                        <Box height="100%" bgcolor="grey.100">
+                        <Box height="100%">
                             <Container maxWidth="md" style={{ height: '100%' }}>
                                 {props.children}
                             </Container>
