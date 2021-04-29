@@ -13,6 +13,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 
+import { CurrentMemberContext } from "context/CurrentMemberContext.js";
 const MessageList = React.lazy(() => import('components/Message/MessageList.component.jsx'));
 const MessageShowCase = React.lazy(() => import('components/Message/MessageShowCase.component.jsx'));
 const MessageInputArea = React.lazy(() => import('components/Message/MessageInputArea.component.jsx'));
@@ -76,7 +77,8 @@ export default function Messager(props) {
     let classes = useStyles();
     const theme = useTheme();
     const matches = useMediaQuery(theme.breakpoints.up('sm'));
-    const { currentMemberId, chatMemberId, showMessageCase, setShowMessageCase, showMessage } = props;
+    const { chatMemberId, showMessageCase, setShowMessageCase, showMessage } = props;
+    const { currentMemberContext } = React.useContext(CurrentMemberContext);
     const [reQueryMessage, setReQueryMessage] = React.useState(0);
     const [toTop, setToTop] = React.useState(false);
     const [currentChatMemberId, setCurrentChatMemberId] = React.useState(chatMemberId);
@@ -109,7 +111,7 @@ export default function Messager(props) {
                             </IconButton>
                         </Box>
                     </Box>
-                    {showMessageCase &&
+                    {showMessageCase && currentMemberContext &&
                         <Box display="flex"
                             flexShrink={1}
                             flexDirection="row"
@@ -123,7 +125,7 @@ export default function Messager(props) {
                                     className={classes.messageListInner}
                                     style={{ width: (showMessageList || matches) ? '100%' : '0' }}>
                                     <MessageList
-                                        currentMemberId={currentMemberId}
+                                        currentMemberId={currentMemberContext.id}
                                         chatMemberId={currentChatMemberId}
                                         setCurrentChatMemberId={setCurrentChatMemberId}
                                         setCurrentChatItem={setCurrentChatItem}
@@ -157,7 +159,7 @@ export default function Messager(props) {
                                     }}>
                                         <Box height="88%">
                                             <MessageShowCase
-                                                currentMemberId={currentMemberId}
+                                                currentMemberId={currentMemberContext.id}
                                                 chatMemberId={currentChatMemberId}
                                                 reQueryMessage={reQueryMessage}
                                                 toTop={toTop}
@@ -166,7 +168,8 @@ export default function Messager(props) {
                                         </Box>
                                         <Box className={classes.messageInputArea} >
                                             <MessageInputArea
-                                                currentMemberId={currentMemberId}
+                                                currentMemberId={currentMemberContext.id}
+                                                currentMemberName={currentMemberContext.profile.name}
                                                 chatMemberId={currentChatMemberId}
                                                 setReQueryMessage={setReQueryMessage}
                                                 setToTop={setToTop}

@@ -6,15 +6,17 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-// import Badge from '@material-ui/core/Badge';
+import Badge from '@material-ui/core/Badge';
 // import MenuItem from '@material-ui/core/MenuItem';
 // import Menu from '@material-ui/core/Menu';
 // import MoreIcon from '@material-ui/icons/MoreVert';
 import CardGiftcardIcon from '@material-ui/icons/CardGiftcard';
-// import NotificationsIcon from '@material-ui/icons/Notifications';
+import NotificationsIcon from '@material-ui/icons/Notifications';
 // import PersonIcon from '@material-ui/icons/Person';
 import Container from '@material-ui/core/Container';
 
+import { CurrentMemberContext } from "context/CurrentMemberContext.js";
+import NotificationDataService from "services/notification.service";
 const LoginState = React.lazy(() => import('components/Login/LoginState.component.jsx'));
 
 const useStyles = makeStyles((theme) => ({
@@ -57,6 +59,23 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MenuBar() {
     const classes = useStyles();
+    const { currentMemberContext } = React.useContext(CurrentMemberContext);
+    const [notification, setNotification] = React.useState();
+    const [hasUnread, setHasUnread] = React.useState(false);
+
+    React.useEffect(() => {
+        if (currentMemberContext) {
+            NotificationDataService.getCurrentMemberNotificationItem(currentMemberContext.id, setNotification)
+        }
+    }, [currentMemberContext]);
+
+    React.useEffect(() => {
+        if (notification && notification.notifications) {
+            let unread = notification.notifications.some(x => x.unread);
+            setHasUnread(unread);
+        }
+    }, [notification]);
+
     // const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
     // const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -113,11 +132,16 @@ export default function MenuBar() {
                             <IconButton aria-label="Goods" color="inherit" component={RouterLink} to="/">
                                 <CardGiftcardIcon className={classes.desktopIconSize} />
                             </IconButton>
-                            {/* <IconButton aria-label="Notifications" color="inherit" component={RouterLink} to="/notification">
-                                <Badge badgeContent={17} color="secondary">
+                            <IconButton aria-label="Notifications" color="inherit" component={RouterLink} to="/notification">
+                                <Badge
+                                    invisible={!hasUnread}
+                                    color="error"
+                                    overlap="circle"
+                                    badgeContent=" "
+                                    variant="dot">
                                     <NotificationsIcon className={classes.desktopIconSize} />
                                 </Badge>
-                            </IconButton> */}
+                            </IconButton>
                             <LoginState desktopIconSize={classes.desktopIconSize} />
                         </div>
                         {/* <div className={classes.sectionMobile}>

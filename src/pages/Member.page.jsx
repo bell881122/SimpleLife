@@ -37,7 +37,6 @@ export default function Member() {
         <>
             {(currentMemberContext && currentMemberContext.id !== id) &&
                 <Messager
-                    currentMemberId={currentMemberContext.id}
                     chatMemberId={id}
                     showMessageCase={showMessageCase}
                     setShowMessageCase={setShowMessageCase}
