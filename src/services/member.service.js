@@ -44,7 +44,7 @@ class MemberDataService {
 
                 this.create(member)
                     .then(function (docRef) {
-                        console.log("成功新增使用者，ID: ", docRef.id);
+                        // console.log("成功新增使用者，ID: ", docRef.id);
                         member.id = docRef.id;
                         let memberDataService = new MemberDataService();
                         memberDataService.update(member.id, member);

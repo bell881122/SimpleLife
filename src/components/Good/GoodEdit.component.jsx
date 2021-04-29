@@ -147,7 +147,7 @@ export default function GoodEdit(props) {
         let data = editGood;
         GoodDataService.create(data)
             .then(function (docRef) {
-                console.log("成功新增，物品ID: ", docRef.id);
+                // console.log("成功新增，物品ID: ", docRef.id);
                 update(docRef.id);
             })
             .catch((e) => {

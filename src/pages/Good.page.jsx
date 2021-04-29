@@ -51,7 +51,7 @@ export default function Good() {
     const deleteGood = () => {
         GoodDataService.delete(good.id)
             .then(() => {
-                console.log("物品已刪除");
+                // console.log("物品已刪除");
                 history.push("/user");
             })
             .catch((e) => {
@@ -63,7 +63,7 @@ export default function Good() {
         let storageRef = storage.ref().child(imagePathAndName);
         storageRef.getDownloadURL().then(function (url) {
             storageRef.delete().then(function () {
-                console.log("物品圖片已刪除");
+                // console.log("物品圖片已刪除");
             }).catch(function (error) {
                 console.log(error.code);
             });
