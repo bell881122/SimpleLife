@@ -124,7 +124,7 @@ export default function MenuBar() {
 
     return (
         <div className={classes.grow}>
-            <AppBar position="static">
+            <AppBar position="sticky">
                 <Container maxWidth="md">
                     <Toolbar style={{ padding: '0 4px 0 10px', margin: '0' }}>
                         <Typography className={classes.title} variant="h6" noWrap component={RouterLink} to="/">
