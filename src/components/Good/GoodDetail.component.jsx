@@ -8,9 +8,13 @@ import Chip from '@material-ui/core/Chip';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Avatar from '@material-ui/core/Avatar';
+import SmsOutlinedIcon from '@material-ui/icons/SmsOutlined';
+import IconButton from '@material-ui/core/IconButton';
 
+import { CurrentMemberContext } from "context/CurrentMemberContext.js";
 import MemberDataService from "services/member.service";
 const FavoriteBotton = React.lazy(() => import('tools/FavoriteBotton.tool.jsx'));
+const Messager = React.lazy(() => import('components/Message/Messager.component.jsx'));
 
 const useStyles = makeStyles((theme) => ({
     mainPicture: good => ({
@@ -47,6 +51,8 @@ export default function GoodDetail(props) {
     const { good } = props;
     const classes = useStyles(good);
     const [goodMember, setGoodMember] = React.useState();
+    const [showMessageCase, setShowMessageCase] = React.useState(false);
+    const { currentMemberContext } = React.useContext(CurrentMemberContext);
 
     React.useEffect(() => {
         if (good !== undefined && good.memberId !== undefined) {
@@ -55,7 +61,7 @@ export default function GoodDetail(props) {
     }, [good]);
 
     return (
-        <Box>
+        <Box mb={2}>
             {good &&
                 <>
                     <Box className={classes.mainPicture} />
@@ -144,17 +150,34 @@ export default function GoodDetail(props) {
                             <RouterLink
                                 basename="/member"
                                 to={`/member/${goodMember.id}`}
+                                style={{ textDecoration: 'none', color: 'black' }}
                             >
-                                <Avatar
-                                    src={goodMember.profile.photoURL}
-                                    alt={goodMember.profile.name}
-                                />
+                                <Box display="flex" flexShrink={0}>
+                                    <Avatar
+                                        src={goodMember.profile.photoURL}
+                                        alt={goodMember.profile.name}
+                                    />
+                                    <Typography variant="body1" component="h2" style={{ margin: 'auto 0px auto 8px' }}>
+                                        {goodMember.profile.name}
+                                    </Typography>
+                                </Box>
                             </RouterLink>
-                            <Box p={1}>
-                                <Typography variant="body1" component="h2">
-                                    {goodMember.profile.name}
-                                </Typography>
-                            </Box>
+                            {(
+                                currentMemberContext &&
+                                currentMemberContext.id !== goodMember.id
+                            ) &&
+                                <Box style={{ margin: '-3px 0px 0px 8px' }}>
+                                    <IconButton aria-label="Messager" color="primary" onClick={() => setShowMessageCase(true)}>
+                                        <SmsOutlinedIcon />
+                                    </IconButton>
+                                    <Messager
+                                        chatMemberId={goodMember.id}
+                                        showMessageCase={showMessageCase}
+                                        setShowMessageCase={setShowMessageCase}
+                                        showMessage={false}
+                                    />
+                                </Box>
+                            }
                         </Box>
                     }
                 </>
