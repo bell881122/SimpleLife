@@ -4,6 +4,7 @@ import { storage } from "js/firebase";
 
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
+import Container from '@material-ui/core/Container';
 import { dangerColor } from "material-ui/custom.js";
 
 import { CurrentMemberContext } from "context/CurrentMemberContext.js";
@@ -73,7 +74,8 @@ export default function Good() {
     }
 
     return (
-        <>
+        <Container maxWidth="sm">
+            <>
             {good &&
                 <Box position="relative">
                     {!isEdit ?
@@ -114,6 +116,7 @@ export default function Good() {
                     }
                 </Box>
             }
-        </>
+            </>
+        </Container>
     );
 }

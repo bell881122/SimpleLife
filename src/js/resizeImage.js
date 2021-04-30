@@ -1,7 +1,7 @@
 //來源：https://www.jianshu.com/p/4135a1990a37
 
-let maxSize = 400 * 1000;
-let maxLength = 1000;
+let maxSize = 300 * 1000;
+let maxLength = 800;
 
 export default function getUploadImgInfo(e) {
     let fileInfo = getFileInfo(e);
@@ -32,7 +32,7 @@ function imgResize({ file, fileType }) {
                     );
 
                     while (resizeH * resizeW >= maxSize) {
-                        reMaxLength = reMaxLength - 100;
+                        reMaxLength = reMaxLength -10;
                         let obj = getImgResize(originW, originH, reMaxLength);
                         resizeH = obj.resizeH;
                         resizeW = obj.resizeW;
@@ -62,7 +62,7 @@ function imgResize({ file, fileType }) {
         fileReader.readAsDataURL(file);
     });
 }
-function getImgResize(originW, originH, reMaxLength = 800) {
+function getImgResize(originW, originH, reMaxLength = maxLength) {
     let resizeH = 0;
     let resizeW = 0;
     if (originW > reMaxLength || originH > reMaxLength) {
