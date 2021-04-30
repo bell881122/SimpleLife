@@ -82,7 +82,8 @@ export default function GoodDetail(props) {
                         </Box>
                         <Box mb={2}>
                             <Typography variant="h4" component="h3">
-                                ${good.price}
+                                <Typography variant="h6" component="span">NT$</Typography>
+                                {` ${good.price}`}
                             </Typography>
                         </Box>
                         {good.location !== "" &&

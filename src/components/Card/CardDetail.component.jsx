@@ -43,7 +43,8 @@ export default function CardDetail(props) {
                             {good.title}
                         </Typography>
                         <Typography variant="h5" >
-                            ${good.price}
+                            <Typography variant="body1" component="span">NT$</Typography>
+                            {` ${good.price}`}
                         </Typography>
                     </CardContent>
                     {/* <CardActions>
