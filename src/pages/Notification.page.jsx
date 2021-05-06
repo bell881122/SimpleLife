@@ -44,9 +44,11 @@ export default function Notification() {
         setCurrentNotification({ title: title, context: context })
         setOpenNotification(true);
         let nt = notification
-        nt.notifications[index].unread = false;
-        setNotification(nt);
-        NotificationDataService.update(nt.id, nt);
+        if (nt.notifications[index].unread) {
+            nt.notifications[index].unread = false;
+            setNotification(nt);
+            NotificationDataService.update(nt.id, nt);
+        }
     }
 
     return (
@@ -58,8 +60,8 @@ export default function Notification() {
             />
             <List dense={dense} style={{ backgroundColor: 'white' }}>
                 {notification && notification.notifications.map((value, index) => (
-                    <>
-                        <ListItem key={index} onClick={() => handleOpen(value.title, value.context, index)}>
+                    <div key={index}>
+                        <ListItem onClick={() => handleOpen(value.title, value.context, index)}>
                             <ListItemAvatar>
                                 <Avatar>
                                     <SmsIcon />
@@ -81,7 +83,7 @@ export default function Notification() {
                         {index !== notification.notifications.length - 1 &&
                             <Divider light={true} />
                         }
-                    </>
+                    </div>
                 ))}
             </List>
         </Box >

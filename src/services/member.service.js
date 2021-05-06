@@ -1,4 +1,5 @@
 import BaseDataService from "services/_base.service";
+import NotificationDataService from "services/notification.service";
 let collection = "/members";
 
 class Member {
@@ -49,13 +50,12 @@ class MemberDataService {
                         let memberDataService = new MemberDataService();
                         memberDataService.update(member.id, member);
                         setState(member);
+
+                        NotificationDataService.createNotificationItem(member.id)
                     })
                     .catch((e) => {
                         console.log(e);
                     });
-
-                // this.create(member);
-                // setState(member);
             } else {
                 snapshot.forEach((item) => {
                     let dt = item.data();
