@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link as RouterLink } from "react-router-dom";
 
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
@@ -8,8 +9,9 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { primaryColor } from "material-ui/custom.js";
 
-export default function LoginTestButtom(props) {
+export default function LoginButtom(props) {
     const { singUpPopupClick } = props;
     const [open, setOpen] = React.useState(false);
 
@@ -38,30 +40,27 @@ export default function LoginTestButtom(props) {
                 <DialogTitle id="max-width-dialog-title">登入帳號</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description" style={{ textAlign: "center", whiteSpace: 'pre-line' }}>
-                        <Typography variant="h6" component="p">
-                            【登入試用帳號】
+                        <Typography variant="body1" component="p" style={{ marginBottom: '12px', lineHeight: '24px' }}>
+                            請詳閱本網站隱私權政策與授權條款，點選按鈕進行登入/註冊，即表示接受以下服務條款之所有內容。
                         </Typography>
-                        <Typography variant="body1" component="p">
-                            {`帳號：simplelifetest1
-                            密碼：SimpleLife_1111
-                            
-                            `}
+                        <Typography variant="body1" component="p" style={{ fontSize: '18px', marginBottom: '32px' }} color="primary">
+                            <RouterLink
+                                basename="/privacy"
+                                to="/privacy"
+                                style={{ textDecoration: 'none', color: primaryColor }}
+                                onClick={handleClose}
+                            >
+                                {`隱私權政策與授權條款`}
+                            </RouterLink>
                         </Typography>
-                        <Typography variant="body2" color="error" component="p">
-                            {`※如無法登入，請嘗試改用瀏覽器或無痕視窗開啟網頁。`}
+                        <Typography variant="body2" color="error" component="p" style={{ fontSize: '12px' }}>
+                            {`※請使用瀏覽器開啟網頁登入，於LINE、Facebook等第三方App上開啟本網站，可能導致部分功能無法正常啟動。`}
                         </Typography>
-                        {/* <Typography variant="h5" component="p" style={{ paddingTop: 20 }}>
-                            【測試帳號2】
-                        </Typography>
-                        <Typography variant="body1" component="p">
-                            {`帳號：simplelifetest2
-                            密碼：SimpleLife_2222`}
-                        </Typography> */}
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
                     <Button variant="outlined" color="primary" onClick={() => singUpPopupClick()}>
-                        Google 登入/註冊
+                        Google登入/註冊
                     </Button>
                     <Button variant="outlined" onClick={handleClose} color="secondary">
                         取消
