@@ -18,7 +18,7 @@ class Notification {
             type: dt.type !== undefined ? dt.type : "",
             title: dt.title !== undefined ? dt.title : "",
             context: dt.context !== undefined ? dt.context : "",
-            unread: dt.unread !== undefined ? dt.unread : "",
+            unread: dt.unread !== undefined ? dt.unread : true,
             registerDate: dt.registerDate !== undefined ? dt.registerDate : Date.now(),
             registerTimestamp: dt.registerTimestamp !== undefined ? dt.registerTimestamp : getTimestamp(),
         }
@@ -35,8 +35,9 @@ class NotificationDataService {
         return BaseDataService.update(collection, id, data);
     }
 
-    updateByMemberId(memberId, data) {
-        this.getByMemberId(memberId, null, data);
+    createNewNotification({ receiveMemberId, type, title, context}) {
+        let notification = new Notification({ type, title, context }).data;
+        this.getByMemberId(receiveMemberId, null, notification);
     }
 
     getCurrentMemberNotificationItem(memberId, setState) {
@@ -88,6 +89,3 @@ class NotificationDataService {
 }
 
 export default new NotificationDataService();
-
-const NewNotification = new Notification("", "");
-export { NewNotification };

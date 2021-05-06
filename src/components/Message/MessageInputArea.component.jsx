@@ -9,7 +9,7 @@ import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import MessageDataService, { NewMessage } from "services/message.service";
 import getTimestamp from "js/getTimestamp.js";
 import MessageItemDataService from "services/messageItem.service";
-import NotificationDataService, { NewNotification } from "services/notification.service";
+import NotificationDataService from "services/notification.service";
 
 export default function MessageInputArea(props) {
     const { currentMemberId, currentMemberName, chatMemberId, setReQueryMessage, setToTop, currentChatItem } = props;
@@ -55,14 +55,12 @@ export default function MessageInputArea(props) {
         MessageItemDataService.update(messageItem.id, messageItem);
 
         //更新 notification
-        let notification = NewNotification.data;
-        notification.type = "msg";
-        notification.title = `${currentMemberName} 傳送了訊息給您`;
-        notification.context = "收到一封新訊息，可於個人頁面點擊查看。";
-        notification.unread = true;
-        notification.registerDate = Date.now();
-        notification.registerTimestamp = getTimestamp();
-        NotificationDataService.updateByMemberId(chatMemberId, notification)
+        NotificationDataService.createNewNotification({
+            receiveMemberId: chatMemberId,
+            type: 'msg',
+            title: `${currentMemberName} 傳送了訊息給您`,
+            context: "收到一封新訊息，可於個人頁面點擊查看。"
+        })
     }
 
     const onChange = (value) => {
