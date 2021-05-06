@@ -50,11 +50,11 @@ const useStyles = makeStyles((theme) => ({
     //     },
     // },
     desktopIconSize: {
-        fontSize: '27px',
-        margin: '0 -4px',
+        fontSize: '30px',
+        // margin: '0 -4px',
         [theme.breakpoints.up('sm')]: {
             fontSize: '34px',
-            margin: '0px',
+            // margin: '0px',
         },
     },
 }));

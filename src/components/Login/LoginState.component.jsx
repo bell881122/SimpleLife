@@ -12,8 +12,8 @@ const LoginButtom = React.lazy(() => import('components/Login/LoginButtom.compon
 
 const useStyles = makeStyles((theme) => ({
     avatar: {
-        width: theme.spacing(3),
-        height: theme.spacing(3),
+        width: '28px',
+        height:'28px',
         [theme.breakpoints.up('sm')]: {
             width: theme.spacing(4),
             height: theme.spacing(4),
