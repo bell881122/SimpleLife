@@ -7,14 +7,11 @@ import Box from '@material-ui/core/Box';
 import Chip from '@material-ui/core/Chip';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import Avatar from '@material-ui/core/Avatar';
-import SmsOutlinedIcon from '@material-ui/icons/SmsOutlined';
-import IconButton from '@material-ui/core/IconButton';
 
 import { CurrentMemberContext } from "context/CurrentMemberContext.js";
 import MemberDataService from "services/member.service";
 const FavoriteBotton = React.lazy(() => import('tools/FavoriteBotton.tool.jsx'));
-const Messager = React.lazy(() => import('components/Message/Messager.component.jsx'));
+const MemberInfo = React.lazy(() => import('components/Member/MemberInfo.component.jsx'));
 
 const useStyles = makeStyles((theme) => ({
     mainPicture: good => ({
@@ -51,7 +48,6 @@ export default function GoodDetail(props) {
     const { good } = props;
     const classes = useStyles(good);
     const [goodMember, setGoodMember] = React.useState();
-    const [showMessageCase, setShowMessageCase] = React.useState(false);
     const { currentMemberContext } = React.useContext(CurrentMemberContext);
 
     React.useEffect(() => {
@@ -65,6 +61,15 @@ export default function GoodDetail(props) {
             {good &&
                 <>
                     <Box className={classes.mainPicture} />
+                    {goodMember &&
+                        <Box p={1} my={1} className={classes.whiteBackground}>
+                            <MemberInfo
+                                member={goodMember}
+                                currentMemberContext={currentMemberContext}
+                                setMember={setGoodMember}
+                            />
+                        </Box>
+                    }
                     <Box mb={2} p={2} className={classes.whiteBackground}>
                         <Box mb={1} display="flex" justifyContent="space-between">
                             <Box display="flex">
@@ -145,41 +150,6 @@ export default function GoodDetail(props) {
                         }
                     </Box>
 
-                    {goodMember &&
-                        <Box display="flex" p={2} className={classes.whiteBackground}>
-                            <RouterLink
-                                basename="/member"
-                                to={`/member/${goodMember.id}`}
-                                style={{ textDecoration: 'none', color: 'black' }}
-                            >
-                                <Box display="flex" flexShrink={0}>
-                                    <Avatar
-                                        src={goodMember.profile.photoURL}
-                                        alt={goodMember.profile.name}
-                                    />
-                                    <Typography variant="body1" component="h2" style={{ margin: 'auto 0px auto 8px' }}>
-                                        {goodMember.profile.name}
-                                    </Typography>
-                                </Box>
-                            </RouterLink>
-                            {(
-                                currentMemberContext &&
-                                currentMemberContext.id !== goodMember.id
-                            ) &&
-                                <Box style={{ margin: '-3px 0px 0px 8px' }}>
-                                    <IconButton aria-label="Messager" color="primary" onClick={() => setShowMessageCase(true)}>
-                                        <SmsOutlinedIcon />
-                                    </IconButton>
-                                    <Messager
-                                        chatMemberId={goodMember.id}
-                                        showMessageCase={showMessageCase}
-                                        setShowMessageCase={setShowMessageCase}
-                                        showMessage={false}
-                                    />
-                                </Box>
-                            }
-                        </Box>
-                    }
                 </>
             }
         </Box>
