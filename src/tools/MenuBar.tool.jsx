@@ -21,12 +21,11 @@ const LoginState = React.lazy(() => import('components/Login/LoginState.componen
 
 const useStyles = makeStyles((theme) => ({
     grow: {
-        flexGrow: 1,
+        flexGrow: 1
     },
     title: {
         textDecoration: 'none',
         fontSize: '1.25rem',
-        color: theme.palette.background.paper,
         [theme.breakpoints.up('sm')]: {
             fontSize: '1.5rem',
         },
@@ -124,10 +123,10 @@ export default function MenuBar() {
 
     return (
         <div className={classes.grow}>
-            <AppBar position="sticky">
+            <AppBar color="default" style={{ backgroundColor: 'white'}}>
                 <Container maxWidth="md">
                     <Toolbar style={{ padding: '0 4px 0 10px', margin: '0' }}>
-                        <Typography className={classes.title} variant="h6" noWrap component={RouterLink} to="/">
+                        <Typography className={classes.title} color="primary" variant="h6" noWrap component={RouterLink} to="/">
                             Simple Life
                         </Typography>
                         <div className={classes.grow} />
