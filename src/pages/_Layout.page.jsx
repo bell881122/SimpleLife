@@ -49,11 +49,11 @@ export default function Layout(props) {
             <ThemeProvider theme={theme}>
                 <CurrentMemberContext.Provider value={{ currentMemberContext, setCurrentMemberContext }}>
                 <SettingsContext.Provider value={{ settingsContext, setSettingsContext }}>
-                    <Box display="flex" minHeight="100vh" flexDirection="column" bgcolor="grey.100">
+                    <Box display="flex" minHeight="100vh" flexDirection="column">
                         <Box flexShrink={1} >
                             <MenuBar />
                         </Box>
-                        <Box height="100%" className={classes.main}>
+                            <Box height="100%" className={classes.main} position="relative">
                             <Container maxWidth="md" style={{ height: '100%' }}>
                                 {props.children}
                             </Container>

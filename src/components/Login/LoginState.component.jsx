@@ -8,12 +8,12 @@ import IconButton from '@material-ui/core/IconButton';
 // import Typography from '@material-ui/core/Typography';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
-const LoginButtom = React.lazy(() => import('components/Login/LoginButtom.component.jsx'));
+const LoginButton = React.lazy(() => import('components/Login/LoginButton.component.jsx'));
 
 const useStyles = makeStyles((theme) => ({
     avatar: {
         width: '28px',
-        height:'28px',
+        height: '28px',
         [theme.breakpoints.up('sm')]: {
             width: theme.spacing(4),
             height: theme.spacing(4),
@@ -38,19 +38,6 @@ export default function LoginState(props) {
         });
     }, [setIsLogged, setCurrentUser]);
 
-    const singUpPopupClick = () => {
-        var provider = new firebase.auth.GoogleAuthProvider();
-        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-            .then(() => {
-                firebase.auth().signInWithPopup(provider).then(function (result) {
-                    // var user = result.user;
-                    console.log("Google 登入成功")
-                });
-            })
-            .catch((error) => {
-                console.log("Login Error:", error.code, error.message)
-            });
-    }
 
     const history = useHistory();
     const signOutClick = () => {
@@ -70,7 +57,7 @@ export default function LoginState(props) {
                     <IconButton aria-label="Logout" color="primary" onClick={() => signOutClick()}>
                         <ExitToAppIcon className={desktopIconSize} />
                     </IconButton>
-                </> : <LoginButtom singUpPopupClick={singUpPopupClick} />
+                </> : <LoginButton />
             }
         </>
     );

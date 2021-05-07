@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useHistory } from "react-router-dom";
+import { firebase } from "js/firebase";
 
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
@@ -11,9 +12,13 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { primaryColor } from "material-ui/custom.js";
 
-export default function LoginButtom(props) {
-    const { singUpPopupClick } = props;
+import { CurrentMemberContext } from "context/CurrentMemberContext.js";
+
+export default function LoginButton(props) {
+    const { type } = props;
+    const history = useHistory();
     const [open, setOpen] = React.useState(false);
+    const { currentMemberContext } = React.useContext(CurrentMemberContext);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -23,13 +28,37 @@ export default function LoginButtom(props) {
         setOpen(false);
     };
 
+    const handleGoToUserPage = () => {
+        history.push("/user");
+    };
+
+    const singUpPopupClick = () => {
+        var provider = new firebase.auth.GoogleAuthProvider();
+        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+            .then(() => {
+                firebase.auth().signInWithPopup(provider).then(function (result) {
+                    // var user = result.user;
+                    console.log("Google 登入成功")
+                });
+            })
+            .catch((error) => {
+                console.log("Login Error:", error.code, error.message)
+            });
+    }
+
     return (
         <>
-            <IconButton aria-label="Login" color="inherit" onClick={() => handleClickOpen()}>
-                <Typography variant="button" display="block" gutterBottom>
-                    登入/註冊
-                </Typography>
-            </IconButton>
+            {type === "home" ?
+                <Button variant="outlined" color="primary"
+                    onClick={currentMemberContext ? () => handleGoToUserPage() : () => handleClickOpen()}
+                >馬上開始</Button>
+                :
+                <IconButton aria-label="Login" color="primary" onClick={() => handleClickOpen()}>
+                    <Typography variant="button">
+                        登入/註冊
+                    </Typography>
+                </IconButton>
+            }
             <Dialog
                 fullWidth
                 maxWidth="xs"
@@ -37,7 +66,7 @@ export default function LoginButtom(props) {
                 onClose={handleClose}
                 aria-labelledby="max-width-dialog-title"
             >
-                <DialogTitle id="max-width-dialog-title">登入帳號</DialogTitle>
+                <DialogTitle id="max-width-dialog-title">登入/註冊帳號</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description" style={{ textAlign: "center", whiteSpace: 'pre-line' }}>
                         <Typography variant="body1" component="p" style={{ marginBottom: '12px', lineHeight: '24px' }}>
