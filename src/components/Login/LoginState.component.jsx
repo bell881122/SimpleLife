@@ -67,7 +67,7 @@ export default function LoginState(props) {
                     <IconButton aria-label="User" color="inherit" component={RouterLink} to="/user">
                         <Avatar display="block" alt={currentUser.displayName} src={currentUser.photoURL} className={classes.avatar} />
                     </IconButton>
-                    <IconButton aria-label="Logout" color="inherit" onClick={() => signOutClick()}>
+                    <IconButton aria-label="Logout" color="primary" onClick={() => signOutClick()}>
                         <ExitToAppIcon className={desktopIconSize} />
                     </IconButton>
                 </> : <LoginButtom singUpPopupClick={singUpPopupClick} />

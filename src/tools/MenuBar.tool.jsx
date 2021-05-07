@@ -14,7 +14,9 @@ import Badge from '@material-ui/core/Badge';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 // import PersonIcon from '@material-ui/icons/Person';
 import Container from '@material-ui/core/Container';
+import { primaryColor } from "material-ui/custom.js";
 
+import { ReactComponent as Logo } from "asset/Logo.svg";
 import { CurrentMemberContext } from "context/CurrentMemberContext.js";
 import NotificationDataService from "services/notification.service";
 const LoginState = React.lazy(() => import('components/Login/LoginState.component.jsx'));
@@ -23,13 +25,26 @@ const useStyles = makeStyles((theme) => ({
     grow: {
         flexGrow: 1
     },
-    title: {
-        textDecoration: 'none',
-        fontSize: '1.25rem',
+    logo: {
+        height: '30px',
+        width: '136px',
+        display: 'block',
+        marginTop:'2px',
         [theme.breakpoints.up('sm')]: {
-            fontSize: '1.5rem',
+            height: '37px',
+            width: '168px',
+            marginTop: '4px',
         },
     },
+    // title: {
+    //     textDecoration: 'none',
+    //     fontSize: '1.35rem',
+    //     fontWeight:'bold',
+    //     fontFamily: "'Nothing You Could Do', cursive",
+    //     [theme.breakpoints.up('sm')]: {
+    //         fontSize: '1.7rem',
+    //     },
+    // },
     sectionDesktop: {
         display: 'none',
         [theme.breakpoints.up('xs')]: {
@@ -123,19 +138,25 @@ export default function MenuBar() {
 
     return (
         <div className={classes.grow}>
-            <AppBar color="default" style={{ backgroundColor: 'white'}}>
-                <Container maxWidth="md">
-                    <Toolbar style={{ padding: '0 4px 0 10px', margin: '0' }}>
-                        <Typography className={classes.title} color="primary" variant="h6" noWrap component={RouterLink} to="/">
+            <AppBar color="default" style={{ backgroundColor: 'white' }}>
+                <Container maxWidth="md" style={{ margin: 'auto' }}>
+                    <Toolbar style={{ padding: '0px',height:'56px' }}>
+                        {/* <Typography className={classes.title} color="primary" variant="h6" noWrap component={RouterLink} to="/">
                             Simple Life
-                        </Typography>
+                        </Typography> */}
+                        <RouterLink basename="/" to="/"                       >
+                            <Typography style={{ display: 'none' }} component="h1">
+                                Simple Life
+                            </Typography>
+                            <Logo className={classes.logo} alt="logo" fill={primaryColor} stroke={primaryColor} strokeWidth="1rem" />
+                        </RouterLink>
                         <div className={classes.grow} />
                         <div className={classes.sectionDesktop}>
                             {/* <IconButton aria-label="Goods" color="inherit" component={RouterLink} to="/">
                                 <CardGiftcardIcon className={classes.desktopIconSize} />
                             </IconButton> */}
                             {isLogged &&
-                                <IconButton aria-label="Notifications" color="inherit" component={RouterLink} to="/notification" >
+                                <IconButton aria-label="Notifications" color="primary" component={RouterLink} to="/notification" >
                                     <Badge
                                         invisible={!hasUnread}
                                         color="error"
