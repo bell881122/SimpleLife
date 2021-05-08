@@ -52,7 +52,7 @@ export default function SearchInput(props) {
         >
             <InputBase
                 className={classes.input}
-                placeholder="請用空白區分關鍵字"
+                placeholder="搜尋: 洋裝 飾品 文具..."
                 inputProps={{ 'aria-label': '搜尋物品' }}
                 value={searchContent}
                 onChange={e => setSearchContent(e.target.value)}
