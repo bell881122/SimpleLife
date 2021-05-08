@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from "react-router-dom";
 import { firebase } from "js/firebase";
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -25,7 +26,9 @@ const useStyles = makeStyles((theme) => ({
 export default function Layout(props) {
     const [currentMemberContext, setCurrentMemberContext] = React.useState();
     const [settingsContext, setSettingsContext] = React.useState(Settings);
+    const [isNewMember, setIsNewMember] = React.useState(false);
     const classes = useStyles();
+    const history = useHistory();
 
     React.useEffect(() => {
         firebase.auth().onAuthStateChanged((user) => {
@@ -38,10 +41,15 @@ export default function Layout(props) {
                         photoURL: user.photoURL,
                     },
                 }
-                MemberDataService.getByUid(user.uid, currentMember, setCurrentMemberContext);
+                MemberDataService.getByUid(user.uid, currentMember, setCurrentMemberContext, setIsNewMember);
             }
         });
     }, []);
+
+    React.useEffect(() => {
+        if (isNewMember)
+            history.push("/notification");
+    }, [isNewMember, history]);
 
     return (
         <>

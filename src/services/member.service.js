@@ -30,7 +30,7 @@ class MemberDataService {
         return BaseDataService.update(collection, id, data);
     }
 
-    getByUid(uid, user, setState) {
+    getByUid(uid, user, setState, setIsNewMember) {
         let queryCondition = {
             where: [{
                 key: "uid",
@@ -50,6 +50,7 @@ class MemberDataService {
                         let memberDataService = new MemberDataService();
                         memberDataService.update(member.id, member);
                         setState(member);
+                        setIsNewMember(true);
 
                         NotificationDataService.createNotificationItem(member.id)
                     })
