@@ -6,8 +6,8 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
-import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
+import { grey } from '@material-ui/core/colors';
 
 import MessageItemDataService from "services/messageItem.service";
 
@@ -81,10 +81,13 @@ export default function MessageList(props) {
     }
 
     return (
-            <List>
+            <List style={{ padding: 0 }}>
                 {messageItems && messageItems.map((value, index) =>
                     <div key={index}>
-                        <ListItem dense onClick={() => getCurrentChat(value.memberIds, value)}>
+                        <ListItem dense divider
+                            style={{ backgroundColor: value.memberIds.indexOf(chatMemberId) > -1 ? grey[100] : 'rgba(0,0,0,0)' }}
+                            onClick={() => getCurrentChat(value.memberIds, value)}
+                        >
                             <ListItemAvatar>
                                 <Avatar
                                     alt={value.chatMemberName ? value.chatMemberName : ""}
@@ -103,9 +106,6 @@ export default function MessageList(props) {
                                 >{value.lastMessage ? value.lastMessage : ""}</Typography>}
                             />
                         </ListItem>
-                        {(messageItems.length - 1 !== index) &&
-                            <Divider variant="middle" light />
-                        }
                     </div>
                 )}
             </List>
