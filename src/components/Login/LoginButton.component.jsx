@@ -10,6 +10,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import SmsOutlinedIcon from '@material-ui/icons/SmsOutlined';
 import { primaryColor } from "material-ui/custom.js";
 
 import { CurrentMemberContext } from "context/CurrentMemberContext.js";
@@ -52,7 +53,15 @@ export default function LoginButton(props) {
                 <Button variant="outlined" color="primary"
                     onClick={currentMemberContext ? () => handleGoToUserPage() : () => handleClickOpen()}
                 >馬上開始</Button>
-                :
+            : type === "member" ?
+                <IconButton aria-label="Messager" color="primary"
+                    onClick={currentMemberContext ? () => handleGoToUserPage() : () => handleClickOpen()}
+                ><SmsOutlinedIcon /></IconButton>
+            : type === "change" ?
+                <Button variant="contained" color="primary" size="large"
+                    onClick={currentMemberContext ? () => handleGoToUserPage() : () => handleClickOpen()}
+                >索取物品</Button>
+            :   
                 <IconButton aria-label="Login" color="primary" onClick={() => handleClickOpen()}>
                     <Typography variant="button">
                         登入/註冊

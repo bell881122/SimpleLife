@@ -9,6 +9,7 @@ import SmsOutlinedIcon from '@material-ui/icons/SmsOutlined';
 
 const MemberScorePoint = React.lazy(() => import('components/Member/MemberScorePoint.component.jsx'));
 const Messager = React.lazy(() => import('components/Message/Messager.component.jsx'));
+const LoginButton = React.lazy(() => import('components/Login/LoginButton.component.jsx'));
 
 export default function MemberInfo(props) {
     const { member, currentMemberContext, setMember, type } = props;
@@ -53,21 +54,24 @@ export default function MemberInfo(props) {
                 setMember={setMember}
                 currentMemberId={currentMemberContext ? currentMemberContext.id : undefined}
             />
-            <Box ml={type === "member" ? 0 : "auto"}>
-                <IconButton aria-label="Messager" color="primary" onClick={() => setShowMessageCase(true)}>
-                    <SmsOutlinedIcon />
-                </IconButton>
-            </Box>
             {(
                 currentMemberContext &&
                 currentMemberContext.id !== member.id
-            ) &&
-                <Messager
-                    chatMemberId={member.id}
-                    showMessageCase={showMessageCase}
-                    setShowMessageCase={setShowMessageCase}
-                    showMessage={false}
-                />
+            ) ?
+                <Box ml={type === "member" ? 0 : "auto"}>
+                    <IconButton aria-label="Messager" color="primary" onClick={() => setShowMessageCase(true)}>
+                        <SmsOutlinedIcon />
+                    </IconButton>
+                    <Messager
+                        chatMemberId={member.id}
+                        showMessageCase={showMessageCase}
+                        setShowMessageCase={setShowMessageCase}
+                        showMessage={false}
+                    />
+                </Box>
+                : <Box ml={type === "member" ? 0 : "auto"}>
+                    <LoginButton type="member" />
+                </Box>
             }
         </Box>
     );

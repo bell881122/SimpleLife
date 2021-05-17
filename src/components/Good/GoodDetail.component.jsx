@@ -7,11 +7,14 @@ import Box from '@material-ui/core/Box';
 import Chip from '@material-ui/core/Chip';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
+import Button from '@material-ui/core/Button';
 
 import { CurrentMemberContext } from "context/CurrentMemberContext.js";
 import MemberDataService from "services/member.service";
 const FavoriteBotton = React.lazy(() => import('tools/FavoriteBotton.tool.jsx'));
 const MemberInfo = React.lazy(() => import('components/Member/MemberInfo.component.jsx'));
+const Messager = React.lazy(() => import('components/Message/Messager.component.jsx'));
+const LoginButton = React.lazy(() => import('components/Login/LoginButton.component.jsx'));
 
 const useStyles = makeStyles((theme) => ({
     mainPicture: good => ({
@@ -49,6 +52,7 @@ export default function GoodDetail(props) {
     const classes = useStyles(good);
     const [goodMember, setGoodMember] = React.useState();
     const { currentMemberContext } = React.useContext(CurrentMemberContext);
+    const [showMessageCase, setShowMessageCase] = React.useState(false);
 
     React.useEffect(() => {
         if (good !== undefined && good.memberId !== undefined) {
@@ -71,7 +75,7 @@ export default function GoodDetail(props) {
                         </Box>
                     }
                     <Box mb={2} p={2} className={classes.whiteBackground}>
-                        <Box mb={1} display="flex" justifyContent="space-between">
+                        <Box mb={1} display="flex" flexWrap="wrap" justifyContent="space-between">
                             <Box display="flex">
                                 <Box >
                                     <Chip label={good.state} size="small" />
@@ -140,7 +144,7 @@ export default function GoodDetail(props) {
                                                     to={`/search/${tag}`}
                                                     className={classes.textDecorationNone}
                                                 >
-                                                    <Chip size="small" label={tag} color="primary" onClick={() => { return }} />
+                                                    <Chip size="small" variant="outlined" label={tag} color="primary" onClick={() => { return }} />
                                                 </RouterLink>
                                             </Box>
                                         ))}
@@ -148,8 +152,29 @@ export default function GoodDetail(props) {
                                 </Box>
                             </>
                         }
+                        <Divider light={true} />
+                        <Box my={2}>
+                            {(
+                                currentMemberContext &&
+                                currentMemberContext.id !== good.memberId
+                            ) ?
+                                <Box>
+                                    <Button variant="contained" color="primary" size="large"
+                                        onClick={() => setShowMessageCase(true)}
+                                    >索取物品</Button>
+                                    <Messager
+                                        chatMemberId={good.memberId}
+                                        showMessageCase={showMessageCase}
+                                        setShowMessageCase={setShowMessageCase}
+                                        showMessage={false}
+                                    />
+                                </Box>
+                                : <Box>
+                                    <LoginButton type="change" />
+                                </Box>
+                            }
+                        </Box>
                     </Box>
-
                 </>
             }
         </Box>
