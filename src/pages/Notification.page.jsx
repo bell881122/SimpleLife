@@ -40,8 +40,8 @@ export default function Notification() {
         }
     }, [currentMemberContext]);
 
-    const handleOpen = (title, context, index) => {
-        setCurrentNotification({ title: title, context: context })
+    const handleOpen = (currentNotification, index) => {
+        setCurrentNotification(currentNotification)
         setOpenNotification(true);
         let nt = notification
         if (nt.notifications[index].unread) {
@@ -61,7 +61,7 @@ export default function Notification() {
             <List dense={dense} style={{ backgroundColor: 'white' }}>
                 {notification && notification.notifications.map((value, index) => (
                     <div key={index}>
-                        <ListItem onClick={() => handleOpen(value.title, value.context, index)}>
+                        <ListItem onClick={() => handleOpen(value, index)}>
                             <ListItemAvatar>
                                 <Avatar>
                                     <SmsIcon />
