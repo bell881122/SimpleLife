@@ -52,7 +52,7 @@ class GoodDataService {
         });
     }
 
-    getById(id, setState) {
+    getById(id, setState, setNoMatch) {
         BaseDataService.getById(collection, id).then(item => {
             let id = item.id;
             let dt = item.data();
@@ -60,6 +60,8 @@ class GoodDataService {
             setState(good);
         }).catch(error => {
             console.log("Error getting documents: ", error);
+            if (setNoMatch !== undefined)
+                setNoMatch(true);
         });
     }
 

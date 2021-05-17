@@ -11,13 +11,14 @@ const Search = React.lazy(() => import('pages/Search.page.jsx'));
 const Feedback = React.lazy(() => import('pages/Feedback.page.jsx'));
 const Good = React.lazy(() => import('pages/Good.page.jsx'));
 const Member = React.lazy(() => import('pages/Member.page.jsx'));
+const Error = React.lazy(() => import('pages/Error.page.jsx'));
 
 function App() {
   return (
     <BrowserRouter>
-      <Switch>
-        <Suspense fallback={<Loading />}>
-          <Layout>
+      <Suspense fallback={<Loading />}>
+        <Layout>
+          <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/SimpleLifeTest" component={Home} />
             <Route exact path="/notification" component={Notification} />
@@ -28,9 +29,11 @@ function App() {
             <Route exact path="/good/:id" component={Good} />
             <Route exact path="/good/add" component={Good} />
             <Route exact path="/member/:id" component={Member} />
-          </Layout>
-        </Suspense>
-      </Switch>
+            <Route exact path="/error" component={Error} />
+            <Route exact component={Error} />
+          </Switch>
+        </Layout>
+      </Suspense>
     </BrowserRouter>
   );
 }

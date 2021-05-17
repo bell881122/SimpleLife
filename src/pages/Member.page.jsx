@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
@@ -12,13 +12,15 @@ const MemberInfo = React.lazy(() => import('components/Member/MemberInfo.compone
 
 export default function Member() {
     let { id } = useParams();
+    const history = useHistory();
     const [member, setMember] = React.useState();
     const [goods, setGoods] = React.useState();
+    const [noMatch, setNoMatch] = React.useState(false);
     const { currentMemberContext } = React.useContext(CurrentMemberContext);
 
     React.useEffect(() => {
         if (id !== undefined) {
-            MemberDataService.getById(id, setMember);
+            MemberDataService.getById(id, setMember, setNoMatch);
         }
     }, [id]);
 
@@ -27,6 +29,12 @@ export default function Member() {
             GoodDataService.getMemberGoods(id, setGoods);
         }
     }, [member, id]);
+
+    React.useEffect(() => {
+        if (noMatch) {
+            history.push("/error")
+        }
+    }, [noMatch, history]);
 
     return (
         <>

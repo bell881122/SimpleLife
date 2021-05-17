@@ -22,6 +22,7 @@ export default function Good() {
     const [isMyGood, setIsMyGood] = React.useState(false);
     const [isEdit, setIsEdit] = React.useState(false);
     const [editType, setEditType] = React.useState("編輯");
+    const [noMatch, setNoMatch] = React.useState(false);
 
     React.useEffect(() => {
         if (id && id !== "") {
@@ -34,11 +35,10 @@ export default function Good() {
                     setEditType("新增")
                 }
             } else {
-                GoodDataService.getById(id, setGood);
+                GoodDataService.getById(id, setGood, setNoMatch);
             }
         }
     }, [currentMemberContext, id]);
-
 
     React.useEffect(() => {
         if (good !== undefined &&
@@ -48,6 +48,12 @@ export default function Good() {
             setIsMyGood(true);
         }
     }, [good, currentMemberContext]);
+
+    React.useEffect(() => {
+        if (noMatch) {
+            history.push("/error")
+        }
+    }, [noMatch, history]);
 
     const deleteGood = () => {
         GoodDataService.delete(good.id)

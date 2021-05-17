@@ -69,22 +69,16 @@ class MemberDataService {
         });
     }
 
-    getById(id, setState) {
-        let queryCondition = {
-            where: [{
-                key: "id",
-                operation: "==",
-                condition: id
-            }]
-        }
-        BaseDataService.query(collection, queryCondition).then(snapshot => {
-            snapshot.forEach((item) => {
-                let dt = item.data();
-                let member = new Member(dt.id, dt).data;
-                setState(member);
-            });
+    getById(id, setState, setNoMatch) {
+        BaseDataService.getById(collection, id).then(item => {
+            let id = item.id;
+            let dt = item.data();
+            let member = new Member(id, dt).data;
+            setState(member);
         }).catch(error => {
             console.log("Error getting documents: ", error);
+            if (setNoMatch !== undefined)
+                setNoMatch(true);
         });
     }
 
