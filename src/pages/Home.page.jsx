@@ -4,15 +4,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
+import jumbotron from 'asset/homepage_jumbotron.jpg';
 
 const SearchDefault = React.lazy(() => import('components/Search/SearchDefault.component.jsx'));
 const LoginButton = React.lazy(() => import('components/Login/LoginButton.component.jsx'));
 
-let imgUrl = "https://cdn.stocksnap.io/img-thumbs/960w/bedroom-clean_OE0F9BHXJQ.jpg";
-
 const useStyles = makeStyles((theme) => ({
     backGroundPic: {
-        backgroundImage: `url(${imgUrl})`,
+        backgroundImage: `url(${jumbotron})`,
         backgroundSize: 'cover',
         backgroundPosition: '0% 100%',
         left: 0,
