@@ -81,7 +81,11 @@ export default function GoodDetail(props) {
                                     <Chip label={good.state} size="small" />
                                 </Box>
                                 <Box ml={1} >
-                                    <FavoriteBotton goodId={good.id} />
+                                    {currentMemberContext ?
+                                        <FavoriteBotton goodId={good.id} />
+                                        :
+                                        <LoginButton type="favoriteButton" />
+                                    }
                                 </Box>
                             </Box>
                             <Box style={{ marginTop: 3 }} >
@@ -154,10 +158,7 @@ export default function GoodDetail(props) {
                         }
                         <Divider light={true} />
                         <Box my={2}>
-                            {(
-                                currentMemberContext &&
-                                currentMemberContext.id !== good.memberId
-                            ) ?
+                            {currentMemberContext ?
                                 <Box>
                                     <Button variant="contained" color="primary" size="large"
                                         onClick={() => setShowMessageCase(true)}

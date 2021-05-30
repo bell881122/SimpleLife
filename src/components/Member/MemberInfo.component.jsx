@@ -54,10 +54,7 @@ export default function MemberInfo(props) {
                 setMember={setMember}
                 currentMemberId={currentMemberContext ? currentMemberContext.id : undefined}
             />
-            {(
-                currentMemberContext &&
-                currentMemberContext.id !== member.id
-            ) ?
+            {currentMemberContext ?
                 <Box ml={type === "member" ? 0 : "auto"}>
                     <IconButton aria-label="Messager" color="primary" onClick={() => setShowMessageCase(true)}>
                         <SmsOutlinedIcon />
