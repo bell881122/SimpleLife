@@ -11,7 +11,7 @@ import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 
 import { CurrentMemberContext } from "context/CurrentMemberContext.js";
-import FeedbackDataService, { Feedback as NewFeedback } from "services/feedback.service";
+import FeedbackDataService, { newFeedback as NewFeedback } from "services/feedback.service";
 
 const types = [
     {
@@ -26,8 +26,8 @@ const types = [
 
 export default function FeedbackForm() {
     const history = useHistory();
-    const [feedback, setFeedback] = React.useState(new NewFeedback("", "").data);
-    const [submitButtomDisabled, setSubmitButtomDisabled] = React.useState(false);
+    const [feedback, setFeedback] = React.useState(NewFeedback("", ""));
+    const [submitButtonDisabled, setSubmitButtonDisabled] = React.useState(false);
     const { currentMemberContext } = React.useContext(CurrentMemberContext);
 
     const checkDisabled = React.useCallback(() => {
@@ -36,9 +36,9 @@ export default function FeedbackForm() {
                 feedback.content === "" ||
                 feedback.type === ""
             ) {
-                setSubmitButtomDisabled(true);
+                setSubmitButtonDisabled(true);
             } else {
-                setSubmitButtomDisabled(false);
+                setSubmitButtonDisabled(false);
             }
         };
 
@@ -142,7 +142,7 @@ export default function FeedbackForm() {
                                         variant="contained"
                                         color="primary"
                                         onClick={() => commitFeedback()}
-                                        disabled={submitButtomDisabled}
+                                        disabled={submitButtonDisabled}
                                     >提交</Button>
                                 </Box>
                             </Box>

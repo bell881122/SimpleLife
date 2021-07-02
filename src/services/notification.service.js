@@ -2,26 +2,22 @@ import BaseDataService from "services/_base.service";
 import getTimestamp from "js/getTimestamp.js";
 let collection = "/notifications";
 
-class NotificationItem {
-    constructor(id, dt) {
-        this.data = {
-            id: id,
-            memberId: dt.memberId !== undefined ? dt.memberId : "",
-            notifications: dt.notifications !== undefined ? dt.notifications : [],
-        }
+function newNotificationItem(id, dt) {
+    return {
+        id: id,
+        memberId: dt.memberId !== undefined ? dt.memberId : "",
+        notifications: dt.notifications !== undefined ? dt.notifications : [],
     }
 }
 
-class Notification {
-    constructor(dt) {
-        this.data = {
-            type: dt.type !== undefined ? dt.type : "",
-            title: dt.title !== undefined ? dt.title : "",
-            context: dt.context !== undefined ? dt.context : "",
-            unread: dt.unread !== undefined ? dt.unread : true,
-            registerDate: dt.registerDate !== undefined ? dt.registerDate : Date.now(),
-            registerTimestamp: dt.registerTimestamp !== undefined ? dt.registerTimestamp : getTimestamp(),
-        }
+function newNotification(dt) {
+    return {
+        type: dt.type !== undefined ? dt.type : "",
+        title: dt.title !== undefined ? dt.title : "",
+        context: dt.context !== undefined ? dt.context : "",
+        unread: dt.unread !== undefined ? dt.unread : true,
+        registerDate: dt.registerDate !== undefined ? dt.registerDate : Date.now(),
+        registerTimestamp: dt.registerTimestamp !== undefined ? dt.registerTimestamp : getTimestamp(),
     }
 }
 
@@ -36,9 +32,9 @@ class NotificationDataService {
     }
 
     createNotificationItem(receiveMemberId) {
-        let notification = new NotificationItem("", "").data;
+        let notification = newNotificationItem("", "");
         notification.memberId = receiveMemberId;
-        notification.notifications.push(new Notification({
+        notification.notifications.push(newNotification({
             type: 'sys',
             title: '歡迎加入 Simple Life！',
             context:
@@ -90,7 +86,7 @@ class NotificationDataService {
     }
 
     createNewNotification({ receiveMemberId, type, title, context }) {
-        let notification = new Notification({ type, title, context }).data;
+        let notification = newNotification({ type, title, context });
         this.getByMemberId(receiveMemberId, null, notification);
     }
 
@@ -113,7 +109,7 @@ class NotificationDataService {
                 snapshot.forEach((item) => {
                     let id = item.id;
                     let dt = item.data();
-                    let notification = new NotificationItem(id, dt).data;
+                    let notification = newNotificationItem(id, dt);
                     if (data === "get") {
                         setState(notification);
                     } else {

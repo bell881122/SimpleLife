@@ -6,7 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 
-import MessageDataService, { NewMessage } from "services/message.service";
+import MessageDataService, { newMessage as NewMessage } from "services/message.service";
 import getTimestamp from "js/getTimestamp.js";
 import MessageItemDataService from "services/messageItem.service";
 import NotificationDataService from "services/notification.service";
@@ -17,7 +17,7 @@ export default function MessageInputArea(props) {
 
     React.useEffect(() => {
         if (currentMemberId && chatMemberId) {
-            let newMessage = NewMessage.data;
+            let newMessage = NewMessage("", "");
             newMessage.authorId = currentMemberId;
             newMessage.receiverId = chatMemberId;
             setMessage(newMessage);

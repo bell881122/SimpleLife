@@ -1,18 +1,15 @@
 import BaseDataService from "services/_base.service";
 let collection = "/messages";
 
-
-class Message {
-    constructor(id, dt) {
-        this.data = {
-            id: id,
-            authorId: dt.authorId !== undefined ? dt.authorId : "",
-            receiverId: dt.receiverId !== undefined ? dt.receiverId : "",
-            createdTime: dt.createdTime !== undefined ? dt.createdTime : Date.now(),
-            createdTimestamp: dt.createdTimestamp !== undefined ? dt.createdTimestamp : "",
-            type: dt.type !== undefined ? dt.type : "text",
-            content: dt.content !== undefined ? dt.content : "",
-        }
+export function newMessage(id, dt) {
+    return {
+        id: id,
+        authorId: dt.authorId !== undefined ? dt.authorId : "",
+        receiverId: dt.receiverId !== undefined ? dt.receiverId : "",
+        createdTime: dt.createdTime !== undefined ? dt.createdTime : Date.now(),
+        createdTimestamp: dt.createdTimestamp !== undefined ? dt.createdTimestamp : "",
+        type: dt.type !== undefined ? dt.type : "text",
+        content: dt.content !== undefined ? dt.content : "",
     }
 }
 
@@ -83,7 +80,7 @@ class MessageDataService {
         items.forEach((item) => {
             let id = item.id;
             let dt = item.data();
-            let message = new Message(id, dt).data;
+            let message = newMessage(id, dt);
             messages.push(message);
         });
 
@@ -100,6 +97,3 @@ class MessageDataService {
 }
 
 export default new MessageDataService();
-
-const NewMessage = new Message("", "");
-export { NewMessage };

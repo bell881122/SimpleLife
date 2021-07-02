@@ -3,18 +3,17 @@ import MemberDataService from "services/member.service";
 import getTimestamp from "js/getTimestamp.js";
 let collection = "/messageItems";
 
-class MessageItem {
-    constructor(id, dt) {
-        this.data = {
-            id: id,
-            memberIds: dt.memberIds !== undefined ? dt.memberIds : [],
-            lastMessage: dt.lastMessage !== undefined ? dt.lastMessage : "",
-            unreadMemberId: dt.unreadMemberId !== undefined ? dt.unreadMemberId : "",
-            lastModifiedDate: dt.lastModifiedDate !== undefined ? dt.lastModifiedDate : Date.now(),
-            lastModifiedTimestamp: dt.lastModifiedTimestamp !== undefined ? dt.lastModifiedTimestamp : getTimestamp(),
-            createdTime: dt.createdTime !== undefined ? dt.createdTime : Date.now(),
-            createdTimestamp: dt.createdTimestamp !== undefined ? dt.createdTimestamp : getTimestamp(),
-        }
+
+function newMessageItem(id, dt) {
+    return {
+        id: id,
+        memberIds: dt.memberIds !== undefined ? dt.memberIds : [],
+        lastMessage: dt.lastMessage !== undefined ? dt.lastMessage : "",
+        unreadMemberId: dt.unreadMemberId !== undefined ? dt.unreadMemberId : "",
+        lastModifiedDate: dt.lastModifiedDate !== undefined ? dt.lastModifiedDate : Date.now(),
+        lastModifiedTimestamp: dt.lastModifiedTimestamp !== undefined ? dt.lastModifiedTimestamp : getTimestamp(),
+        createdTime: dt.createdTime !== undefined ? dt.createdTime : Date.now(),
+        createdTimestamp: dt.createdTimestamp !== undefined ? dt.createdTimestamp : getTimestamp(),
     }
 }
 
@@ -25,7 +24,7 @@ class MessageItemDataService {
     }
 
     update(id, data) {
-        let messageItem = new MessageItem(id, data).data;
+        let messageItem = newMessageItem(id, data);
         return BaseDataService.update(collection, id, messageItem);
     }
 
@@ -46,7 +45,7 @@ class MessageItemDataService {
                     result.forEach((item) => {
                         let id = item.id;
                         let dt = item.data();
-                        let messageItem = new MessageItem(id, dt).data;
+                        let messageItem = newMessageItem(id, dt);
                         if (messageItem.memberIds.indexOf(chatId) > -1) {
                             hasMessageItem = true;
                         }
@@ -54,7 +53,7 @@ class MessageItemDataService {
                 }
 
                 if (!hasMessageItem) {
-                    let messageItem = new MessageItem("", "").data;
+                    let messageItem = newMessageItem("", "");
                     messageItem.memberIds = [authorId, chatId];
                     this.create(messageItem);
                 }
@@ -82,7 +81,7 @@ class MessageItemDataService {
                     snapshot.forEach((item) => {
                         let id = item.id;
                         let dt = item.data();
-                        let messageItem = new MessageItem(id, dt).data;
+                        let messageItem = newMessageItem(id, dt);
                         messageItems.push(messageItem);
                     });
 

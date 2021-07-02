@@ -2,21 +2,19 @@ import BaseDataService from "services/_base.service";
 import NotificationDataService from "services/notification.service";
 let collection = "/members";
 
-class Member {
-    constructor(id, dt) {
-        this.data = {
-            id: id,
-            uid: dt.uid,
-            profile: {
-                name: dt !== undefined ? dt.profile.name : "",
-                email: dt !== undefined ? dt.profile.email : "",
-                photoURL: dt !== undefined ? dt.profile.photoURL : "",
-            },
-            registerDate: dt.registerDate !== undefined ? dt.registerDate : Date.now(),
-            messageBoard: dt.messageBoard !== undefined ? dt.messageBoard : "每天一點點，邁向簡單幸福生活。",
-            scores: dt.scores !== undefined ? dt.scores : [],
-            favorites: dt.favorites !== undefined ? dt.favorites : [],
-        }
+export function newMember(id, dt) {
+    return {
+        id: id,
+        uid: dt.uid,
+        profile: {
+            name: dt !== undefined ? dt.profile.name : "",
+            email: dt !== undefined ? dt.profile.email : "",
+            photoURL: dt !== undefined ? dt.profile.photoURL : "",
+        },
+        registerDate: dt.registerDate !== undefined ? dt.registerDate : Date.now(),
+        messageBoard: dt.messageBoard !== undefined ? dt.messageBoard : "每天一點點，邁向簡單幸福生活。",
+        scores: dt.scores !== undefined ? dt.scores : [],
+        favorites: dt.favorites !== undefined ? dt.favorites : [],
     }
 }
 
@@ -41,7 +39,7 @@ class MemberDataService {
         BaseDataService.query(collection, queryCondition).then(snapshot => {
             let member;
             if (snapshot.docs.length === 0) {
-                member = new Member("", user).data;
+                member = newMember("", user);
 
                 this.create(member)
                     .then(function (docRef) {
@@ -60,7 +58,7 @@ class MemberDataService {
             } else {
                 snapshot.forEach((item) => {
                     let dt = item.data();
-                    member = new Member(dt.id, dt).data;
+                    member = newMember(dt.id, dt);
                     setState(member);
                 });
             }
@@ -73,7 +71,7 @@ class MemberDataService {
         BaseDataService.getById(collection, id).then(item => {
             let id = item.id;
             let dt = item.data();
-            let member = new Member(id, dt).data;
+            let member = newMember(id, dt);
             setState(member);
         }).catch(error => {
             console.log("Error getting documents: ", error);
@@ -98,7 +96,7 @@ class MemberDataService {
             snapshot.forEach((item) => {
                 let id = item.id;
                 let dt = item.data();
-                let member = new Member(id, dt).data;
+                let member = newMember(id, dt);
                 chatMessageItems.forEach(i => {
                     if (i.memberIds.indexOf(dt.id) > -1) {
                         i.chatMemberName = member.profile.name;

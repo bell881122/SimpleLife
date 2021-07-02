@@ -8,7 +8,7 @@ import Container from '@material-ui/core/Container';
 import { dangerColor } from "material-ui/custom.js";
 
 import { CurrentMemberContext } from "context/CurrentMemberContext.js";
-import GoodDataService, { NewGood } from "services/good.service";
+import GoodDataService, { newGood as NewGood } from "services/good.service";
 const GoodDetail = React.lazy(() => import('components/Good/GoodDetail.component.jsx'));
 const GoodEdit = React.lazy(() => import('components/Good/GoodEdit.component.jsx'));
 const GoBackBotton = React.lazy(() => import('tools/GoBackBotton.tool.jsx'));
@@ -29,7 +29,7 @@ export default function Good() {
             if (id === "add") {
                 if (currentMemberContext) {
                     setIsEdit(true);
-                    let newGood = NewGood.data;
+                    let newGood = NewGood("", "");
                     newGood.memberId = currentMemberContext.id;
                     setGood(newGood);
                     setEditType("新增")

@@ -2,27 +2,25 @@ import BaseDataService from "services/_base.service";
 import getTimestamp from "js/getTimestamp.js";
 let collection = "/goods";
 
-class Good {
-    constructor(id, dt) {
-        this.data = {
-            id: id,
-            memberId: dt.memberId !== undefined ? dt.memberId : "",
-            title: dt.title !== undefined ? dt.title : "",
-            description: dt.description !== undefined ? dt.description : "",
-            imgURL: dt.imgURL !== undefined ? dt.imgURL : "",
-            price: dt.price !== undefined ? dt.price : 0,
-            state: dt.state !== undefined ? dt.state : "二手",
-            published: dt.published !== undefined ? dt.published : true,
-            location: dt.location !== undefined ? dt.location : "",
-            tags: dt.tags !== undefined ? dt.tags : [],
-            //時間紀錄
-            registerDate: dt.registerDate !== undefined ? dt.registerDate : Date.now(),
-            registerTimestamp: dt.registerTimestamp !== undefined ? dt.registerTimestamp : getTimestamp(),
-            lastModifiedDate: dt.lastModifiedDate !== undefined ? dt.lastModifiedDate : Date.now(),
-            lastModifiedTimestamp: dt.lastModifiedTimestamp !== undefined ? dt.lastModifiedTimestamp : getTimestamp(),
-            publishedDate: dt.publishedDate !== undefined ? dt.publishedDate : Date.now(),
-            publishedTimestamp: dt.publishedTimestamp !== undefined ? dt.publishedTimestamp : getTimestamp(),
-        }
+export function newGood(id, dt) {
+    return {
+        id: id,
+        memberId: dt.memberId !== undefined ? dt.memberId : "",
+        title: dt.title !== undefined ? dt.title : "",
+        description: dt.description !== undefined ? dt.description : "",
+        imgURL: dt.imgURL !== undefined ? dt.imgURL : "",
+        price: dt.price !== undefined ? dt.price : 0,
+        state: dt.state !== undefined ? dt.state : "二手",
+        published: dt.published !== undefined ? dt.published : true,
+        location: dt.location !== undefined ? dt.location : "",
+        tags: dt.tags !== undefined ? dt.tags : [],
+        //時間紀錄
+        registerDate: dt.registerDate !== undefined ? dt.registerDate : Date.now(),
+        registerTimestamp: dt.registerTimestamp !== undefined ? dt.registerTimestamp : getTimestamp(),
+        lastModifiedDate: dt.lastModifiedDate !== undefined ? dt.lastModifiedDate : Date.now(),
+        lastModifiedTimestamp: dt.lastModifiedTimestamp !== undefined ? dt.lastModifiedTimestamp : getTimestamp(),
+        publishedDate: dt.publishedDate !== undefined ? dt.publishedDate : Date.now(),
+        publishedTimestamp: dt.publishedTimestamp !== undefined ? dt.publishedTimestamp : getTimestamp(),
     }
 }
 
@@ -56,7 +54,7 @@ class GoodDataService {
         BaseDataService.getById(collection, id).then(item => {
             let id = item.id;
             let dt = item.data();
-            let good = new Good(id, dt).data;
+            let good = newGood(id, dt);
             setState(good);
         }).catch(error => {
             console.log("Error getting documents: ", error);
@@ -116,7 +114,7 @@ class GoodDataService {
         items.forEach((item) => {
             let id = item.id;
             let dt = item.data();
-            let good = new Good(id, dt).data;
+            let good = newGood(id, dt);
             goods.push(good);
         });
         setState(goods);
@@ -124,6 +122,3 @@ class GoodDataService {
 }
 
 export default new GoodDataService();
-
-const NewGood = new Good("", "");
-export { NewGood };
