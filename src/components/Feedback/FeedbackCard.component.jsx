@@ -6,6 +6,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import { primaryColor, dangerColor } from "material-ui/custom.js";
 
 const useStyles = makeStyles({
     root: {
@@ -17,11 +18,14 @@ const useStyles = makeStyles({
     pos: {
         marginBottom: 12,
     },
+    state: feedback => ({
+        color: feedback.state === "受理中" ? dangerColor : primaryColor
+    })
 });
 
 export default function FeedbackCard(props) {
     const { feedback } = props;
-    const classes = useStyles();
+    const classes = useStyles(feedback);
 
     return (
         <>{feedback &&
@@ -39,7 +43,7 @@ export default function FeedbackCard(props) {
                         <Box>
                             <Typography className={classes.pos} color="textSecondary">
                                 {feedback.type}-
-                                <Typography component="span" color="primary">
+                                <Typography component="span" className={classes.state}>
                                     {feedback.state}
                                 </Typography>
                             </Typography>
