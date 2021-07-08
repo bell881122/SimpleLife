@@ -38,16 +38,16 @@ function imgResize({ file, fileType }) {
                         resizeW = obj.resizeW;
                     }
 
-                    if (window.navigator.userAgent.indexOf('iPhone') > 0) {
-                        canvas.width = resizeH;
-                        canvas.height = resizeW;
-                        ctx.rotate((90 * Math.PI) / 180);
-                        ctx.drawImage(IMG, 0, -resizeH, resizeW, resizeH);
-                    } else {
+                    // if (window.navigator.userAgent.indexOf('iPhone') > 0) {
+                    //     canvas.width = resizeH;
+                    //     canvas.height = resizeW;
+                    //     ctx.rotate((90 * Math.PI) / 180);
+                    //     ctx.drawImage(IMG, 0, -resizeH, resizeW, resizeH);
+                    // } else {
                         canvas.width = resizeW;
                         canvas.height = resizeH;
                         ctx.drawImage(IMG, 0, 0, resizeW, resizeH);
-                    }
+                    // }
                     let base64 = canvas.toDataURL('image/' + fileType, level);
                     resolve(base64);
                 };
