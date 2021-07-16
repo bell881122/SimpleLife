@@ -1,11 +1,14 @@
 import React from 'react';
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory, useRouteMatch } from "react-router-dom";
 import { storage } from "js/firebase";
 
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import { dangerColor } from "material-ui/custom.js";
+import FileCopyIcon from '@material-ui/icons/FileCopy';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
 import { CurrentMemberContext } from "context/CurrentMemberContext.js";
 import GoodDataService, { newGood as NewGood } from "services/good.service";
@@ -16,6 +19,7 @@ const ModalBotton = React.lazy(() => import('tools/ModalBotton.tool.jsx'));
 
 export default function Good() {
     let { id } = useParams();
+    let { path } = useRouteMatch();
     const history = useHistory();
     const { currentMemberContext } = React.useContext(CurrentMemberContext);
     const [good, setGood] = React.useState();
@@ -26,19 +30,23 @@ export default function Good() {
 
     React.useEffect(() => {
         if (id && id !== "") {
-            if (id === "add") {
+            if (path.indexOf("add/:id") > -1) {
+                setIsEdit(true);
+                setEditType("複製")
+            }
+            else if (id === "add") {
                 if (currentMemberContext) {
                     setIsEdit(true);
                     let newGood = NewGood("", "");
                     newGood.memberId = currentMemberContext.id;
                     setGood(newGood);
-                    setEditType("新增")
+                    setEditType("新增");
                 }
             } else {
                 GoodDataService.getById(id, setGood, setNoMatch);
             }
         }
-    }, [currentMemberContext, id]);
+    }, [currentMemberContext, id, path]);
 
     React.useEffect(() => {
         if (good !== undefined &&
@@ -79,49 +87,75 @@ export default function Good() {
         })
     }
 
+    const copyGood = (goodId) => {
+        setGood(NewGood("", good, true))
+        history.push(`add/${goodId}`)
+    }
+
     return (
         <Container maxWidth="sm">
             <>
-            {good &&
-                <Box position="relative">
-                    {!isEdit ?
-                        <>
-                            <Box position="absolute" style={{ top: 20 }}>
-                                <GoBackBotton />
-                            </Box>
-                            {isMyGood &&
-                                <Box position="absolute" style={{ top: 20, right: 0 }}>
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        onClick={() => setIsEdit(true)}
-                                    >編輯</Button>
-                                    <ModalBotton
-                                        variant="contained"
-                                        style={{
-                                            marginLeft: 10,
-                                            marginRight: 15,
-                                            color: 'white',
-                                            backgroundColor: dangerColor
-                                        }}
-                                        buttonText="刪除"
-                                        disabled={false}
-                                        modalTitle="刪除物品"
-                                        modalContentType="text"
-                                        modalContent="確認要刪除物品嗎"
-                                        modalAction={() => deleteGood()}
-                                        modalActionButtonColor={dangerColor}
-                                        actionText="刪除"
-                                    />
-                                </Box>
-                            }
-                            <GoodDetail good={good} />
-                        </>
-                        :
-                        <GoodEdit good={good} setGood={setGood} setIsEdit={setIsEdit} editType={editType} setEditType={setEditType} />
-                    }
-                </Box>
-            }
+                {good &&
+                    <Box>
+                        {!isEdit ?
+                            <>
+                                {isMyGood &&
+                                    <Box my={2} display="flex">
+                                        <Box mr="auto">
+                                            <GoBackBotton />
+                                        </Box>
+                                        <Box mr={1}>
+                                            <Button
+                                                style={{
+                                                    color: 'white',
+                                                    minWidth: '45px',
+                                                    padding: '6px',
+                                                }}
+                                                variant="contained"
+                                                color="primary"
+                                                onClick={() => setIsEdit(true)}
+                                            ><EditIcon /></Button>
+                                        </Box>
+                                        <Box mr={1}>
+                                            <Button
+                                                style={{
+                                                    color: 'white',
+                                                    minWidth: '45px',
+                                                    padding: '6px',
+                                                }}
+                                                variant="contained"
+                                                color="secondary"
+                                                onClick={() => copyGood(good.id)}
+                                            ><FileCopyIcon /></Button>
+                                        </Box>
+                                        <Box>
+                                            <ModalBotton
+                                                variant="contained"
+                                                style={{
+                                                    color: 'white',
+                                                    minWidth: '45px',
+                                                    padding: '6px',
+                                                    backgroundColor: dangerColor
+                                                }}
+                                                buttonText={<DeleteForeverIcon />}
+                                                disabled={false}
+                                                modalTitle="刪除物品"
+                                                modalContentType="text"
+                                                modalContent="確認要刪除物品嗎"
+                                                modalAction={() => deleteGood()}
+                                                modalActionButtonColor={dangerColor}
+                                                actionText="刪除"
+                                            />
+                                        </Box>
+                                    </Box>
+                                }
+                                <GoodDetail good={good} />
+                            </>
+                            :
+                            <GoodEdit good={good} setGood={setGood} setIsEdit={setIsEdit} editType={editType} setEditType={setEditType} />
+                        }
+                    </Box>
+                }
             </>
         </Container>
     );

@@ -15,6 +15,7 @@ const FavoriteBotton = React.lazy(() => import('tools/FavoriteBotton.tool.jsx'))
 const MemberInfo = React.lazy(() => import('components/Member/MemberInfo.component.jsx'));
 const Messager = React.lazy(() => import('components/Message/Messager.component.jsx'));
 const LoginButton = React.lazy(() => import('components/Login/LoginButton.component.jsx'));
+const GoBackBotton = React.lazy(() => import('tools/GoBackBotton.tool.jsx'));
 
 const useStyles = makeStyles((theme) => ({
     mainPicture: good => ({
@@ -61,7 +62,12 @@ export default function GoodDetail(props) {
     }, [good]);
 
     return (
-        <Box mb={2}>
+        <Box mb={2} position="relative">
+            {(!currentMemberContext || currentMemberContext.id !== good.memberId) &&
+                <Box position="absolute" style={{ top: 20 }}>
+                    <GoBackBotton />
+                </Box>
+            }
             {good &&
                 <>
                     <Box className={classes.mainPicture} />
@@ -112,7 +118,7 @@ export default function GoodDetail(props) {
                                     <Box my={1}>
                                         <Typography variant="body1" component="h3" className={classes.textWeight}>
                                             物品所在地：
-                                    </Typography>
+                                        </Typography>
                                     </Box>
                                     <Typography variant="body1" component="p" style={{ whiteSpace: 'pre-line' }}>
                                         {good.location}

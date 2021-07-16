@@ -2,25 +2,25 @@ import BaseDataService from "services/_base.service";
 import getTimestamp from "js/getTimestamp.js";
 let collection = "/goods";
 
-export function newGood(id, dt) {
+export function newGood(id, dt, isCopy = false) {
     return {
         id: id,
         memberId: dt.memberId !== undefined ? dt.memberId : "",
         title: dt.title !== undefined ? dt.title : "",
         description: dt.description !== undefined ? dt.description : "",
-        imgURL: dt.imgURL !== undefined ? dt.imgURL : "",
+        imgURL: dt.imgURL !== undefined && !isCopy ? dt.imgURL : "",
         price: dt.price !== undefined ? dt.price : 0,
         state: dt.state !== undefined ? dt.state : "二手",
         published: dt.published !== undefined ? dt.published : true,
         location: dt.location !== undefined ? dt.location : "",
         tags: dt.tags !== undefined ? dt.tags : [],
         //時間紀錄
-        registerDate: dt.registerDate !== undefined ? dt.registerDate : Date.now(),
-        registerTimestamp: dt.registerTimestamp !== undefined ? dt.registerTimestamp : getTimestamp(),
-        lastModifiedDate: dt.lastModifiedDate !== undefined ? dt.lastModifiedDate : Date.now(),
-        lastModifiedTimestamp: dt.lastModifiedTimestamp !== undefined ? dt.lastModifiedTimestamp : getTimestamp(),
-        publishedDate: dt.publishedDate !== undefined ? dt.publishedDate : Date.now(),
-        publishedTimestamp: dt.publishedTimestamp !== undefined ? dt.publishedTimestamp : getTimestamp(),
+        registerDate: dt.registerDate !== undefined && !isCopy ? dt.registerDate : Date.now(),
+        registerTimestamp: dt.registerTimestamp !== undefined && !isCopy ? dt.registerTimestamp : getTimestamp(),
+        lastModifiedDate: dt.lastModifiedDate !== undefined && !isCopy ? dt.lastModifiedDate : Date.now(),
+        lastModifiedTimestamp: dt.lastModifiedTimestamp !== undefined && !isCopy ? dt.lastModifiedTimestamp : getTimestamp(),
+        publishedDate: dt.publishedDate !== undefined && !isCopy ? dt.publishedDate : Date.now(),
+        publishedTimestamp: dt.publishedTimestamp !== undefined && !isCopy ? dt.publishedTimestamp : getTimestamp(),
     }
 }
 

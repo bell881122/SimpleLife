@@ -28,6 +28,7 @@ function App() {
             <Route exact path="/feedback" component={Feedback} />
             <Route exact path="/good/:id" component={Good} />
             <Route exact path="/good/add" component={Good} />
+            <Route exact path="/good/add/:id" component={Good} />
             <Route exact path="/member/:id" component={Member} />
             <Route exact path="/error" component={Error} />
             <Route exact component={Error} />
