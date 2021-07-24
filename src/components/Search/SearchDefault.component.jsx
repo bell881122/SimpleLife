@@ -3,6 +3,7 @@ import React from 'react';
 import Box from '@material-ui/core/Box';
 
 import GoodDataService from "services/good.service";
+const CardSlider = React.lazy(() => import('components/Card/CardSlider.component.jsx'));
 const CardList = React.lazy(() => import('components/Card/CardList.component.jsx'));
 const SearchInput = React.lazy(() => import('components/Search/SearchInput.component.jsx'));
 
@@ -28,7 +29,7 @@ export default function SearchDefault() {
             <SearchInput />
             {allFreeGoods &&
                 <Box mt={5}>
-                    <CardList
+                    <CardSlider
                         title="免費結緣"
                         goods={allFreeGoods}
                     />
